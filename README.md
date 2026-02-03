@@ -1,4 +1,44 @@
-# React + Vite
+# Vite Project
+
+This project is a modern web application built using Vite and React. It provides a fast and efficient development environment with hot module replacement (HMR) and a streamlined build process.
+
+## Installation
+
+To get started with this project, clone the repository and install the dependencies:
+
+```bash
+git clone <repository-url>
+cd vite-project
+npm install
+```
+
+## Usage
+
+To start the development server, run:
+
+```bash
+npm run dev
+```
+
+Open your browser and navigate to `http://localhost:3000` to see your application in action.
+
+## Features
+- Fast development with Vite
+- Hot Module Replacement (HMR)
+- ESLint for code quality
+- Tailwind CSS for styling
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+
+## License
+
+This project is licensed under the MIT License.
+
+---
+
+## React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

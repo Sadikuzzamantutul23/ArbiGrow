@@ -44,10 +44,6 @@ export default function RegisterForm() {
                     <Button>Register</Button>
     
                    </div>
-                        <div className="flex justify-center ">
-                    <Button>Register</Button>
-    
-                   </div>
 
 
 
