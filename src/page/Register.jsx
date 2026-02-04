@@ -9,6 +9,13 @@ export default function RegisterForm() {
    <Navbar/>
          <div className="min-h-screen flex items-start justify-center bg-gray-100 p-4 pt-8">
       <div className="bg-gray-10 shadow-lg rounded-lg w-full max-w-md p-8 hover:shadow-2xl transition-shadow">
+              {/* Icon */}
+            
+                <div className="flex flex-col items-center justify-center">
+                    <h1 className=" text-[#4171AD] rounded-full w-14 h-14 flex items-center justify-center text-center text-2xl font-bold shadow">
+                       👤
+                    </h1>
+                </div>
         <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
           Registration Form
           
