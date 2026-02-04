@@ -24,11 +24,6 @@ export default function LoginForm() {
           <h2 className="text-black text-xl font-semibold mt-3">
             Customer Login
           </h2>
-
-          {/* Subtitle */}
-          <p className="text-black text-sm opacity-90 mt-1">
-            Please login to your account
-          </p>
         </div>
 
         {/* Form */}

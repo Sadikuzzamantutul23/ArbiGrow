@@ -54,12 +54,7 @@ export default function RegisterForm() {
               </p>
             </div>
 
-            {/* Info text */}
-            <p className="text-xs text-gray-500 text-center">
-              Your information is safe and will not be shared.
-            </p>
-
-                 <div className="flex justify-center ">
+                 <div className="flex justify-center pt-1 ">
                     <Button>Register</Button>
     
                    </div>
