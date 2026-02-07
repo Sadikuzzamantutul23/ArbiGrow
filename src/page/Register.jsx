@@ -46,15 +46,24 @@ export default function RegisterForm() {
   try {
     setLoading(true);
     setMessage("");
-
-    const res = await registerUser(formData);
+        const payload = {
+      ...formData,
+      referral_code: formData.reference,  // Important!
+    };
+     const res = await registerUser(payload);
 
     setUser(res.data.user);
     setToken(res.data.token);
 
     setMessage(res.data.message || "Registration successful 🎉");
   } catch (error) {
+      console.log("FULL ERROR:", error);
+  console.log("RESPONSE:", error.response);
+  console.log("DATA:", error.response?.data);
+  console.log("STATUS:", error.response?.status);
+
     setMessage(error.response?.data?.message || "Something went wrong");
+    
   } finally {
     setLoading(false);
   }
@@ -103,8 +112,8 @@ export default function RegisterForm() {
             <div>
               <input
                 type="text"
-                name="reference"
-                placeholder="Enter Reference name"
+                name="referral_code"
+                placeholder="Enter referral_code"
                 className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 onChange={handleChange}
               />
@@ -163,11 +172,3 @@ export default function RegisterForm() {
   );
 }
 
-
-      // {/* Optional: show API data */}
-      //     {apiData && (
-      //       <div className="mt-4 bg-gray-100 p-2 rounded text-sm">
-      //         <h3 className="font-bold mb-1">API Response:</h3>
-      //         <pre>{JSON.stringify(apiData, null, 2)}</pre>
-      //       </div>
-      //     )}
