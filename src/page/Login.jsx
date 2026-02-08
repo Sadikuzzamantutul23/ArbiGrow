@@ -25,6 +25,7 @@ export default function LoginForm() {
       setLoading(true);
       setMessage("");
       const res = await loginUser(formData);
+      console.log(res, "login api response");
 
       // Save user & token to zustand
       setUser(res.data.user);
@@ -51,13 +52,14 @@ export default function LoginForm() {
       <Navbar />
       <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
         <div className="bg-gray-10 w-full max-w-md rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow">
-
           {/* Top Header */}
           <div className="flex flex-col items-center justify-center py-8">
             <div className="text-[#4171AD] rounded-full w-14 h-14 flex items-center justify-center text-2xl font-bold shadow">
               👤
             </div>
-            <h2 className="text-black text-xl font-semibold mt-3">Customer Login</h2>
+            <h2 className="text-black text-xl font-semibold mt-3">
+              Customer Login
+            </h2>
           </div>
 
           {/* Form */}
