@@ -1,15 +1,20 @@
+// /store/userStore.js
 import { create } from "zustand";
 
-// check localStorage for saved user & token
-const savedUser = JSON.parse(localStorage.getItem("user"));
-const savedToken = localStorage.getItem("token");
+// Safe parse for user
+let savedUser = null;
+try {
+  savedUser = JSON.parse(localStorage.getItem("user") || "null");
+} catch (err) {
+  console.warn("Invalid user in localStorage", err);
+  localStorage.removeItem("user");
+}
 
-console.log("User from localStorage:", savedUser);
-console.log("Token from localStorage:", savedToken);
+const savedToken = localStorage.getItem("token") || null;
 
 const useUserStore = create((set) => ({
-  user: savedUser || null,
-  token: savedToken || null,
+  user: savedUser,
+  token: savedToken,
 
   setUser: (userData) => {
     localStorage.setItem("user", JSON.stringify(userData));
