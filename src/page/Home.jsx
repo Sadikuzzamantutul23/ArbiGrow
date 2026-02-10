@@ -1,9 +1,16 @@
 import React from 'react'
+import Navbar from '../component/Navbar'
+import { Hero } from '../component/Hero'
+import ExecutiveSummary from '../component/ExecutiveSummary'
+import SecurityAudit from '../component/TechnicalArchitecture'
 
 const Home = () => {
   return (
     <div>
-      <h1>Welcome to the Home Page</h1>
+      <Navbar /> 
+      <Hero />
+      <ExecutiveSummary />
+      <SecurityAudit />
     </div>
   )
 }

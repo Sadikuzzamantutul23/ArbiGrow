@@ -116,16 +116,29 @@ export default function RegisterForm() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-        <div className="bg-gray-10 shadow-lg rounded-lg w-full max-w-md p-8 hover:shadow-2xl transition-shadow">
+      <div className="min-h-screen flex items-center justify-center bg-[#0A122C] px-4 pt-24">
+
+       <div className="bg-white/5 backdrop-blur-sm border  border-white/10 shadow-lg rounded-lg w-full max-w-md p-4 hover:shadow-blue-900/50 transition-shadow duration-600">
+
           {/* Icon */}
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-[#4171AD] rounded-full w-14 h-14 flex items-center justify-center text-2xl font-bold shadow">
+            <h1   className="
+           w-12 h-12 sm:w-14 sm:h-14 
+            flex items-center justify-center
+             rounded-full
+           bg-white/5 
+           border border-white/10
+           text-white text-xl sm:text-2xl
+           shadow-lg shadow-blue-500/10
+           hover:shadow-blue-500/40
+           hover:scale-105
+           transition-all duration-300
+         ">
               👤
             </h1>
           </div>
 
-          <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
+          <h2 className="text-2xl font-bold mb-6 text-[#FFFFFF] text-center">
             Registration Form
           </h2>
 
@@ -197,7 +210,7 @@ export default function RegisterForm() {
             )}
 
             <div className="flex justify-center pt-1">
-              <Button type="submit" disabled={isButtonDisabled}>
+              <Button type="submit" disabled={isButtonDisabled} gradient={true}>
                 {loading ? "Registering..." : "Register"}
               </Button>
             </div>

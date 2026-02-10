@@ -107,15 +107,24 @@ export default function LoginForm() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-        <div className="bg-gray-10 w-full max-w-md rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow">
+      <div className="min-h-screen flex items-center justify-center bg-[#0A122C] px-4 pt-24">
+        <div className="bg-white/5 backdrop-blur-sm border  border-white/10 shadow-lg rounded-lg w-full max-w-md p-4 hover:shadow-blue-900/50 transition-shadow duration-600">
 
           {/* Top Header */}
           <div className="flex flex-col items-center justify-center py-8">
-            <div className="text-[#4171AD] rounded-full w-14 h-14 flex items-center justify-center text-2xl font-bold shadow">
+            <div className=" w-12 h-12 sm:w-14 sm:h-14 
+            flex items-center justify-center
+             rounded-full
+           bg-white/5 
+           border border-white/10
+           text-white text-xl sm:text-2xl
+           shadow-lg shadow-blue-500/10
+           hover:shadow-blue-500/40
+           hover:scale-105
+           transition-all duration-300">
               👤
             </div>
-            <h2 className="text-black text-xl font-semibold mt-3">
+            <h2 className="text-xl text-[#FFFFFF] font-semibold mt-3">
               Customer Login
             </h2>
           </div>
