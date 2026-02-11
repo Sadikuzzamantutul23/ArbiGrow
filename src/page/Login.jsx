@@ -3,9 +3,11 @@ import Button from "../component/Button";
 import Navbar from "../component/Navbar";
 import { loginUser } from "../api/auth.api";
 import useUserStore from "../store/userStore";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
-  const setUser = useUserStore((state) => state.setUser);
+   const navigate = useNavigate();
+     const setUser = useUserStore((state) => state.setUser);
   const setToken = useUserStore((state) => state.setToken);
 
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -161,12 +163,14 @@ export default function LoginForm() {
               <p className="text-center text-sm text-red-500">{message}</p>
             )}
 
-            <p className="text-sm text-right text-[#4171AD] cursor-pointer hover:underline">
+            <p className="text-sm text-right text-[#00C2F9] cursor-pointer hover:underline"
+             onClick={() => navigate('/forgotpassword')}>
               Forgot password?
             </p>
 
-            <div className="flex justify-center pt-2">
-              <Button type="submit" disabled={isButtonDisabled}>
+            <div className="flex justify-center pt-2 ">
+              <Button type="submit" variant="gradient" fullWidth={true} disabled={isButtonDisabled}
+              className="text-bold front-">
                 {loading ? "Logging in..." : "Login"}
               </Button>
             </div>

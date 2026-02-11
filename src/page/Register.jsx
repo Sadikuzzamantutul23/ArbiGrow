@@ -142,7 +142,7 @@ export default function RegisterForm() {
             Registration Form
           </h2>
 
-          <form className="space-y-4" onSubmit={handleSubmit}>
+          <form className="space-y-4 p-8" onSubmit={handleSubmit}>
             <div>
               <input
                 type="email"
@@ -197,7 +197,7 @@ export default function RegisterForm() {
                 checked={agree}
                 onChange={handleAgree}
               />
-              <p>
+              <p className="text-gray-400">
                 I agree to the{" "}
                 <span className="text-blue-500 cursor-pointer hover:underline">
                   Terms & Conditions
@@ -210,17 +210,17 @@ export default function RegisterForm() {
             )}
 
             <div className="flex justify-center pt-1">
-              <Button type="submit" disabled={isButtonDisabled} gradient={true}>
+              <Button type="submit" disabled={isButtonDisabled} variant="gradient">
                 {loading ? "Registering..." : "Register"}
               </Button>
             </div>
 
             {/* Bottom text */}
-            <p className="text-center text-sm text-gray-500 pt-2">
+            <p className="text-center text-sm text-white pt-2">
               Already have an account?{" "}
               <Link
                 to="/login"
-                className="text-[#4171AD] cursor-pointer hover:underline font-medium"
+                className="text-[#00CFF5] cursor-pointer hover:underline font-bold"
               >
                 Login
               </Link>
