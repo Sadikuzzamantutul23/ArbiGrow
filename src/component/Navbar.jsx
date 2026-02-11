@@ -77,7 +77,9 @@ export default function Navbar() {
                 </div>
                 
                 <div>
-                  <div className="text-2xl font-bold">
+                  <div className="text-2xl font-bold"
+                    onClick={() => navigate("/")}
+                  >
                     <span className="bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent">
                       ArbiGrow
                     </span>
