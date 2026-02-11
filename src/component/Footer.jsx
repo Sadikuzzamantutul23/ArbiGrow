@@ -119,7 +119,7 @@ export default function Footer() {
             <div className="flex items-center gap-6 text-sm text-gray-400">
               <span>Powered by Arbitrum</span>
               <span className="w-1.5 h-1.5 rounded-full bg-gray-600"></span>
-              <span>Built on Sadikuzzaman Tutul</span>
+              <span>Built on Ethereum</span>
             </div>
           </div>
         </motion.div>
