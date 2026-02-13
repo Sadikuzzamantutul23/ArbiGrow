@@ -132,7 +132,7 @@ export default function LoginForm() {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="p-8 space-y-4">
+          <form onSubmit={handleSubmit} className="p-8 space-y-4 text-black">
 
             <input
               type="email"

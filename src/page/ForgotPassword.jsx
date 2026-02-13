@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { KeyRound, Mail, ArrowLeft, CheckCircle, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import Button from '../component/Button';
 
 export default function ForgotPassword() {
     const navigate = useNavigate();
@@ -163,7 +164,7 @@ export default function ForgotPassword() {
                   )}
 
                   {/* Submit Button */}
-                  <button
+                  <Button
                     type="submit"
                     disabled={isSubmitting}
                     className="relative w-full group px-6 py-4 bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 rounded-xl font-semibold overflow-hidden shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
@@ -188,7 +189,7 @@ export default function ForgotPassword() {
                         </>
                       )}
                     </span>
-                  </button>
+                  </Button>
                 </form>
 
                 {/* Info Box */}

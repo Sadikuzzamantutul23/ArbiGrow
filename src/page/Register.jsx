@@ -142,7 +142,7 @@ export default function RegisterForm() {
             Registration Form
           </h2>
 
-          <form className="space-y-4 p-8" onSubmit={handleSubmit}>
+          <form className="space-y-4 p-8 text-black " onSubmit={handleSubmit}>
             <div>
               <input
                 type="email"

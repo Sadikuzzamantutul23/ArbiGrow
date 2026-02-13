@@ -6,36 +6,17 @@ import { Link, useNavigate } from "react-router-dom";
 export default function VerificationPage() {
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    id_number: "",
-    id_type: "nid",
-  });
-
+  const [idNumber, setIdNumber] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [errors, setErrors] = useState([]);
   const [isVerified, setIsVerified] = useState(false);
 
-  // Handle input change
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-    setErrors((prev) => prev.filter((err) => err.field !== name));
-    setMessage("");
-  };
-
   const validateForm = () => {
-    if (!formData.id_number.trim()) {
-      return `${formData.id_type === "nid" ? "NID" : "Passport"} number is required`;
+    if (!idNumber.trim()) {
+      return "ID number is required";
     }
-    if (formData.id_type === "nid" && formData.id_number.length < 10) {
-      return "NID number must be at least 10 digits";
-    }
-    if (formData.id_type === "passport" && formData.id_number.length < 6) {
-      return "Passport number must be at least 6 characters";
+    if (idNumber.length < 6) {
+      return "ID number must be at least 6 characters";
     }
     return null;
   };
@@ -52,7 +33,6 @@ export default function VerificationPage() {
     try {
       setLoading(true);
       setMessage("");
-      setErrors([]);
 
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -72,107 +52,48 @@ export default function VerificationPage() {
     }
   };
 
-  const isButtonDisabled = loading || !formData.id_number.trim();
+  const isButtonDisabled = loading || !idNumber.trim();
 
   return (
     <>
       <Navbar />
+
       <div className="min-h-screen flex items-center justify-center bg-[#0A122C] px-4 pt-24">
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg rounded-lg w-full max-w-md p-4 hover:shadow-blue-900/50 transition-shadow duration-600">
-          
+        <div className="bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg rounded-lg w-full max-w-md p-6 hover:shadow-blue-900/50 transition-shadow duration-600">
+
           {/* Icon */}
-          <div className="flex flex-col items-center justify-center">
-            <h1 className="
-              w-12 h-12 sm:w-14 sm:h-14 
-              flex items-center justify-center
-              rounded-full
-              bg-white/5 
-              border border-white/10
-              text-white text-xl sm:text-2xl
-              shadow-lg shadow-blue-500/10
-              hover:shadow-blue-500/40
-              hover:scale-105
-              transition-all duration-300
-            ">
+          <div className="flex flex-col items-center justify-center mb-4">
+            <h1 className="w-14 h-14 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white text-2xl shadow-lg">
               🔐
             </h1>
           </div>
 
-          <h2 className="text-2xl font-bold mb-6 text-[#FFFFFF] text-center">
+          <h2 className="text-2xl font-bold mb-4 text-white text-center">
             Identity Verification
           </h2>
 
           <p className="text-gray-400 text-sm text-center mb-6 px-4">
-            To comply with regulatory requirements, please provide your government-issued ID information
+            Provide your government-issued ID number for verification.
           </p>
 
-          <form className="space-y-4 p-8" onSubmit={handleSubmit}>
-            
-            {/* ID Type Selection */}
-            <div className="grid grid-cols-2 gap-3">
-              <button
-                type="button"
-                name="id_type"
-                onClick={() => {
-                  setFormData({ ...formData, id_type: "nid" });
-                  setErrors((prev) => prev.filter((err) => err.field !== "id_number"));
-                  setMessage("");
-                }}
-                className={`relative p-4 rounded-xl border transition-all duration-300 ${
-                  formData.id_type === "nid"
-                    ? "bg-blue-500/20 border-blue-500/50 shadow-lg shadow-blue-500/20"
-                    : "bg-white/5 border-white/10 hover:bg-white/10"
-                }`}
-              >
-                <div className={`text-2xl mb-2 ${formData.id_type === "nid" ? "text-blue-400" : "text-gray-400"}`}>
-                  🪪
-                </div>
-                <div className={`text-sm font-semibold ${formData.id_type === "nid" ? "text-white" : "text-gray-400"}`}>
-                  National ID
-                </div>
-              </button>
-
-              <button
-                type="button"
-                name="id_type"
-                onClick={() => {
-                  setFormData({ ...formData, id_type: "passport" });
-                  setErrors((prev) => prev.filter((err) => err.field !== "id_number"));
-                  setMessage("");
-                }}
-                className={`relative p-4 rounded-xl border transition-all duration-300 ${
-                  formData.id_type === "passport"
-                    ? "bg-cyan-500/20 border-cyan-500/50 shadow-lg shadow-cyan-500/20"
-                    : "bg-white/5 border-white/10 hover:bg-white/10"
-                }`}
-              >
-                <div className={`text-2xl mb-2 ${formData.id_type === "passport" ? "text-cyan-400" : "text-gray-400"}`}>
-                  🛂
-                </div>
-                <div className={`text-sm font-semibold ${formData.id_type === "passport" ? "text-white" : "text-gray-400"}`}>
-                  Passport
-                </div>
-              </button>
-            </div>
+          {/* Form */}
+          <form className="space-y-4" onSubmit={handleSubmit}>
 
             {/* Input Field */}
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">
-                {formData.id_type === "nid" ? "National ID Number" : "Passport Number"}
+                ID Number
               </label>
               <input
                 type="text"
-                name="id_number"
-                value={formData.id_number}
-                placeholder={formData.id_type === "nid" ? "Enter your NID number" : "Enter your passport number"}
-                className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white/5 border-white/10 text-white placeholder-gray-500"
-                onChange={handleChange}
+                value={idNumber}
+                placeholder="Enter your ID number or passport number"
+                className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white/5 border-white/10 text-white placeholder-gray-500"
+                onChange={(e) => {
+                  setIdNumber(e.target.value);
+                  setMessage("");
+                }}
               />
-              {errors.find((e) => e.field === "id_number") && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.find((e) => e.field === "id_number").message}
-                </p>
-              )}
             </div>
 
             {/* Success Message */}
@@ -204,12 +125,8 @@ export default function VerificationPage() {
             </div>
 
             {/* Submit Button */}
-            <div className="flex justify-center pt-4">
-              <Button 
-                type="submit" 
-                disabled={isButtonDisabled} 
-                variant="gradient"
-              >
+            <div className="flex justify-center pt-2">
+              <Button type="submit" disabled={isButtonDisabled} variant="gradient">
                 {loading ? "Submitting..." : "Submit for Verification"}
               </Button>
             </div>
@@ -219,12 +136,12 @@ export default function VerificationPage() {
               Already verified?{" "}
               <Link
                 to="/dashboard"
-                className="text-[#00CFF5] cursor-pointer hover:underline font-bold"
+                className="text-[#00CFF5] hover:underline font-bold"
               >
                 Go to Dashboard
               </Link>
             </p>
-            
+
             <p className="text-center text-sm text-gray-500 pt-1">
               <Link
                 to="/login"
@@ -233,6 +150,7 @@ export default function VerificationPage() {
                 ← Back to Login
               </Link>
             </p>
+
           </form>
         </div>
       </div>
