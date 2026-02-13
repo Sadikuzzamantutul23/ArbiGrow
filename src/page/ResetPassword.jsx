@@ -1,29 +1,43 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { KeyRound, Mail, ArrowLeft, CheckCircle, AlertCircle } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import Button from '../component/Button';
+import { Lock, Eye, EyeOff, CheckCircle, AlertCircle, Check } from 'lucide-react';
 
-export default function ForgotPassword() {
-    const navigate = useNavigate();
-  const [email, setEmail] = useState('');
+export default function ResetPassword() {
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isEmailSent, setIsEmailSent] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState('');
+
+  // Password strength indicators
+  const passwordRequirements = {
+    minLength: password.length >= 8,
+    hasUpperCase: /[A-Z]/.test(password),
+    hasLowerCase: /[a-z]/.test(password),
+    hasNumber: /[0-9]/.test(password),
+    hasSpecial: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+  };
+
+  const allRequirementsMet = Object.values(passwordRequirements).every(Boolean);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
-    if (!email.trim()) {
-      setError('Please enter your email address');
+    if (!password || !confirmPassword) {
+      setError('Please fill in all fields');
       return;
     }
 
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setError('Please enter a valid email address');
+    if (!allRequirementsMet) {
+      setError('Password does not meet all requirements');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
       return;
     }
 
@@ -32,14 +46,7 @@ export default function ForgotPassword() {
     // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
-      setIsEmailSent(true);
-    }, 2000);
-  };
-
-  const handleResend = () => {
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+      setIsSuccess(true);
     }, 2000);
   };
 
@@ -70,9 +77,7 @@ export default function ForgotPassword() {
           </div>
         </div>
         <div>
-          <div className="text-xl font-bold"
-           onClick={() => navigate('/')}
-          >
+          <div className="text-xl font-bold">
             <span className="bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent">
               ArbiGrow
             </span>
@@ -81,20 +86,6 @@ export default function ForgotPassword() {
             AI Trading Platform
           </div>
         </div>
-      </motion.a>
-
-      {/* Back Button */}
-      <motion.a
-        href="#login"
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="fixed top-6 right-6 flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 z-50 group"
-      >
-        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-        <span 
-        onClick={() =>navigate('/login')}
-        className="text-sm font-medium">Back to Login</span>
       </motion.a>
 
       {/* Main Content */}
@@ -110,7 +101,7 @@ export default function ForgotPassword() {
           <div className="absolute -inset-[1px] bg-gradient-to-br from-blue-500/20 via-cyan-500/20 to-blue-500/20 rounded-3xl blur-xl opacity-50"></div>
 
           <div className="relative z-10">
-            {!isEmailSent ? (
+            {!isSuccess ? (
               <>
                 {/* Header */}
                 <div className="text-center mb-8">
@@ -120,36 +111,103 @@ export default function ForgotPassword() {
                     transition={{ delay: 0.2, duration: 0.5 }}
                     className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 mb-6"
                   >
-                    <KeyRound className="w-10 h-10 text-blue-400" />
+                    <Lock className="w-10 h-10 text-blue-400" />
                   </motion.div>
 
                   <h1 className="text-3xl md:text-4xl font-bold mb-3">
-                    Reset Your <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Password</span>
+                    Create New <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Password</span>
                   </h1>
                   <p className="text-gray-400 text-sm md:text-base">
-                    Enter your email address and we'll send you a link to reset your password
+                    Your new password must be different from previously used passwords
                   </p>
                 </div>
 
                 {/* Form */}
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Email Input */}
+                  {/* New Password */}
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Email Address
+                      New Password
                     </label>
                     <div className="relative">
-                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                      <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                       <input
-                        type="email"
-                        value={email}
+                        type={showPassword ? 'text' : 'password'}
+                        value={password}
                         onChange={(e) => {
-                          setEmail(e.target.value);
+                          setPassword(e.target.value);
                           setError('');
                         }}
-                        placeholder="your.email@example.com"
-                        className="w-full pl-12 pr-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 focus:bg-white/10 transition-all duration-300"
+                        placeholder="Enter new password"
+                        className="w-full pl-12 pr-12 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 focus:bg-white/10 transition-all duration-300"
                       />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                      >
+                        {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Password Requirements */}
+                  {password && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2"
+                    >
+                      <p className="text-xs font-semibold text-gray-400 mb-3">Password must contain:</p>
+                      <div className="grid gap-2">
+                        {[
+                          { label: 'At least 8 characters', met: passwordRequirements.minLength },
+                          { label: 'One uppercase letter', met: passwordRequirements.hasUpperCase },
+                          { label: 'One lowercase letter', met: passwordRequirements.hasLowerCase },
+                          { label: 'One number', met: passwordRequirements.hasNumber },
+                          { label: 'One special character', met: passwordRequirements.hasSpecial },
+                        ].map((req, idx) => (
+                          <div key={idx} className="flex items-center gap-2">
+                            <div
+                              className={`w-4 h-4 rounded-full flex items-center justify-center transition-all duration-300 ${
+                                req.met ? 'bg-green-500/20 border border-green-500/50' : 'bg-white/5 border border-white/10'
+                              }`}
+                            >
+                              {req.met && <Check className="w-3 h-3 text-green-400" />}
+                            </div>
+                            <span className={`text-xs ${req.met ? 'text-green-400' : 'text-gray-400'}`}>
+                              {req.label}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {/* Confirm Password */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Confirm Password
+                    </label>
+                    <div className="relative">
+                      <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                      <input
+                        type={showConfirmPassword ? 'text' : 'password'}
+                        value={confirmPassword}
+                        onChange={(e) => {
+                          setConfirmPassword(e.target.value);
+                          setError('');
+                        }}
+                        placeholder="Confirm new password"
+                        className="w-full pl-12 pr-12 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 focus:bg-white/10 transition-all duration-300"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                      >
+                        {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                      </button>
                     </div>
                   </div>
 
@@ -166,7 +224,7 @@ export default function ForgotPassword() {
                   )}
 
                   {/* Submit Button */}
-                  <Button
+                  <button
                     type="submit"
                     disabled={isSubmitting}
                     className="relative w-full group px-6 py-4 bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 rounded-xl font-semibold overflow-hidden shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
@@ -182,34 +240,17 @@ export default function ForgotPassword() {
                             transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                             className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
                           />
-                          Sending Reset Link...
+                          Resetting Password...
                         </>
                       ) : (
                         <>
-                          <Mail className="w-5 h-5" />
-                          Send Reset Link
+                          <Lock className="w-5 h-5" />
+                          Reset Password
                         </>
                       )}
                     </span>
-                  </Button>
+                  </button>
                 </form>
-
-                {/* Info Box */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.4 }}
-                  className="mt-6 p-4 rounded-xl bg-blue-500/5 border border-blue-500/20"
-                >
-                  <div className="flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                    <div className="text-sm text-gray-400">
-                      <p>
-                        If an account exists with this email, you'll receive a password reset link within a few minutes.
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
               </>
             ) : (
               <>
@@ -225,62 +266,36 @@ export default function ForgotPassword() {
                   </motion.div>
 
                   <h2 className="text-3xl font-bold mb-3">
-                    Check Your <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">Email</span>
+                    Password <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">Reset Successfully</span>
                   </h2>
                   <p className="text-gray-400 mb-8">
-                    We've sent a password reset link to<br />
-                    <span className="text-white font-medium">{email}</span>
+                    Your password has been successfully reset.<br />
+                    You can now sign in with your new password.
                   </p>
 
-                  {/* Email Icon Illustration */}
+                  {/* Success Illustration */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="p-8 rounded-2xl bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/20 mb-8"
+                    className="p-8 rounded-2xl bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 mb-8"
                   >
-                    <Mail className="w-16 h-16 text-cyan-400 mx-auto mb-4" />
+                    <Lock className="w-16 h-16 text-green-400 mx-auto mb-4" />
                     <p className="text-sm text-gray-400">
-                      Click the link in the email to reset your password.<br />
-                      The link will expire in 24 hours.
+                      Your account is now secure with your new password.
                     </p>
                   </motion.div>
 
-                  {/* Resend Button */}
-                  <button
-                    onClick={handleResend}
-                    disabled={isSubmitting}
-                    className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  {/* Sign In Button */}
+                  <a
+                    href="#login"
+                    className="relative inline-flex group px-8 py-4 bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 rounded-xl font-semibold overflow-hidden shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300 hover:scale-[1.02]"
                   >
-                    {isSubmitting ? 'Sending...' : "Didn't receive the email? Resend"}
-                  </button>
-
-                  {/* Back to Login */}
- 
-                  <div
-                    className="mt-8 pt-6 border-t border-white/10 cursor-pointer"
-                    onClick={() => navigate('/login')}
-                  >
-                    <Button className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors group">
-                      <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                      Back to Login
-                    </Button>
-                  </div>
-                 </div>
-              </>
-            )}
-
-            {/* Footer Links (only show when not in success state) */}
-            {!isEmailSent && (
-              <div className="mt-8 pt-6 border-t border-white/10 text-center">
-                <p className="text-sm text-gray-400">
-                  Remember your password?{' '}
-                  <a href="#" className="text-cyan-400 hover:text-cyan-300 transition-colors font-medium"
-                    onClick={() =>navigate('/login')}>
-                    Sign In
+                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"></div>
+                    <span className="relative">Sign In to Your Account</span>
                   </a>
-                </p>
-              </div>
+                </div>
+              </>
             )}
           </div>
         </div>

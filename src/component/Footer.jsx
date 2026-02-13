@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { useInView } from 'react-intersection-observer';
-import { Facebook, Send, Mail, FileText, Shield, AlertTriangle } from 'lucide-react';
+import { Facebook, Send, Mail, FileText, Shield, AlertTriangle ,Youtube,Twitter} from 'lucide-react';
 
 export default function Footer() {
   const [ref, inView] = useInView({
@@ -29,26 +29,53 @@ export default function Footer() {
               </p>
               
               {/* Social Links */}
-              <div className="flex gap-4">
-                <a 
-                  href="#" 
-                  className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 transition-all duration-300"
-                >
-                  <Facebook className="w-5 h-5" />
-                </a>
-                <a 
-                  href="#" 
-                  className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-cyan-600 hover:border-cyan-600 transition-all duration-300"
-                >
-                  <Send className="w-5 h-5" />
-                </a>
-                <a 
-                  href="#" 
-                  className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 transition-all duration-300"
-                >
-                  <Mail className="w-5 h-5" />
-                </a>
-              </div>
+            <div className="flex gap-4">
+  
+  {/* Facebook */}
+  <a 
+    href="#" 
+    target="_blank"
+    className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 transition-all duration-300"
+  >
+    <Facebook className="w-5 h-5" />
+  </a>
+
+  {/* Telegram */}
+  <a 
+    href="https://t.me/ArbigrowOfficial" 
+    target="_blank"
+    className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-cyan-600 hover:border-cyan-600 transition-all duration-300"
+  >
+    <Send className="w-5 h-5" />
+  </a>
+
+  {/* YouTube */}
+  <a 
+    href="https://youtube.com/@arbigrow-official?si=ucCCPJtcdebgkUfZ" 
+    target="_blank"
+    className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition-all duration-300"
+  >
+    <Youtube className="w-5 h-5" />
+  </a>
+
+  {/* Twitter */}
+  <a 
+    href="https://x.com/arbigrow" 
+    target="_blank"
+    className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-sky-500 hover:border-sky-500 transition-all duration-300"
+  >
+    <Twitter className="w-5 h-5" />
+  </a>
+
+  {/* Mail */}
+  <a 
+    href="mailto:your@email.com"
+    className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 transition-all duration-300"
+  >
+    <Mail className="w-5 h-5" />
+  </a>
+
+</div>
             </div>
 
             {/* Legal Column */}

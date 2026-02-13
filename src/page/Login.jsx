@@ -164,7 +164,7 @@ export default function LoginForm() {
             )}
 
             <p className="text-sm text-right text-[#00C2F9] cursor-pointer hover:underline"
-             onClick={() => navigate('/forgotpassword')}>
+             onClick={() => navigate('/forgot_password')}>
               Forgot password?
             </p>
 

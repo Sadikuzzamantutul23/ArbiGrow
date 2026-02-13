@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './page/Home'
 import ForgotPassword from './page/ForgotPassword'
 import VerificationPage from './page/VerificationPage'
+import ResetPassword from './page/ResetPassword'
 
 const App = () => {
   return (
@@ -15,8 +16,9 @@ const App = () => {
           <Route path='/' element={<Home/>} />
           <Route path='/login' element={<LoginForm/>} />
           <Route path='/register' element={<RegisterForm/>} />
-          <Route path='/forgotpassword' element={<ForgotPassword/>} />
-          <Route path='/verificationpage' element={<VerificationPage />} />
+          <Route path='/forgot_password' element={<ForgotPassword/>} />
+          <Route path='/verification_page' element={<VerificationPage />} />
+          <Route path='/reset_password' element={<ResetPassword />} />
         </Routes>
 
        </BrowserRouter>

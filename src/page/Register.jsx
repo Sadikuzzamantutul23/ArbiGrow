@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../component/Navbar";
 import Button from "../component/Button";
 import { registerUser } from "../api/auth.api.js";
 import useUserStore from "../store/userStore.js";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 export default function RegisterForm() {
   const navigate = useNavigate();
@@ -21,8 +21,19 @@ export default function RegisterForm() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState([]);
-
+   const [searchParams] = useSearchParams();
   // Handle input change
+        useEffect(() => {
+      const refCodeFromURL = searchParams.get("ref_code");
+
+      if (refCodeFromURL) {
+      setFormData((prev) => ({
+        ...prev,
+        referral_code: refCodeFromURL,
+       }));
+     }
+   }, [searchParams]);  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -118,7 +129,7 @@ export default function RegisterForm() {
       <Navbar />
       <div className="min-h-screen flex items-center justify-center bg-[#0A122C] px-4 pt-24">
 
-       <div className="bg-white/5 backdrop-blur-sm border  border-white/10 shadow-lg rounded-lg w-full max-w-md p-4 hover:shadow-blue-900/50 transition-shadow duration-600">
+       <div className="bg-white/5 backdrop-blur-sm border  border-white/10 shadow-lg rounded-lg w-full max-w-md p-3 hover:shadow-blue-900/50 transition-shadow duration-600">
 
           {/* Icon */}
           <div className="flex flex-col items-center justify-center">
@@ -162,6 +173,7 @@ export default function RegisterForm() {
               <input
                 type="text"
                 name="referral_code"
+                value={formData.referral_code}
                 placeholder="Enter referral code"
                 className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 onChange={handleChange}
