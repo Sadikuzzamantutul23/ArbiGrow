@@ -271,7 +271,7 @@ export default function ResetPassword() {
                   <p className="text-gray-400 mb-8">
                     Your password has been successfully reset.<br />
                     You can now sign in with your new password.
-                  </p>
+                  </p> 
 
                   {/* Success Illustration */}
                   <motion.div

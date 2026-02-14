@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export default function LoginForm() {
    const navigate = useNavigate();
      const setUser = useUserStore((state) => state.setUser);
-  const setToken = useUserStore((state) => state.setToken);
+     const setToken = useUserStore((state) => state.setToken);
 
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
@@ -58,9 +58,11 @@ export default function LoginForm() {
 
       setUser(res.data.user);
       setToken(res.data.token);
+       navigate("/"); 
+       console.log("TOKEN:", res.data.token);
 
-      localStorage.setItem("user", JSON.stringify(res.data.user));
-      localStorage.setItem("token", res.data.token);
+      // // localStorage.setItem("user", JSON.stringify(res.data.user));
+      // // localStorage.setItem("token", res.data.token);
 
       // ✅ server message show
       setMessage(res.data.message || "Login successful");
@@ -164,7 +166,7 @@ export default function LoginForm() {
             )}
 
             <p className="text-sm text-right text-[#00C2F9] cursor-pointer hover:underline"
-             onClick={() => navigate('/forgot_password')}>
+             onClick={() => navigate('/forgot-password')}>
               Forgot password?
             </p>
 

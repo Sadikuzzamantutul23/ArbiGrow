@@ -6,6 +6,7 @@ import Home from './page/Home'
 import ForgotPassword from './page/ForgotPassword'
 import VerificationPage from './page/VerificationPage'
 import ResetPassword from './page/ResetPassword'
+import { TermsAndConditions } from './page/TermsAndConditions'
 
 const App = () => {
   return (
@@ -16,9 +17,10 @@ const App = () => {
           <Route path='/' element={<Home/>} />
           <Route path='/login' element={<LoginForm/>} />
           <Route path='/register' element={<RegisterForm/>} />
-          <Route path='/forgot_password' element={<ForgotPassword/>} />
-          <Route path='/verification_page' element={<VerificationPage />} />
-          <Route path='/reset_password' element={<ResetPassword />} />
+          <Route path='/forgot-password' element={<ForgotPassword/>} />
+          <Route path='/verification-page' element={<VerificationPage />} />
+          <Route path='/reset-password' element={<ResetPassword />} />
+          <Route path='/terms-conditions' element={<TermsAndConditions />} />
         </Routes>
 
        </BrowserRouter>

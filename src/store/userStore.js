@@ -2,6 +2,7 @@
 import { create } from "zustand";
 
 // Safe parse for user
+
 let savedUser = null;
 try {
   savedUser = JSON.parse(localStorage.getItem("user") || "null");
