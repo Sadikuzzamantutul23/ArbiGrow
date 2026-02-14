@@ -6,14 +6,15 @@ import useUserStore from "../store/userStore";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
-   const navigate = useNavigate();
-     const setUser = useUserStore((state) => state.setUser);
-     const setToken = useUserStore((state) => state.setToken);
+  const navigate = useNavigate();
+  const setUser = useUserStore((state) => state.setUser);
+  const setToken = useUserStore((state) => state.setToken);
 
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [errors, setErrors] = useState({}); 
+  const [errors, setErrors] = useState({});
+  const [isSuccess, setIsSuccess] = useState(false); // success tracking
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +27,7 @@ export default function LoginForm() {
       return updated;
     });
 
-    setMessage(""); 
+    setMessage("");
   };
 
   const validateForm = () => {
@@ -52,53 +53,56 @@ export default function LoginForm() {
     try {
       setLoading(true);
       setMessage("");
+      setIsSuccess(false);
 
       const res = await loginUser(formData);
       console.log(res, "login api response");
 
       setUser(res.data.user);
       setToken(res.data.token);
-       navigate("/"); 
-       console.log("TOKEN:", res.data.token);
+      navigate("/");
 
-      // // localStorage.setItem("user", JSON.stringify(res.data.user));
-      // // localStorage.setItem("token", res.data.token);
-
-      // ✅ server message show
+      // success message
       setMessage(res.data.message || "Login successful");
-       setLoading(false);
+      setIsSuccess(true);
 
-    } catch (err) {
-  console.log("Full error:", err.response);
-
-  // 422 validation error
-  if (err.response?.status === 422 && Array.isArray(err.response.data?.detail)) {
-    let fieldErrors = {};
-    err.response.data.detail.forEach((item) => {
-      const field = item.loc?.[1];
-      fieldErrors[field] = item.msg;
-    });
-    setErrors(fieldErrors);
-    setMessage("");
-    console.log(err.response.data);
-  }
-
-
-  else if (err.response?.status === 400) {
-    setMessage(err.response.data?.detail||
-       err.response.data?.message ||
-        "Invalid login");
-  }
-      else {
-      setMessage(
-        err.response?.data?.detail ||
-        err.response?.data?.message ||
-        "Login failed"
-      );
-    }
       setLoading(false);
-}
+    } catch (err) {
+      console.log("Full error:", err.response);
 
+      setIsSuccess(false);
+
+      // 422 validation error
+      if (err.response?.status === 422 && Array.isArray(err.response.data?.detail)) {
+        let fieldErrors = {};
+        err.response.data.detail.forEach((item) => {
+          const field = item.loc?.[1];
+          fieldErrors[field] = item.msg;
+        });
+        setErrors(fieldErrors);
+        setMessage("");
+      }
+
+      // 400 error
+      else if (err.response?.status === 400) {
+        setMessage(
+          err.response.data?.detail ||
+          err.response.data?.message ||
+          "Invalid login"
+        );
+      }
+
+      // other errors
+      else {
+        setMessage(
+          err.response?.data?.detail ||
+          err.response?.data?.message ||
+          "Login failed"
+        );
+      }
+
+      setLoading(false);
+    }
   };
 
   const isButtonDisabled =
@@ -112,20 +116,11 @@ export default function LoginForm() {
     <>
       <Navbar />
       <div className="min-h-screen flex items-center justify-center bg-[#0A122C] px-4 pt-24">
-        <div className="bg-white/5 backdrop-blur-sm border  border-white/10 shadow-lg rounded-lg w-full max-w-md p-4 hover:shadow-blue-900/50 transition-shadow duration-600">
+        <div className="bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg rounded-lg w-full max-w-md p-4 hover:shadow-blue-900/50 transition-shadow duration-600">
 
           {/* Top Header */}
           <div className="flex flex-col items-center justify-center py-8">
-            <div className=" w-12 h-12 sm:w-14 sm:h-14 
-            flex items-center justify-center
-             rounded-full
-           bg-white/5 
-           border border-white/10
-           text-white text-xl sm:text-2xl
-           shadow-lg shadow-blue-500/10
-           hover:shadow-blue-500/40
-           hover:scale-105
-           transition-all duration-300">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white text-xl sm:text-2xl shadow-lg shadow-blue-500/10 hover:shadow-blue-500/40 hover:scale-105 transition-all duration-300">
               👤
             </div>
             <h2 className="text-xl text-[#FFFFFF] font-semibold mt-3">
@@ -160,19 +155,31 @@ export default function LoginForm() {
               <p className="text-xs text-red-500 mt-1">{errors.password}</p>
             )}
 
-            {/* server message */}
+            {/* server message with dynamic color */}
             {message && (
-              <p className="text-center text-sm text-red-500">{message}</p>
+              <p
+                className={`text-center text-sm ${
+                  isSuccess ? "text-blue-500" : "text-red-500"
+                }`}
+              >
+                {message}
+              </p>
             )}
 
-            <p className="text-sm text-right text-[#00C2F9] cursor-pointer hover:underline"
-             onClick={() => navigate('/forgot-password')}>
+            <p
+              className="text-sm text-right text-[#00C2F9] cursor-pointer hover:underline"
+              onClick={() => navigate('/forgot-password')}
+            >
               Forgot password?
             </p>
 
-            <div className="flex justify-center pt-2 ">
-              <Button type="submit" variant="gradient" fullWidth={true} disabled={isButtonDisabled}
-              className="text-bold front-">
+            <div className="flex justify-center pt-2">
+              <Button
+                type="submit"
+                variant="gradient"
+                fullWidth={true}
+                disabled={isButtonDisabled}
+              >
                 {loading ? "Logging in..." : "Login"}
               </Button>
             </div>

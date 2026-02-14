@@ -278,7 +278,7 @@ export function TermsAndConditions() {
         </motion.div>
 
         {/* Acceptance Button */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -293,7 +293,7 @@ export function TermsAndConditions() {
             <CheckCircle className="w-5 h-5 relative z-10" />
             <span className="relative z-10">I Accept These Terms</span>
           </a>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
       </>

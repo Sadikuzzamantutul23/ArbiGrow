@@ -3,48 +3,94 @@ import { motion } from 'motion/react';
 import { KeyRound, Mail, ArrowLeft, CheckCircle, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../component/Button';
+import { forgotPassword } from '../api/auth.api.js';
 
 export default function ForgotPassword() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isEmailSent, setIsEmailSent] = useState(false);
-  const [error, setError] = useState('');
+   const [isDisabled, setIsDisabled] = useState(false);
+  const [message, setMessage] = useState(''); // backend success message
+  const [error, setError] = useState(''); // backend error message
 
+  // Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setMessage('');
 
     if (!email.trim()) {
       setError('Please enter your email address');
       return;
     }
 
-    // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setError('Please enter a valid email address');
       return;
     }
 
-    setIsSubmitting(true);
+    try {
+      setIsSubmitting(true);
+      const res = await forgotPassword({ email });
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
+      setMessage(res.data?.message || 'Check your email for reset link');
       setIsEmailSent(true);
-    }, 2000);
+    } catch (err) {
+      const res = err.response;
+
+      if (res?.data?.message) {
+        setError(res.data.message);
+      } else if (res?.data?.detail) {
+        if (Array.isArray(res.data.detail)) {
+          setError(res.data.detail.map(d => d.msg || d).join(', '));
+        } else {
+          setError(res.data.detail);
+        }
+      } else {
+        setError('Something went wrong. Try again.');
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleResend = () => {
-    setIsSubmitting(true);
-    setTimeout(() => {
+  // Resend link
+  const handleResend = async () => {
+    console.log("Resend clicked!");
+    
+    setError('');
+    setMessage('');
+    try {
+      setIsSubmitting(true);
+      const res = await forgotPassword({ email });
+      console.log("Response from backend:", res); 
+         setIsDisabled(true); // <-- এটা backend response দেখাবে
+      setMessage(res.data?.message || 'Reset link resent!');
+    } catch (err) {
+      const res = err.response;
+      if (res?.data?.message) {
+        setError(res.data.message);
+      } else if (res?.data?.detail) {
+        if (Array.isArray(res.data.detail)) {
+          setError(res.data.detail.map(d => d.msg || d).join(', '));
+        } else {
+          setError(res.data.detail);
+        }
+      } else {
+        setError('Failed to resend email');
+      }
+      
+    } finally {
       setIsSubmitting(false);
-    }, 2000);
+    }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#060913] via-[#080b1f] to-[#060913] text-white flex items-center justify-center px-4 py-12">
+      
       {/* Background Elements */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.02)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
@@ -85,7 +131,8 @@ export default function ForgotPassword() {
 
       {/* Back Button */}
       <motion.a
-        href="#login"
+       onClick={() =>navigate('/login')}
+     
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
@@ -93,7 +140,7 @@ export default function ForgotPassword() {
       >
         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
         <span 
-        onClick={() =>navigate('/login')}
+       
         className="text-sm font-medium">Back to Login</span>
       </motion.a>
 
@@ -106,13 +153,12 @@ export default function ForgotPassword() {
       >
         {/* Card */}
         <div className="relative p-8 md:p-12 rounded-3xl bg-gradient-to-br from-white/10 to-white/[0.02] backdrop-blur-2xl border border-white/10 shadow-2xl">
-          {/* Glow effect */}
           <div className="absolute -inset-[1px] bg-gradient-to-br from-blue-500/20 via-cyan-500/20 to-blue-500/20 rounded-3xl blur-xl opacity-50"></div>
 
           <div className="relative z-10">
             {!isEmailSent ? (
               <>
-                {/* Header */}
+                {/* Header & Form */}
                 <div className="text-center mb-8">
                   <motion.div
                     initial={{ scale: 0.8, opacity: 0 }}
@@ -131,9 +177,7 @@ export default function ForgotPassword() {
                   </p>
                 </div>
 
-                {/* Form */}
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Email Input */}
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">
                       Email Address
@@ -143,17 +187,13 @@ export default function ForgotPassword() {
                       <input
                         type="email"
                         value={email}
-                        onChange={(e) => {
-                          setEmail(e.target.value);
-                          setError('');
-                        }}
+                        onChange={(e) => { setEmail(e.target.value); setError(''); }}
                         placeholder="your.email@example.com"
                         className="w-full pl-12 pr-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 focus:bg-white/10 transition-all duration-300"
                       />
                     </div>
                   </div>
 
-                  {/* Error Message */}
                   {error && (
                     <motion.div
                       initial={{ opacity: 0, y: -10 }}
@@ -165,15 +205,12 @@ export default function ForgotPassword() {
                     </motion.div>
                   )}
 
-                  {/* Submit Button */}
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="relative w-full group px-6 py-4 bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 rounded-xl font-semibold overflow-hidden shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                  >
-                    {/* Animated shine effect */}
-                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"></div>
-
+                    variant='gradient'
+                    
+                    >
                     <span className="relative flex items-center justify-center gap-2">
                       {isSubmitting ? (
                         <>
@@ -232,7 +269,6 @@ export default function ForgotPassword() {
                     <span className="text-white font-medium">{email}</span>
                   </p>
 
-                  {/* Email Icon Illustration */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -246,31 +282,28 @@ export default function ForgotPassword() {
                     </p>
                   </motion.div>
 
-                  {/* Resend Button */}
-                  <button
-                    onClick={handleResend}
-                    disabled={isSubmitting}
-                    className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {isSubmitting ? 'Sending...' : "Didn't receive the email? Resend"}
-                  </button>
+                 <button
+         onClick={handleResend}
+         disabled={isSubmitting || isDisabled}  // <-- এখানে isDisabled যোগ
+         className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+      {isSubmitting ? 'Sending...' : isDisabled ? 'Link Sent' : "Didn't receive the email? Resend"}
+     </button>
 
-                  {/* Back to Login */}
- 
-                  <div
+                  {/* <div
                     className="mt-8 pt-6 border-t border-white/10 cursor-pointer"
                     onClick={() => navigate('/login')}
                   >
-                    <Button className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors group">
+                    {/* <Button className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors group">
                       <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                       Back to Login
-                    </Button>
-                  </div>
-                 </div>
+                    </Button> 
+                  </div> */}
+                </div>
               </>
             )}
 
-            {/* Footer Links (only show when not in success state) */}
+            {/* Footer Links */}
             {!isEmailSent && (
               <div className="mt-8 pt-6 border-t border-white/10 text-center">
                 <p className="text-sm text-gray-400">
@@ -282,6 +315,7 @@ export default function ForgotPassword() {
                 </p>
               </div>
             )}
+
           </div>
         </div>
       </motion.div>

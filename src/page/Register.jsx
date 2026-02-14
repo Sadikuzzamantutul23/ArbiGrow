@@ -21,18 +21,20 @@ export default function RegisterForm() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState([]);
-   const [searchParams] = useSearchParams();
-  // Handle input change
-        useEffect(() => {
-      const refCodeFromURL = searchParams.get("ref_code");
+  const [isSuccess, setIsSuccess] = useState(false); // NEW
 
-      if (refCodeFromURL) {
+  const [searchParams] = useSearchParams();
+
+  // referral code from URL
+  useEffect(() => {
+    const refCodeFromURL = searchParams.get("ref_code");
+    if (refCodeFromURL) {
       setFormData((prev) => ({
         ...prev,
         referral_code: refCodeFromURL,
-       }));
-     }
-   }, [searchParams]);  
+      }));
+    }
+  }, [searchParams]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,30 +43,20 @@ export default function RegisterForm() {
       [name]: value,
     });
     setErrors((prev) => prev.filter((err) => err.field !== name));
-    setMessage(""); 
+    setMessage("");
   };
 
   const handleAgree = (e) => {
     setAgree(e.target.checked);
   };
 
-  
-   const validateForm = () => {
-  if (!formData.email.trim()) {
-    return "Email is required";
-  }
-  if (!formData.referral_code.trim()) {
-    return "Referral code is required";
+  const validateForm = () => {
+    if (!formData.email.trim()) return "Email is required";
+    if (!formData.referral_code.trim()) return "Referral code is required";
+    if (!formData.password.trim()) return "Password is required";
+    if (!agree) return "You must agree to terms & conditions";
+    return null;
   };
- 
-  if (!formData.password.trim()) {
-    return "Password is required";
-  }
-  if (!agree) {
-    return "You must agree to terms & conditions";
-  }
-  return null;
-};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -72,6 +64,7 @@ export default function RegisterForm() {
     const errorMsg = validateForm();
     if (errorMsg) {
       setMessage(errorMsg);
+      setIsSuccess(false);
       return;
     }
 
@@ -79,20 +72,25 @@ export default function RegisterForm() {
       setLoading(true);
       setMessage("");
       setErrors([]);
+      setIsSuccess(false);
 
       const payload = { ...formData };
       const res = await registerUser(payload);
 
       setUser(res.data.user);
       setToken(res.data.token);
+
       setMessage(res.data.message || "Registration successful");
+      setIsSuccess(true);
 
       setTimeout(() => {
         navigate("/login");
       }, 1500);
+
     } catch (error) {
       const res = error.response;
       console.log("❌ FULL ERROR OBJECT:", error);
+      setIsSuccess(false);
 
       if (!res) {
         setMessage("Network error or server not reachable");
@@ -100,13 +98,12 @@ export default function RegisterForm() {
         return;
       }
 
-      // 422 
+      // 422 validation errors
       if (res.status === 422 && Array.isArray(res.data?.detail)) {
         const serverErrors = res.data.detail.map((err) => ({
           field: err.loc?.[1] || "unknown",
           message: err.msg,
         }));
-        console.log("Validation Errors:", serverErrors);
         setErrors(serverErrors);
         setMessage("");
         setLoading(false);
@@ -115,12 +112,11 @@ export default function RegisterForm() {
 
       const msg = res.data?.message || res.data?.detail || "Something went wrong";
       setMessage(msg);
-      setLoading(false);
+
     } finally {
       setLoading(false);
     }
   };
-
 
   const isButtonDisabled = loading || !agree || errors.length > 0;
 
@@ -129,22 +125,11 @@ export default function RegisterForm() {
       <Navbar />
       <div className="min-h-screen flex items-center justify-center bg-[#0A122C] px-4 pt-24">
 
-       <div className="bg-white/5 backdrop-blur-sm border  border-white/10 shadow-lg rounded-lg w-full max-w-md p-3 hover:shadow-blue-900/50 transition-shadow duration-600">
+        <div className="bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg rounded-lg w-full max-w-md p-3 hover:shadow-blue-900/50 transition-shadow duration-600">
 
           {/* Icon */}
           <div className="flex flex-col items-center justify-center">
-            <h1   className="
-           w-12 h-12 sm:w-14 sm:h-14 
-            flex items-center justify-center
-             rounded-full
-           bg-white/5 
-           border border-white/10
-           text-white text-xl sm:text-2xl
-           shadow-lg shadow-blue-500/10
-           hover:shadow-blue-500/40
-           hover:scale-105
-           transition-all duration-300
-         ">
+            <h1 className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white text-xl sm:text-2xl shadow-lg shadow-blue-500/10 hover:shadow-blue-500/40 hover:scale-105 transition-all duration-300">
               👤
             </h1>
           </div>
@@ -153,7 +138,8 @@ export default function RegisterForm() {
             Registration Form
           </h2>
 
-          <form className="space-y-4 p-8 text-black " onSubmit={handleSubmit}>
+          <form className="space-y-4 p-8 text-black" onSubmit={handleSubmit}>
+            
             <div>
               <input
                 type="email"
@@ -217,8 +203,15 @@ export default function RegisterForm() {
               </p>
             </div>
 
+            {/* dynamic message color */}
             {message && (
-              <p className="text-center text-sm text-red-500">{message}</p>
+              <p
+                className={`text-center text-sm ${
+                  isSuccess ? "text-blue-500" : "text-red-500"
+                }`}
+              >
+                {message}
+              </p>
             )}
 
             <div className="flex justify-center pt-1">
@@ -227,7 +220,6 @@ export default function RegisterForm() {
               </Button>
             </div>
 
-            {/* Bottom text */}
             <p className="text-center text-sm text-white pt-2">
               Already have an account?{" "}
               <Link
