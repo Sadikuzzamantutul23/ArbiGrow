@@ -12,7 +12,7 @@ export const forgotPassword = (data) => {
   return api.post("v1/auth/forgot-password", data);
 };
 
- export const resetPassword = (newPassword, token) => {
+export const resetPassword = (newPassword, token) => {
   return api.post(
     "v1/auth/reset-password",
     { new_password: newPassword },
@@ -20,12 +20,12 @@ export const forgotPassword = (data) => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }
+    },
   );
 };
 
 export const verifyEmail = (token) => {
-  return api.post("v1/auth/verify-email", {
+  return api.post("v1/auth/verify-email", null, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -40,6 +40,6 @@ export const resendVerificationEmail = (token) => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }
+    },
   );
 };

@@ -3,64 +3,66 @@ import { useSearchParams, Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { Shield, CheckCircle2, XCircle, Loader2, Mail } from "lucide-react";
 import { verifyEmail, resendVerificationEmail } from "../api/auth.api.js";
+// import { verifyEmail, resendVerificationEmail } from "../";
 
 export default function EmailVerificationPage() {
   const [searchParams] = useSearchParams();
   const [status, setStatus] = useState("verifying"); // verifying | success | failed | expired
   const token = searchParams.get("verify_token");
-  useEffect(() => {
-  console.log("useEffect fired, token =", token);
 
-  const verifyUserEmail = async () => {
-    console.log("Inside async function, token =", token);
-
-    if (!token) {
-      console.log("No token, returning");
-      setStatus("failed");
-      return;
-    }
-
-    try {
-      console.log("About to call verifyEmail");
-      const res = await verifyEmail(token); 
-      console.log("After verifyEmail, res =", res);
-    } catch (err) {
-      console.log("Error caught:", err);
-    }
-  };
-
-  verifyUserEmail();
-}, [token]);
   // useEffect(() => {
+  //   console.log("useEffect fired, token =", token);
+
   //   const verifyUserEmail = async () => {
-  //      console.log("Token for verification =:", token);
+  //     console.log("Inside async function, token =", token);
+
   //     if (!token) {
+  //       console.log("No token, returning");
   //       setStatus("failed");
   //       return;
   //     }
-  //   // Debugging log
-     
+
   //     try {
-  //       // ✅ Bearer token header diye verify call
+  //       console.log("About to call verifyEmail");
   //       const res = await verifyEmail(token);
-  //     console.log("Token for verification:", token);
-  //     console.log("Response from verifyEmail API");
-  //       if (res?.data?.success) {
-  //         setStatus("success");
-  //       } else {
-  //         setStatus("failed");
-  //       }
-  //     } catch (error) {
-  //       if (error?.response?.status === 410) {
-  //         setStatus("expired");
-  //       } else {
-  //         setStatus("failed");
-  //       }
+  //       console.log("After verifyEmail, res =", res);
+  //     } catch (err) {
+  //       console.log("Error caught:", err);
   //     }
   //   };
 
   //   verifyUserEmail();
-  // }, []);
+  // }, [token]);
+
+  useEffect(() => {
+    const verifyUserEmail = async () => {
+      if (!token) {
+        setStatus("failed");
+        return;
+      }
+      // Debugging log
+
+      try {
+        // ✅ Bearer token header diye verify call
+        const res = await verifyEmail(token);
+        // console.log("Token for verification:", token);
+        console.log("Response from verifyEmail API", res);
+        if (res?.status === 200) {
+          setStatus("success");
+        } else {
+          setStatus("failed");
+        }
+      } catch (error) {
+        if (error?.response?.status === 410) {
+          setStatus("expired");
+        } else {
+          setStatus("failed");
+        }
+      }
+    };
+
+    verifyUserEmail();
+  }, [token]);
 
   return (
     <div className="min-h-screen bg-[#0a0e27]">
@@ -106,7 +108,9 @@ function VerifyingState() {
 
       <div className="flex items-center justify-center gap-2">
         <Shield className="h-4 w-4 text-cyan-400" />
-        <span className="text-sm text-cyan-300">Secure verification in progress</span>
+        <span className="text-sm text-cyan-300">
+          Secure verification in progress
+        </span>
       </div>
     </motion.div>
   );
@@ -153,7 +157,9 @@ function SuccessState() {
 
       <div className="flex items-center justify-center gap-2 border-t border-white/5 pt-6">
         <Shield className="h-4 w-4 text-green-400" />
-        <span className="text-sm text-gray-400">Verification completed with end-to-end encryption</span>
+        <span className="text-sm text-gray-400">
+          Verification completed with end-to-end encryption
+        </span>
       </div>
     </motion.div>
   );
@@ -206,7 +212,9 @@ function FailedState({ isExpired, token }) {
         {resendStatus === "sent" ? (
           <div className="flex items-center justify-center gap-2 rounded-lg border border-green-500/30 bg-green-500/10 px-6 py-3">
             <Mail className="h-5 w-5 text-green-400" />
-            <span className="font-medium text-green-300">Verification email sent successfully</span>
+            <span className="font-medium text-green-300">
+              Verification email sent successfully
+            </span>
           </div>
         ) : (
           <button
@@ -234,7 +242,9 @@ function FailedState({ isExpired, token }) {
 
       <div className="flex items-center justify-center gap-2 border-t border-white/5 pt-6">
         <Shield className="h-4 w-4 text-gray-400" />
-        <span className="text-sm text-gray-400">Security verification required for account access</span>
+        <span className="text-sm text-gray-400">
+          Security verification required for account access
+        </span>
       </div>
     </motion.div>
   );
