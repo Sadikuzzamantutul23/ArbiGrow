@@ -32,10 +32,10 @@ export const verifyEmail = (token) => {
   });
 };
 
-export const resendVerificationEmail = (token) => {
+export const resendVerificationEmail = (token, email) => {
   return api.post(
     "v1/auth/resend-verification",
-    {},
+    { email },
     {
       headers: {
         Authorization: `Bearer ${token}`,
