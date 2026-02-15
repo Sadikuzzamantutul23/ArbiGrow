@@ -56,10 +56,11 @@ export default function LoginForm() {
       setIsSuccess(false);
 
       const res = await loginUser(formData);
-      console.log(res, "login api response");
+      // console.log(res, "login api response");
+      // console.log("toiken", res?.data?.access_token);
 
-      setUser(res.data.user);
-      setToken(res.data.token);
+      setUser(res?.data?.user);
+      setToken(res?.data?.access_token);
       navigate("/");
 
       // success message
@@ -73,7 +74,10 @@ export default function LoginForm() {
       setIsSuccess(false);
 
       // 422 validation error
-      if (err.response?.status === 422 && Array.isArray(err.response.data?.detail)) {
+      if (
+        err.response?.status === 422 &&
+        Array.isArray(err.response.data?.detail)
+      ) {
         let fieldErrors = {};
         err.response.data.detail.forEach((item) => {
           const field = item.loc?.[1];
@@ -87,8 +91,8 @@ export default function LoginForm() {
       else if (err.response?.status === 400) {
         setMessage(
           err.response.data?.detail ||
-          err.response.data?.message ||
-          "Invalid login"
+            err.response.data?.message ||
+            "Invalid login",
         );
       }
 
@@ -96,8 +100,8 @@ export default function LoginForm() {
       else {
         setMessage(
           err.response?.data?.detail ||
-          err.response?.data?.message ||
-          "Login failed"
+            err.response?.data?.message ||
+            "Login failed",
         );
       }
 
@@ -117,7 +121,6 @@ export default function LoginForm() {
       <Navbar />
       <div className="min-h-screen flex items-center justify-center bg-[#0A122C] px-4 pt-24">
         <div className="bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg rounded-lg w-full max-w-md p-4 hover:shadow-blue-900/50 transition-shadow duration-600">
-
           {/* Top Header */}
           <div className="flex flex-col items-center justify-center py-8">
             <div className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white text-xl sm:text-2xl shadow-lg shadow-blue-500/10 hover:shadow-blue-500/40 hover:scale-105 transition-all duration-300">
@@ -130,7 +133,6 @@ export default function LoginForm() {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="p-8 space-y-4 text-black">
-
             <input
               type="email"
               name="email"
@@ -168,7 +170,7 @@ export default function LoginForm() {
 
             <p
               className="text-sm text-right text-[#00C2F9] cursor-pointer hover:underline"
-              onClick={() => navigate('/forgot-password')}
+              onClick={() => navigate("/forgot-password")}
             >
               Forgot password?
             </p>
@@ -183,7 +185,6 @@ export default function LoginForm() {
                 {loading ? "Logging in..." : "Login"}
               </Button>
             </div>
-
           </form>
         </div>
       </div>
