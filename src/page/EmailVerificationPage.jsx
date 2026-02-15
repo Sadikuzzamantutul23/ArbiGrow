@@ -3,7 +3,6 @@ import { useSearchParams, Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { Shield, CheckCircle2, XCircle, Loader2, Mail } from "lucide-react";
 import { verifyEmail, resendVerificationEmail } from "../api/auth.api.js";
-// import { verifyEmail, resendVerificationEmail } from "../";
 
 export default function EmailVerificationPage() {
   const [searchParams] = useSearchParams();
@@ -40,7 +39,6 @@ export default function EmailVerificationPage() {
         setStatus("failed");
         return;
       }
-      // Debugging log
 
       try {
         // ✅ Bearer token header diye verify call
@@ -139,7 +137,7 @@ function SuccessState() {
       </h2>
 
       <p className="mb-8 text-center text-gray-400">
-        Your email has been securely verified. You can now access your account.
+        Your email has been securely verified.
       </p>
 
       <div className="mb-6 space-y-3">
