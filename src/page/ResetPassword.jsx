@@ -7,7 +7,8 @@ import { resetPassword } from "../api/auth.api.js";
 export default function ResetPassword() {
   const navigate = useNavigate();
   const location = useLocation();
-  const token = new URLSearchParams(location.search).get("token"); // URL থেকে token
+  const varificationtoken = new URLSearchParams(location.search).get("token");
+   
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -47,7 +48,7 @@ export default function ResetPassword() {
       return;
     }
 
-    if (!token) {
+    if (!varificationtoken) {
       setError("Token not found. Please try the reset link again.");
       return;
     }
@@ -55,13 +56,14 @@ export default function ResetPassword() {
     setIsSubmitting(true);
 
     try {
-      const res = await resetPassword(password, token); // API call
+      const res = await resetPassword(password, varificationtoken); // API call
       setIsSuccess(true);
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");
     } finally {
       setIsSubmitting(false);
     }
+     console.log("Verification Token:", varificationtoken); // Debugging token value
   };
 
   return (

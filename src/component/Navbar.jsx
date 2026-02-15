@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, Zap, LogIn, UserPlus, ChevronDown } from 'lucide-react';
 import Button from './Button';
@@ -14,11 +14,13 @@ export default function Navbar() {
    const token = useUserStore((state) => state.token);
   const logout = useUserStore((state) => state.logout);
   const isLoggedIn = !!token;
-
-  const handleLogout = () => {
+  
+ const handleLogout = useCallback(() => {
     logout();
     navigate("/login");
-  };
+  }, [logout, navigate]);
+
+
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);

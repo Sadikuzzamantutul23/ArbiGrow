@@ -1,9 +1,12 @@
 import { motion } from 'motion/react';
 import { useInView } from 'react-intersection-observer';
 import { Facebook, Send, Mail, FileText, Shield, AlertTriangle ,Youtube,Twitter} from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Footer() {
-  const [ref, inView] = useInView({
+   const navigate = useNavigate();
+
+     const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1
   });
@@ -69,7 +72,8 @@ export default function Footer() {
 
   {/* Mail */}
   <a 
-    href="mailto:your@email.com"
+    href="mailto:arbigrow.official@gmail.com"
+    target='_blank'
     className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 transition-all duration-300"
   >
     <Mail className="w-5 h-5" />
@@ -82,13 +86,17 @@ export default function Footer() {
             <div>
               <h3 className="font-bold mb-4">Legal</h3>
               <ul className="space-y-3">
-                <li>
+                <li
+                 onClick={() => navigate("/terms-conditions")}
+                  >
                   <a href="#" className="text-gray-400 hover:text-cyan-400 transition-colors duration-300 flex items-center gap-2">
                     <FileText className="w-4 h-4" />
                     Terms & Conditions
                   </a>
                 </li>
-                <li>
+                <li
+                onClick={()=> navigate("/privacy-policy")}
+                >
                   <a href="#" className="text-gray-400 hover:text-cyan-400 transition-colors duration-300 flex items-center gap-2">
                     <Shield className="w-4 h-4" />
                     Privacy Policy
@@ -109,14 +117,15 @@ export default function Footer() {
               <ul className="space-y-3">
                 <li className="text-gray-400">
                   <span className="block text-sm mb-1">Official Email</span>
-                  <a href="mailto:info@arbigrow.io" className="text-cyan-400 hover:text-cyan-300">
-                    info@arbigrow.io
+                  <a href="mailto:arbigrow.official@gmail.com" className="text-cyan-400 hover:text-cyan-300">
+                     arbigrow.official@gmail.com
+                
                   </a>
                 </li>
                 <li className="text-gray-400">
                   <span className="block text-sm mb-1">Support</span>
-                  <a href="mailto:support@arbigrow.io" className="text-cyan-400 hover:text-cyan-300">
-                    support@arbigrow.io
+                  <a href="mailto:arbigrow.info@gmail.com" className="text-cyan-400 hover:text-cyan-300">
+                   arbigrow.info@gmail.com  
                   </a>
                 </li>
               </ul>

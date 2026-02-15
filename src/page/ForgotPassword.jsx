@@ -67,7 +67,7 @@ export default function ForgotPassword() {
       setIsSubmitting(true);
       const res = await forgotPassword({ email });
       console.log("Response from backend:", res); 
-         setIsDisabled(true); // <-- এটা backend response দেখাবে
+         setIsDisabled(true); 
       setMessage(res.data?.message || 'Reset link resent!');
     } catch (err) {
       const res = err.response;

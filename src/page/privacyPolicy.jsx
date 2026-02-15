@@ -1,64 +1,69 @@
 import { motion } from 'motion/react';
-import { FileText, Shield, AlertCircle, CheckCircle, Scale, Lock } from 'lucide-react';
+import { FileText, Shield, AlertCircle,  Scale, Lock } from 'lucide-react';
 import Navbar from '../component/Navbar';
 
-export function TermsAndConditions() {
-const sections = [
+export default function PrivacyPolicy() {
+ const sections = [
   {
-    title: '1. Investment Risk Warning',
-    icon: AlertCircle,
-    content: [
-      'Market Volatility: Cryptocurrency and trading markets are highly volatile. Although we use AI technology to minimize risk, the value of investments may increase or decrease at any time.',
-      'Capital Risk: Investors should understand that trading carries the risk of losing capital as well as making profits. Only surplus or discretionary funds should be invested.',
-      'Past Performance: Past results do not guarantee future profits.',
-    ],
-  },
-
-  {
-    title: '2. User Eligibility',
+    title: '1. Types of Information Collected',
     icon: Shield,
     content: [
-      'Users must be legally adults according to their country laws (generally 18 years or older).',
-      'Using the platform for illegal purposes or money laundering is strictly prohibited.',
+      'Since ArbiGrow is a decentralized platform, we do not collect your personal files like traditional banks.',
+      'Wallet Address: Your public wallet address used to execute transactions.',
+      'Technical Data: IP address, device type, and browser information to ensure security.',
+      'Communication Data: Any emails or messages you provide when contacting our support team.',
     ],
   },
 
   {
-    title: '3. Decentralized Security and Responsibility',
+    title: '2. How We Protect Your Data',
     icon: Lock,
     content: [
-      'Wallet Security: ArbiGrow is a decentralized platform, and you are fully responsible for your wallet’s private key and password. If lost, the company cannot recover your funds.',
-      'Technical Limitations: Although we use Arbitrum and Offchain Labs’ robust network, ArbiGrow is not liable for blockchain network failures or network congestion.',
+      'End-to-End Encryption: All communication between our app and servers is secured with advanced encryption.',
+      'No Private Key Access: ArbiGrow never asks for or stores your wallet private key or seed phrase. Full control of your funds remains with you.',
+      'Blockchain Transparency: All transaction records are transparently stored on Arbitrum Explorer and cannot be altered.',
     ],
   },
 
   {
-    title: '4. Deposit & Withdrawal Rules',
-    icon: Scale,
-    content: [
-      'Processing Time: Deposits and withdrawals are generally instant, but may be delayed due to network traffic.',
-      'Fees: Network gas fees and platform service charges may change over time and will be displayed during the transaction.',
-    ],
-  },
-
-  {
-    title: '5. Account Termination',
-    icon: AlertCircle,
-    content: [
-      'If a user engages in scams, hacking attempts, or misuses platform logic, ArbiGrow reserves the right to block the account without prior notice.',
-    ],
-  },
-
-  {
-    title: '6. Service Amendments',
+    title: '3. How We Use Your Data',
     icon: FileText,
     content: [
-      'ArbiGrow reserves the right to update its rules, trading fees, or platform logic at any time. Major changes will be communicated to the global community in advance.',
+      'To manage your trading account and facilitate transactions.',
+      'To enhance platform security and prevent fraud.',
+      'To send system updates or important notifications.',
+    ],
+  },
+
+  {
+    title: '4. Third-Party Disclosure',
+    icon: AlertCircle,
+    content: [
+      'ArbiGrow does not sell or rent your personal information or trading data to any third party.',
+      'However, technical data may be processed when required by law or for the operation of the blockchain network (such as Arbitrum).',
+    ],
+  },
+
+  {
+    title: '5. Use of Cookies',
+    icon: Scale,
+    content: [
+      'Our website may use small cookies to improve your browsing experience and help you log in faster.',
+      'You can disable cookies from your browser settings if you prefer.',
+    ],
+  },
+
+  {
+    title: '6. Your Rights',
+    icon: Shield,
+    content: [
+      'Verify information related to your account.',
+      'Remove your account from our platform at any time.',
+      'Security Tips: ArbiGrow admin will never ask for your password or recovery phrase. Avoid sharing such information with anyone.',
     ],
   },
 ];
 
- 
 
   return (
    
@@ -85,9 +90,9 @@ const sections = [
           </div>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            Terms and{' '}
+            Privacy and {' '}
             <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
-              Conditions
+              Policy
             </span>
           </h1>
           <p className="text-gray-400 text-lg max-w-3xl mx-auto mb-4">
@@ -114,11 +119,10 @@ const sections = [
               <h3 className="text-lg font-semibold text-amber-400 mb-2">Important Notice</h3>
               <p className="text-gray-300 text-sm leading-relaxed">
                 By accessing or using ArbiGrow, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions. Cryptocurrency trading involves substantial risk and may not be suitable for all investors. You should carefully consider your investment objectives and risk tolerance before using our platform.
-              </p> <br />
-              <p className="text-gray-300 text-sm leading-relaxed">
-
-                 ArbiGrow is a technology provider, not a financial advisory firm.Our AI logic is for data analysis only. Please conduct your own market research before investing.
               </p>
+              <p className="text-gray-300 text-sm leading-relaxed mt-4"> 
+                  ArbiGrow is a technology provider, not a financial advisory firm.Our AI logic is for data analysis only. Please conduct your own market research before investing.  
+                  </p>
             </div>
           </div>
         </motion.div>
@@ -195,34 +199,9 @@ const sections = [
           </div>
         </motion.div>
 
-          {/* Footer Section
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mt-12 text-center px-6 py-4 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-2xl border border-blue-500/20"
-          >
-            <p className="text-gray-300 text-sm md:text-base">{footerNote}</p>
-          </motion.div> */}
+        
 
-        {/* Acceptance Button */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-12 text-center"
-        >
-          <a
-            href="#home"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 rounded-xl font-semibold text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300 hover:scale-105 group relative overflow-hidden"
-          >
-            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"></div>
-            <CheckCircle className="w-5 h-5 relative z-10" />
-            <span className="relative z-10">I Accept These Terms</span>
-          </a>
-        </motion.div> */}
+
       </div>
     </section>
       </>

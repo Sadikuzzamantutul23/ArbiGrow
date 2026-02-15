@@ -6,7 +6,11 @@ import Home from './page/Home'
 import ForgotPassword from './page/ForgotPassword'
 import VerificationPage from './page/VerificationPage'
 import ResetPassword from './page/ResetPassword'
-import { TermsAndConditions } from './page/TermsAndConditions'
+import {TermsAndConditions} from './page/TermsAndConditions'
+import PrivacyPolicy from './page/privacyPolicy'
+import EmailVerificationPage from './page/EmailVerificationPage'
+import { NotFoundPage } from './page/NotFoundPage'
+
 
 const App = () => {
   return (
@@ -21,6 +25,11 @@ const App = () => {
           <Route path='/verification-page' element={<VerificationPage />} />
           <Route path='/reset-password' element={<ResetPassword />} />
           <Route path='/terms-conditions' element={<TermsAndConditions />} />
+          <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+          <Route path='/email-verification' element={<EmailVerificationPage />} />
+         
+          <Route path='/not-found' element={<NotFoundPage />} />
+          
         </Routes>
 
        </BrowserRouter>
