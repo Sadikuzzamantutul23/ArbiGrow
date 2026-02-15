@@ -197,7 +197,9 @@ export default function RegisterForm() {
               />
               <p className="text-gray-400">
                 I agree to the{" "}
-                <span className="text-blue-500 cursor-pointer hover:underline">
+                <span className="text-blue-500 cursor-pointer hover:underline"
+                onClick={() => navigate('/terms-conditions')}
+                >
                   Terms & Conditions
                 </span>
               </p>

@@ -3,6 +3,7 @@ import { useSearchParams, Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { Shield, CheckCircle2, XCircle, Loader2, Mail } from "lucide-react";
 import { verifyEmail, resendVerificationEmail } from "../api/auth.api.js";
+import Button from "../component/Button.jsx";
 
 export default function EmailVerificationPage() {
   const [searchParams] = useSearchParams();
@@ -116,9 +117,9 @@ function SuccessState() {
         Your email has been securely verified.
       </p>
 
-      <div className="mb-6 space-y-3">
+      <div className="mb-6 space-y-3 ">
         <Link to="/login">
-          <button className="w-full rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 px-6 py-3 font-medium text-white shadow-lg shadow-cyan-500/25 transition-all hover:shadow-cyan-500/40">
+          <button className="w-full mb-6 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 px-6 py-3 font-medium text-white shadow-lg shadow-cyan-500/25 transition-all hover:shadow-cyan-500/40">
             Continue to Login
           </button>
         </Link>
@@ -183,36 +184,21 @@ function FailedState({ isExpired, token }) {
       </p>
 
       <div className="mb-6 space-y-3">
-        {resendStatus === "sent" ? (
+        {resendStatus === "sent" && (
           <div className="flex items-center justify-center gap-2 rounded-lg border border-green-500/30 bg-green-500/10 px-6 py-3">
             <Mail className="h-5 w-5 text-green-400" />
             <span className="font-medium text-green-300">
               Verification email sent successfully
             </span>
           </div>
-        ) : (
-          <button
-            onClick={handleResend}
-            disabled={resendStatus === "sending"}
-            className="w-full rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 px-6 py-3 font-medium text-white shadow-lg shadow-cyan-500/25 transition-all hover:shadow-cyan-500/40 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {resendStatus === "sending" ? (
-              <span className="flex items-center justify-center gap-2">
-                <Loader2 className="h-5 w-5 animate-spin" />
-                Sending...
-              </span>
-            ) : (
-              "Resend Verification Email"
-            )}
-          </button>
         )}
 
         <Link to="/">
-          <button className="w-full rounded-lg border border-white/20 bg-white/5 px-6 py-3 font-medium text-white backdrop-blur-sm transition-all hover:bg-white/10">
+           <Button variant="frosted">
             Return to Homepage
-          </button>
+            </Button>
         </Link>
-      </div>
+       </div>
 
       <div className="flex items-center justify-center gap-2 border-t border-white/5 pt-6">
         <Shield className="h-4 w-4 text-gray-400" />
