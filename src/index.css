@@ -1,6 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* @font-face {
+  font-family: "Transcity";
+  src: url("/src/assets/fonts/Transcity-DEMO.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+} */
+
 body {
   @apply bg-dark-bg text-white min-h-screen;
+  /* font-family: "Transcity", sans-serif; */
+  font-family: "Poppins", sans-serif;
 }

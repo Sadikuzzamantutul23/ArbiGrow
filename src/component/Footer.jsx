@@ -1,14 +1,23 @@
-import { motion } from 'motion/react';
-import { useInView } from 'react-intersection-observer';
-import { Facebook, Send, Mail, FileText, Shield, AlertTriangle ,Youtube,Twitter} from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { motion } from "motion/react";
+import { useInView } from "react-intersection-observer";
+import {
+  Facebook,
+  Send,
+  Mail,
+  FileText,
+  Shield,
+  AlertTriangle,
+  Youtube,
+  Twitter,
+} from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
-     const [ref, inView] = useInView({
+  const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1
+    threshold: 0.1,
   });
 
   return (
@@ -27,83 +36,87 @@ export default function Footer() {
                 ArbiGrow
               </div>
               <p className="text-gray-400 leading-relaxed mb-6 max-w-md">
-                Decentralized AI trading infrastructure built on Arbitrum. 
-                Next-generation automated trading powered by blockchain security and advanced algorithms.
+                Decentralized AI trading infrastructure built on Arbitrum.
+                Next-generation automated trading powered by blockchain security
+                and advanced algorithms.
               </p>
-              
+
               {/* Social Links */}
-            <div className="flex gap-4">
-  
-  {/* Facebook */}
-  <a 
-    href="#" 
-    target="_blank"
-    className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 transition-all duration-300"
-  >
-    <Facebook className="w-5 h-5" />
-  </a>
+              <div className="flex gap-4">
+                {/* Facebook */}
+                <a
+                  href="https://www.facebook.com/share/189Y6dLmQq/"
+                  target="_blank"
+                  className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 transition-all duration-300"
+                >
+                  <Facebook className="w-5 h-5" />
+                </a>
 
-  {/* Telegram */}
-  <a 
-    href="https://t.me/ArbigrowOfficial" 
-    target="_blank"
-    className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-cyan-600 hover:border-cyan-600 transition-all duration-300"
-  >
-    <Send className="w-5 h-5" />
-  </a>
+                {/* Telegram */}
+                <a
+                  href="https://t.me/ArbigrowOfficial"
+                  target="_blank"
+                  className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-cyan-600 hover:border-cyan-600 transition-all duration-300"
+                >
+                  <Send className="w-5 h-5" />
+                </a>
 
-  {/* YouTube */}
-  <a 
-    href="https://youtube.com/@arbigrow-official?si=ucCCPJtcdebgkUfZ" 
-    target="_blank"
-    className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition-all duration-300"
-  >
-    <Youtube className="w-5 h-5" />
-  </a>
+                {/* YouTube */}
+                <a
+                  href="https://youtube.com/@arbigrow-official?si=ucCCPJtcdebgkUfZ"
+                  target="_blank"
+                  className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition-all duration-300"
+                >
+                  <Youtube className="w-5 h-5" />
+                </a>
 
-  {/* Twitter */}
-  <a 
-    href="https://x.com/arbigrow" 
-    target="_blank"
-    className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-sky-500 hover:border-sky-500 transition-all duration-300"
-  >
-    <Twitter className="w-5 h-5" />
-  </a>
+                {/* Twitter */}
+                <a
+                  href="https://x.com/arbigrow"
+                  target="_blank"
+                  className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-sky-500 hover:border-sky-500 transition-all duration-300"
+                >
+                  <Twitter className="w-5 h-5" />
+                </a>
 
-  {/* Mail */}
-  <a 
-    href="mailto:arbigrow.official@gmail.com"
-    target='_blank'
-    className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 transition-all duration-300"
-  >
-    <Mail className="w-5 h-5" />
-  </a>
-
-</div>
+                {/* Mail */}
+                <a
+                  href="mailto:arbigrow.official@gmail.com"
+                  target="_blank"
+                  className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 transition-all duration-300"
+                >
+                  <Mail className="w-5 h-5" />
+                </a>
+              </div>
             </div>
 
             {/* Legal Column */}
             <div>
               <h3 className="font-bold mb-4">Legal</h3>
               <ul className="space-y-3">
-                <li
-                 onClick={() => navigate("/terms-conditions")}
+                <li onClick={() => navigate("/terms-conditions")}>
+                  <a
+                    href="#"
+                    className="text-gray-400 hover:text-cyan-400 transition-colors duration-300 flex items-center gap-2"
                   >
-                  <a href="#" className="text-gray-400 hover:text-cyan-400 transition-colors duration-300 flex items-center gap-2">
                     <FileText className="w-4 h-4" />
                     Terms & Conditions
                   </a>
                 </li>
-                <li
-                onClick={()=> navigate("/privacy-policy")}
-                >
-                  <a href="#" className="text-gray-400 hover:text-cyan-400 transition-colors duration-300 flex items-center gap-2">
+                <li onClick={() => navigate("/privacy-policy")}>
+                  <a
+                    href="#"
+                    className="text-gray-400 hover:text-cyan-400 transition-colors duration-300 flex items-center gap-2"
+                  >
                     <Shield className="w-4 h-4" />
                     Privacy Policy
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-cyan-400 transition-colors duration-300 flex items-center gap-2">
+                  <a
+                    href="#"
+                    className="text-gray-400 hover:text-cyan-400 transition-colors duration-300 flex items-center gap-2"
+                  >
                     <FileText className="w-4 h-4" />
                     Legal Information
                   </a>
@@ -117,15 +130,20 @@ export default function Footer() {
               <ul className="space-y-3">
                 <li className="text-gray-400">
                   <span className="block text-sm mb-1">Official Email</span>
-                  <a href="mailto:arbigrow.official@gmail.com" className="text-cyan-400 hover:text-cyan-300">
-                     arbigrow.official@gmail.com
-                
+                  <a
+                    href="mailto:arbigrow.official@gmail.com"
+                    className="text-cyan-400 hover:text-cyan-300"
+                  >
+                    arbigrow.official@gmail.com
                   </a>
                 </li>
                 <li className="text-gray-400">
                   <span className="block text-sm mb-1">Support</span>
-                  <a href="mailto:arbigrow.info@gmail.com" className="text-cyan-400 hover:text-cyan-300">
-                   arbigrow.info@gmail.com  
+                  <a
+                    href="mailto:arbigrow.info@gmail.com"
+                    className="text-cyan-400 hover:text-cyan-300"
+                  >
+                    arbigrow.info@gmail.com
                   </a>
                 </li>
               </ul>
@@ -137,11 +155,17 @@ export default function Footer() {
             <div className="flex items-start gap-3">
               <AlertTriangle className="w-5 h-5 text-orange-400 flex-shrink-0 mt-0.5" />
               <div>
-                <h4 className="font-semibold text-orange-400 mb-2">Risk Disclaimer</h4>
+                <h4 className="font-semibold text-orange-400 mb-2">
+                  Risk Disclaimer
+                </h4>
                 <p className="text-sm text-gray-400 leading-relaxed">
-                  Trading cryptocurrencies and digital assets carries significant risk. Past performance is not indicative of future results. 
-                  ArbiGrow does not provide financial advice. All users trade at their own risk and should only invest capital they can afford to lose. 
-                  This platform is not available in restricted jurisdictions. Please consult with a qualified financial advisor before making investment decisions.
+                  Trading cryptocurrencies and digital assets carries
+                  significant risk. Past performance is not indicative of future
+                  results. ArbiGrow does not provide financial advice. All users
+                  trade at their own risk and should only invest capital they
+                  can afford to lose. This platform is not available in
+                  restricted jurisdictions. Please consult with a qualified
+                  financial advisor before making investment decisions.
                 </p>
               </div>
             </div>
@@ -150,7 +174,8 @@ export default function Footer() {
           {/* Bottom Bar */}
           <div className="pt-8 border-t border-white/10 flex flex-col items-center gap-4 text-center">
             <div className="text-gray-400 text-sm">
-              © 2026 ArbiGrow. All rights reserved. C-Corporation registered in Delaware, USA.
+              © 2026 ArbiGrow. All rights reserved. C-Corporation registered in
+              Delaware, USA.
             </div>
             <div className="flex items-center gap-6 text-sm text-gray-400">
               <span>Powered by Arbitrum</span>

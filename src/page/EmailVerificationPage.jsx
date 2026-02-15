@@ -9,30 +9,6 @@ export default function EmailVerificationPage() {
   const [status, setStatus] = useState("verifying"); // verifying | success | failed | expired
   const token = searchParams.get("verify_token");
 
-  // useEffect(() => {
-  //   console.log("useEffect fired, token =", token);
-
-  //   const verifyUserEmail = async () => {
-  //     console.log("Inside async function, token =", token);
-
-  //     if (!token) {
-  //       console.log("No token, returning");
-  //       setStatus("failed");
-  //       return;
-  //     }
-
-  //     try {
-  //       console.log("About to call verifyEmail");
-  //       const res = await verifyEmail(token);
-  //       console.log("After verifyEmail, res =", res);
-  //     } catch (err) {
-  //       console.log("Error caught:", err);
-  //     }
-  //   };
-
-  //   verifyUserEmail();
-  // }, [token]);
-
   useEffect(() => {
     const verifyUserEmail = async () => {
       if (!token) {
