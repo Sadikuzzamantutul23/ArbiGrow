@@ -1,12 +1,13 @@
 import { motion } from "motion/react";
-import { FileText, Shield, AlertCircle, Scale, Lock } from "lucide-react";
+import { FileText, Network, Cookie,UserCheck,Database,Scale, Lock,AlertCircle } from "lucide-react";
+
 import Navbar from "../component/Navbar";
 
 export default function PrivacyPolicy() {
   const sections = [
     {
       title: "1. Types of Information Collected",
-      icon: Shield,
+      icon:Database,
       content: [
         "Since ArbiGrow is a decentralized platform, we do not collect your personal files like traditional banks.",
         "Wallet Address: Your public wallet address used to execute transactions.",
@@ -37,7 +38,7 @@ export default function PrivacyPolicy() {
 
     {
       title: "4. Third-Party Disclosure",
-      icon: AlertCircle,
+      icon: Network,
       content: [
         "ArbiGrow does not sell or rent your personal information or trading data to any third party.",
         "However, technical data may be processed when required by law or for the operation of the blockchain network (such as Arbitrum).",
@@ -46,7 +47,7 @@ export default function PrivacyPolicy() {
 
     {
       title: "5. Use of Cookies",
-      icon: Scale,
+      icon: Cookie,
       content: [
         "Our website may use small cookies to improve your browsing experience and help you log in faster.",
         "You can disable cookies from your browser settings if you prefer.",
@@ -55,7 +56,7 @@ export default function PrivacyPolicy() {
 
     {
       title: "6. Your Rights",
-      icon: Shield,
+      icon: UserCheck,
       content: [
         "Verify information related to your account.",
         "Remove your account from our platform at any time.",
@@ -151,7 +152,7 @@ export default function PrivacyPolicy() {
 
                 <div className="relative">
                   {/* Section Header */}
-                  <div className="flex items-start gap-4 mb-6">
+                  <div className="flex items-center gap-4 mb-6">
                     <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 flex items-center justify-center">
                       <section.icon className="w-6 h-6 text-cyan-400" />
                     </div>
@@ -192,10 +193,10 @@ export default function PrivacyPolicy() {
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-3">
-                  Questions About These Terms?
+                  Questions About These Privacy Policy?
                 </h3>
                 <p className="text-gray-400 mb-4">
-                  If you have any questions about these Terms and Conditions,
+                  If you have any questions about these Privacy Policy,
                   please contact us:
                 </p>
                 <div className="space-y-2 text-sm">

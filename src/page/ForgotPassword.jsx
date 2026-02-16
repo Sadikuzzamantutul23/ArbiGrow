@@ -4,6 +4,8 @@ import { KeyRound, Mail, ArrowLeft, CheckCircle, AlertCircle } from 'lucide-reac
 import { useNavigate } from 'react-router-dom';
 import Button from '../component/Button';
 import { forgotPassword } from '../api/auth.api.js';
+import logo from '../assets/Arbigrow-Logo.png';
+
 
 export default function ForgotPassword() {
   const navigate = useNavigate();
@@ -108,12 +110,13 @@ export default function ForgotPassword() {
         className="fixed top-6 left-6 flex items-center gap-3 group z-50"
       >
         <div className="relative">
-          <div className="absolute -inset-2 bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 rounded-2xl blur-lg opacity-30 group-hover:opacity-60 transition-opacity duration-500"></div>
-          <div className="relative w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 via-cyan-500 to-blue-700 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-500/50">
-            <div className="relative w-7 h-7 border-[3px] border-white rounded-full flex items-center justify-center">
-              <div className="w-2 h-2 bg-white rounded-full"></div>
-            </div>
-          </div>
+          <div className="relative w-12 h-12 rounded-xl overflow-hidden group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-500/50">
+    <img
+      src={logo}
+      alt="ArbiGrow Logo"
+      className="w-full h-full object-contain"
+    />
+  </div>
         </div>
         <div>
           <div className="text-xl font-bold"
@@ -284,10 +287,10 @@ export default function ForgotPassword() {
 
                  <button
          onClick={handleResend}
-         disabled={isSubmitting || isDisabled}  // <-- এখানে isDisabled যোগ
+         disabled={isSubmitting || isDisabled}
          className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
-      {isSubmitting ? 'Sending...' : isDisabled ? 'Link Sent' : "Didn't receive the email? Resend"}
+      {isSubmitting ? 'Sending...' : isDisabled ? 'Email Resent' : "Didn't receive the email? Resend"}
      </button>
 
                   {/* <div

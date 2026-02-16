@@ -1,6 +1,9 @@
 import { useState, useRef } from 'react';
 import { motion } from 'motion/react';
 import { ShieldCheck, Upload, AlertCircle, FileText, CheckCircle, Image as ImageIcon, X, ChevronDown } from 'lucide-react';
+import { submitKYC } from '../api/kyc.api.js';
+import logo from '../assets/Arbigrow-Logo.png';
+
 
 // Popular countries with their flags
 const countries = [
@@ -98,54 +101,48 @@ export default function VerificationPage() {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError("");
 
-    if (!idNumber.trim()) {
-      setError('Please enter your ID number');
-      return;
+  if (!idNumber.trim()) {
+    setError("Please enter your ID number");
+    return;
+  }
+  if (!frontImage) {
+    setError("Please upload the front image");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("country", country.code);
+  formData.append("document_type", idType);
+  formData.append("document_number", idNumber);
+  formData.append("front_image", frontImage);
+  if (backImage) formData.append("back_image", backImage);
+
+  setIsSubmitting(true);
+
+  try {
+    // // const response = await submitKYC(formData);
+    // console.log("KYC Response:", response.data);
+    // alert("Verification submitted successfully!");
+    console.log("FormData entries:", [...formData.entries()]);
+  } catch (err) {
+
+    console.error(err);
+    if (err.response?.status === 401) {
+      setError("Unauthorized. Please login again.");
+    } else if (err.response?.status === 422) {
+      const messages = err.response.data?.detail?.map(d => d.msg).join(", ");
+      setError(messages || "Validation error");
+    } else {
+      setError("Verification failed. Please try again.");
     }
-
-    if (idType === 'nid' && idNumber.length < 10) {
-      setError('NID number must be at least 10 digits');
-      return;
-    }
-
-    if (idType === 'passport' && idNumber.length < 6) {
-      setError('Passport number must be at least 6 characters');
-      return;
-    }
-
-    if (!frontImage) {
-      setError('Please upload the front image of your ID');
-      return;
-    }
-
-    if (!backImage) {
-      setError('Please upload the back image of your ID');
-      return;
-    }
-
-    setIsSubmitting(true);
-    
-    try {
-      // Simulate API call
-      await new Promise((resolve) => {
-        setTimeout(resolve, 2000);
-      });
-      
-      // Handle success - you can navigate or show success message here
-      console.log('Verification submitted successfully');
-      setError('');
-      
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Verification failed. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
+  } finally {
+    setIsSubmitting(false);
+  }
+};
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#060913] via-[#080b1f] to-[#060913] text-white flex items-center justify-center px-4 py-12">
       {/* Background Elements */}
@@ -165,12 +162,13 @@ export default function VerificationPage() {
         className="fixed top-6 left-6 flex items-center gap-3 group z-50"
       >
         <div className="relative">
-          <div className="absolute -inset-2 bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 rounded-2xl blur-lg opacity-30 group-hover:opacity-60 transition-opacity duration-500"></div>
-          <div className="relative w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 via-cyan-500 to-blue-700 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-500/50">
-            <div className="relative w-7 h-7 border-[3px] border-white rounded-full flex items-center justify-center">
-              <div className="w-2 h-2 bg-white rounded-full"></div>
-            </div>
-          </div>
+          <div className="relative w-12 h-12 rounded-xl overflow-hidden group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-500/50">
+        <img
+        src={logo}
+        alt="ArbiGrow Logo"
+       className="w-full h-full object-contain"
+            />
+         </div>
         </div>
         <div>
           <div className="text-xl font-bold">
@@ -507,14 +505,14 @@ export default function VerificationPage() {
             </motion.div>
 
             {/* Footer Links */}
-            <div className="mt-8 pt-6 border-t border-white/10 text-center">
+            {/* <div className="mt-8 pt-6 border-t border-white/10 text-center">
               <p className="text-sm text-gray-400">
                 Need help?{' '}
                 <a href="#support" className="text-cyan-400 hover:text-cyan-300 transition-colors">
                   Contact Support
                 </a>
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </motion.div>

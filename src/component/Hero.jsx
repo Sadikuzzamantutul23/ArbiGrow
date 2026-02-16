@@ -3,8 +3,12 @@ import { motion } from "framer-motion";
 import { Shield, Zap } from 'lucide-react';
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
+import icon from '../assets/arbitrum-icon.png';
+import useUserStore from "../store/userStore";
+
 
 export const Hero = () => {
+   const {user} = useUserStore();
     const navigate = useNavigate();
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -62,9 +66,7 @@ export const Hero = () => {
           className="flex items-center justify-center gap-4 mt-10 mb-8 flex-wrap"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-blue-500/20">
-            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-              <div className="w-4 h-4 border-2 border-white rounded-full"></div>
-            </div>
+             <img src={icon} alt="Arbitrum Icon" className="w-8 h-8" />
             <span className="text-sm font-medium">Powered by Arbitrum</span>
           </div>
 
@@ -132,9 +134,17 @@ export const Hero = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
-          <Button variant="gradient" icon={<Zap/>} fullWidth={false} className="px-6 py-3" onClick={() =>navigate("/register")}>
-            Pre-Register Now
-            </Button>
+         {!user && (
+     <Button
+      variant="gradient"
+      icon={<Zap />}
+      fullWidth={false}
+      className="px-6 py-3"
+      onClick={() => navigate("/register")}
+     >
+       Pre-Register Now
+      </Button>
+)}
 
            <Button  variant="frosted" fullWidth={false} className="px-6 py-3" onClick={() => window.open('https://example.com/whitepaper', '_blank')}>
              Read Technical Whitepaper
@@ -146,7 +156,7 @@ export const Hero = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.2 }}
-          className="mt-20"
+          className="mt-20 hidden md:block"
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}

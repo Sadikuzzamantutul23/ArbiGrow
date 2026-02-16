@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { FileText, Shield, AlertCircle, CheckCircle, Scale, Lock } from 'lucide-react';
+import { FileText, Shield, AlertCircle,Scale, Lock, Wallet ,ShieldOff} from 'lucide-react';
 import Navbar from '../component/Navbar';
 
 export function TermsAndConditions() {
@@ -34,7 +34,7 @@ const sections = [
 
   {
     title: '4. Deposit & Withdrawal Rules',
-    icon: Scale,
+    icon:Wallet,
     content: [
       'Processing Time: Deposits and withdrawals are generally instant, but may be delayed due to network traffic.',
       'Fees: Network gas fees and platform service charges may change over time and will be displayed during the transaction.',
@@ -43,7 +43,7 @@ const sections = [
 
   {
     title: '5. Account Termination',
-    icon: AlertCircle,
+    icon: ShieldOff,
     content: [
       'If a user engages in scams, hacking attempts, or misuses platform logic, ArbiGrow reserves the right to block the account without prior notice.',
     ],
@@ -139,7 +139,7 @@ const sections = [
 
               <div className="relative">
                 {/* Section Header */}
-                <div className="flex items-start gap-4 mb-6">
+                <div className="flex items-center gap-4 mb-6">
                   <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 flex items-center justify-center">
                     <section.icon className="w-6 h-6 text-cyan-400" />
                   </div>

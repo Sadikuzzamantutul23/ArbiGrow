@@ -9,6 +9,8 @@ const api = axios.create({
     
   },
    withCredentials: true,
+
+   
 });
 console.log("From axios file", import.meta.env);
 console.log("From axios file", import.meta.env.VITE_BACKEND_URL);

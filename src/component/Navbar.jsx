@@ -4,6 +4,7 @@ import { Menu, X, Zap, LogIn, UserPlus, ChevronDown } from 'lucide-react';
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
 import useUserStore from '../store/userStore';
+ import logo from '../assets/Arbigrow-Logo.png'
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -64,19 +65,15 @@ export default function Navbar() {
               
               {/* Logo */}
               <a
-                href="#home"
-                onClick={(e) => { e.preventDefault(); scrollToSection('#home'); }}
-                className="flex items-center gap-3 group relative z-10"
+                href='#home'
+                onClick={(e) => {e.preventDefault(); navigate('/'); scrollToSection('#home'); }}
+                className="flex items-center gap-2 group relative z-10"
               >
-                <div className="relative w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 via-cyan-500 to-blue-700 flex items-center justify-center shadow-lg shadow-blue-500/50">
-                  <div className="relative w-7 h-7 border-[3px] border-white rounded-full flex items-center justify-center">
-                    <motion.div 
-                      className="w-2 h-2 bg-white rounded-full"
-                      animate={{ scale: [1, 1.3, 1] }}
-                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    />
-                  </div>
-                </div>
+             <img
+                 src={logo}  
+                 alt="My Logo"
+                 className="w-12 h-12 object-contain"
+              />
                 <div>
                   <div className="text-2xl font-bold cursor-pointer" onClick={() => navigate("/")}>
                     <span className="bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent">
@@ -95,7 +92,7 @@ export default function Navbar() {
                   <a
                     key={idx}
                     href={link.href}
-                    onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
+                    onClick={(e) => { e.preventDefault(); navigate('/'); scrollToSection(link.href); }}
                     className="relative px-4 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors duration-300 group"
                   >
                     <span className="relative z-10">{link.label}</span>
