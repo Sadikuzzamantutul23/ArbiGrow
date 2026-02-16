@@ -1,24 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Shield, Zap } from 'lucide-react';
-import Button from './Button';
-import { useNavigate } from 'react-router-dom';
-import icon from '../assets/arbitrum-icon.png';
+import { Shield, Zap } from "lucide-react";
+import Button from "./Button";
+import { useNavigate } from "react-router-dom";
+import icon from "../assets/arbitrum-icon.png";
 import useUserStore from "../store/userStore";
 
-
 export const Hero = () => {
-   const {user} = useUserStore();
-    const navigate = useNavigate();
+  const { user } = useUserStore();
+  const navigate = useNavigate();
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
     minutes: 0,
-    seconds: 0
+    seconds: 0,
   });
 
   useEffect(() => {
-    const targetDate = new Date('2026-02-25T00:00:00').getTime();
+    const targetDate = new Date("2026-03-01T00:00:00").getTime();
 
     const updateCountdown = () => {
       const now = new Date().getTime();
@@ -27,9 +26,11 @@ export const Hero = () => {
       if (difference > 0) {
         setTimeLeft({
           days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          hours: Math.floor(
+            (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+          ),
           minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
-          seconds: Math.floor((difference % (1000 * 60)) / 1000)
+          seconds: Math.floor((difference % (1000 * 60)) / 1000),
         });
       }
     };
@@ -41,8 +42,10 @@ export const Hero = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 py-20 bg-dark-bg"
-      style={{ backgroundColor: '#0A122C' }}>
+    <section
+      className="relative min-h-screen flex items-center justify-center px-4 py-20 bg-dark-bg"
+      style={{ backgroundColor: "#0A122C" }}
+    >
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
@@ -53,7 +56,12 @@ export const Hero = () => {
         <motion.div
           className="absolute top-1/3 right-1/3 w-2 h-2 bg-blue-400 rounded-full"
           animate={{ scale: [1, 1.5, 1], opacity: [0.3, 0.6, 0.3] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
         />
       </div>
 
@@ -66,7 +74,7 @@ export const Hero = () => {
           className="flex items-center justify-center gap-4 mt-10 mb-8 flex-wrap"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-blue-500/20">
-             <img src={icon} alt="Arbitrum Icon" className="w-8 h-8" />
+            <img src={icon} alt="Arbitrum Icon" className="w-8 h-8" />
             <span className="text-sm font-medium">Powered by Arbitrum</span>
           </div>
 
@@ -97,7 +105,8 @@ export const Hero = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto"
         >
-          Next-generation automated trading powered by blockchain security and advanced AI algorithms.
+          Next-generation automated trading powered by blockchain security and
+          advanced AI algorithms.
         </motion.p>
 
         {/* Countdown Timer */}
@@ -107,21 +116,25 @@ export const Hero = () => {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="mb-12"
         >
-          <div className="text-sm text-gray-400 mb-4 tracking-wider uppercase">Launch Countdown</div>
+          <div className="text-sm text-gray-400 mb-4 tracking-wider uppercase">
+            Launch Countdown
+          </div>
           <div className="flex justify-center gap-4 md:gap-8">
             {[
-              { label: 'Days', value: timeLeft.days },
-              { label: 'Hours', value: timeLeft.hours },
-              { label: 'Minutes', value: timeLeft.minutes },
-              { label: 'Seconds', value: timeLeft.seconds }
+              { label: "Days", value: timeLeft.days },
+              { label: "Hours", value: timeLeft.hours },
+              { label: "Minutes", value: timeLeft.minutes },
+              { label: "Seconds", value: timeLeft.seconds },
             ].map((item, idx) => (
               <div key={idx} className="relative">
                 <div className="w-20 h-20 md:w-24 md:h-24 rounded-xl bg-gradient-to-br from-blue-600/20 to-cyan-600/20 backdrop-blur-md border border-blue-500/30 flex items-center justify-center shadow-lg shadow-blue-500/20">
                   <span className="text-3xl md:text-4xl font-bold bg-gradient-to-br from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                    {String(item.value).padStart(2, '0')}
+                    {String(item.value).padStart(2, "0")}
                   </span>
                 </div>
-                <div className="text-xs text-gray-400 mt-2 uppercase tracking-wider">{item.label}</div>
+                <div className="text-xs text-gray-400 mt-2 uppercase tracking-wider">
+                  {item.label}
+                </div>
               </div>
             ))}
           </div>
@@ -134,21 +147,28 @@ export const Hero = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
-         {!user && (
-     <Button
-      variant="gradient"
-      icon={<Zap />}
-      fullWidth={false}
-      className="px-6 py-3"
-      onClick={() => navigate("/register")}
-     >
-       Pre-Register Now
-      </Button>
-)}
+          {!user && (
+            <Button
+              variant="gradient"
+              icon={<Zap />}
+              fullWidth={false}
+              className="px-6 py-3"
+              onClick={() => navigate("/register")}
+            >
+              Pre-Register Now
+            </Button>
+          )}
 
-           <Button  variant="frosted" fullWidth={false} className="px-6 py-3" onClick={() => window.open('https://example.com/whitepaper', '_blank')}>
-             Read Technical Whitepaper
-           </Button>
+          <Button
+            variant="frosted"
+            fullWidth={false}
+            className="px-6 py-3"
+            onClick={() =>
+              window.open("https://example.com/whitepaper", "_blank")
+            }
+          >
+            Read Technical Whitepaper
+          </Button>
         </motion.div>
 
         {/* Bottom indicator */}
@@ -169,4 +189,4 @@ export const Hero = () => {
       </div>
     </section>
   );
-}
+};

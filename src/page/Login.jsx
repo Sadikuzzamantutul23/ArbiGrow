@@ -14,7 +14,7 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState({});
-  const [isSuccess, setIsSuccess] = useState(false); // success tracking
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,12 +56,17 @@ export default function LoginForm() {
       setIsSuccess(false);
 
       const res = await loginUser(formData);
-      // console.log(res, "login api response");
+      console.log(res, "login api response");
       // console.log("toiken", res?.data?.access_token);
 
       setUser(res?.data?.user);
       setToken(res?.data?.access_token);
-      navigate("/");
+      if (res?.data?.is_verified === false) {
+        navigate("/verification-page");
+      } else {
+        // navigate("/dashboard");
+        navigate("/");
+      }
 
       // success message
       setMessage(res.data.message || "Login successful");

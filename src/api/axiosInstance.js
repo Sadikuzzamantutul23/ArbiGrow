@@ -4,15 +4,12 @@ const api = axios.create({
   baseURL: `${import.meta.env.VITE_BACKEND_URL}/api/`,
   headers: {
     "Content-Type": "application/json",
-   
-    accept: "application/json",
-    
-  },
-   withCredentials: true,
 
-   
+    accept: "application/json",
+  },
+  withCredentials: true,
 });
-console.log("From axios file", import.meta.env);
-console.log("From axios file", import.meta.env.VITE_BACKEND_URL);
+// console.log("From axios file", import.meta.env);
+// console.log("From axios file", import.meta.env.VITE_BACKEND_URL);
 
 export default api;

@@ -1,10 +1,10 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Menu, X, Zap, LogIn, UserPlus, ChevronDown } from 'lucide-react';
-import Button from './Button';
-import { useNavigate } from 'react-router-dom';
-import useUserStore from '../store/userStore';
- import logo from '../assets/Arbigrow-Logo.png'
+import { Menu, X, Zap, LogIn, UserPlus, ChevronDown } from "lucide-react";
+import Button from "./Button";
+import { useNavigate } from "react-router-dom";
+import useUserStore from "../store/userStore";
+import logo from "../assets/Arbigrow-Logo.png";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -12,36 +12,34 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Zustand selector fixes
-   const token = useUserStore((state) => state.token);
+  const token = useUserStore((state) => state.token);
   const logout = useUserStore((state) => state.logout);
   const isLoggedIn = !!token;
-  
- const handleLogout = useCallback(() => {
+
+  const handleLogout = useCallback(() => {
     logout();
     navigate("/login");
   }, [logout, navigate]);
 
-
-
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navLinks = [
-    { label: 'Home', href: '#home' },
-    { label: 'Architecture', href: '#architecture' },
-    { label: 'Features', href: '#features' },
-    { label: 'Security', href: '#security' },
-    { label: 'Roadmap', href: '#roadmap' },
-    { label: 'About', href: '#about' }
+    { label: "Home", href: "#home" },
+    { label: "Architecture", href: "#architecture" },
+    { label: "Features", href: "#features" },
+    { label: "Security", href: "#security" },
+    { label: "Roadmap", href: "#roadmap" },
+    { label: "About", href: "#about" },
   ];
 
   const scrollToSection = (href) => {
     setIsMobileMenuOpen(false);
     const element = document.querySelector(href);
-    if (element) element.scrollIntoView({ behavior: 'smooth' });
+    if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -52,30 +50,38 @@ export default function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled ? 'py-3' : 'py-5'
+          isScrolled ? "py-3" : "py-5"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4">
-          <div className={`relative rounded-2xl transition-all duration-500 ${
-            isScrolled
-              ? 'bg-[#0a0e27]/95 backdrop-blur-2xl border border-white/10 shadow-2xl shadow-blue-500/10'
-              : 'bg-gradient-to-r from-[#0a0e27]/40 via-[#0a0e27]/60 to-[#0a0e27]/40 backdrop-blur-md border border-white/5'
-          }`}>
+          <div
+            className={`relative rounded-2xl transition-all duration-500 ${
+              isScrolled
+                ? "bg-[#0a0e27]/95 backdrop-blur-2xl border border-white/10 shadow-2xl shadow-blue-500/10"
+                : "bg-gradient-to-r from-[#0a0e27]/40 via-[#0a0e27]/60 to-[#0a0e27]/40 backdrop-blur-md border border-white/5"
+            }`}
+          >
             <div className="flex items-center justify-between px-6 py-4">
-              
               {/* Logo */}
               <a
-                href='#home'
-                onClick={(e) => {e.preventDefault(); navigate('/'); scrollToSection('#home'); }}
+                href="#home"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/");
+                  scrollToSection("#home");
+                }}
                 className="flex items-center gap-2 group relative z-10"
               >
-             <img
-                 src={logo}  
-                 alt="My Logo"
-                 className="w-12 h-12 object-contain"
-              />
+                <img
+                  src={logo}
+                  alt="My Logo"
+                  className="w-12 h-12 object-contain"
+                />
                 <div>
-                  <div className="text-2xl font-bold cursor-pointer" onClick={() => navigate("/")}>
+                  <div
+                    className="text-2xl font-bold cursor-pointer"
+                    onClick={() => navigate("/")}
+                  >
                     <span className="bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent">
                       ArbiGrow
                     </span>
@@ -92,7 +98,11 @@ export default function Navbar() {
                   <a
                     key={idx}
                     href={link.href}
-                    onClick={(e) => { e.preventDefault(); navigate('/'); scrollToSection(link.href); }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate("/");
+                      scrollToSection(link.href);
+                    }}
                     className="relative px-4 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors duration-300 group"
                   >
                     <span className="relative z-10">{link.label}</span>
@@ -101,13 +111,21 @@ export default function Navbar() {
               </div>
 
               {/* Desktop Auth Buttons */}
-              <div  className="hidden lg:flex items-center gap-2">
+              <div className="hidden lg:flex items-center gap-2">
                 {!isLoggedIn ? (
                   <>
-                    <Button variant="frosted" icon={<LogIn />} onClick={() => navigate("/login")}>
+                    <Button
+                      variant="frosted"
+                      icon={<LogIn />}
+                      onClick={() => navigate("/login")}
+                    >
                       Login
                     </Button>
-                    <Button variant="gradient" icon={<Zap />} onClick={() => navigate("/register")}>
+                    <Button
+                      variant="gradient"
+                      icon={<Zap />}
+                      onClick={() => navigate("/register")}
+                    >
                       Register
                     </Button>
                   </>
@@ -166,14 +184,13 @@ export default function Navbar() {
             />
 
             <motion.div
-              initial={{ x: '100%', opacity: 0 }}
+              initial={{ x: "100%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              exit={{ x: '100%', opacity: 0 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              exit={{ x: "100%", opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
               className="fixed top-0 right-0 bottom-0 w-full sm:w-80 bg-gradient-to-br from-[#0a0e27] via-[#0d1137] to-[#0a0e27] border-l border-white/10 z-50 lg:hidden overflow-y-auto"
             >
               <div className="p-6">
-
                 {/* Mobile Header */}
                 <div className="flex items-center justify-between mb-8">
                   <div className="flex items-center gap-3">
@@ -183,8 +200,12 @@ export default function Navbar() {
                       </div>
                     </div>
                     <div>
-                      <div className="text-lg font-bold text-white">ArbiGrow</div>
-                      <div className="text-[8px] text-cyan-400/80 uppercase tracking-wider">AI Trading</div>
+                      <div className="text-lg font-bold text-white">
+                        ArbiGrow
+                      </div>
+                      <div className="text-[8px] text-cyan-400/80 uppercase tracking-wider">
+                        AI Trading
+                      </div>
                     </div>
                   </div>
                   <button
@@ -201,7 +222,10 @@ export default function Navbar() {
                     <motion.a
                       key={idx}
                       href={link.href}
-                      onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollToSection(link.href);
+                      }}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: idx * 0.05 }}
@@ -218,19 +242,32 @@ export default function Navbar() {
                 {/* Mobile Action Buttons */}
                 {!isLoggedIn ? (
                   <div className="flex flex-col gap-2">
-                    <Button variant="frosted" icon={<LogIn />} onClick={() => navigate("/login")}>
+                    <Button
+                      variant="frosted"
+                      icon={<LogIn />}
+                      onClick={() => navigate("/login")}
+                    >
                       Login
                     </Button>
-                    <Button variant="frosted" icon={<UserPlus />} onClick={() => navigate("/register")}>
+                    <Button
+                      variant="frosted"
+                      icon={<UserPlus />}
+                      onClick={() => navigate("/register")}
+                    >
                       Register
                     </Button>
                   </div>
-                ):(
-                    <Button variant="gradient" onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }}>
-                      Logout
-                           </Button>
+                ) : (
+                  <Button
+                    variant="gradient"
+                    onClick={() => {
+                      handleLogout();
+                      setIsMobileMenuOpen(false);
+                    }}
+                  >
+                    Logout
+                  </Button>
                 )}
-
               </div>
             </motion.div>
           </>
