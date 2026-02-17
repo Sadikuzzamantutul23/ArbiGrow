@@ -10,6 +10,7 @@ import {TermsAndConditions} from './page/TermsAndConditions'
 import PrivacyPolicy from './page/privacyPolicy'
 import EmailVerificationPage from './page/EmailVerificationPage'
 import { NotFoundPage } from './page/NotFoundPage'
+import ProtectedRoute from './component/ProtectedRoute'
 
 
 const App = () => {
@@ -22,7 +23,7 @@ const App = () => {
           <Route path='/login' element={<LoginForm/>} />
           <Route path='/register' element={<RegisterForm/>} />
           <Route path='/forgot-password' element={<ForgotPassword/>} />
-          <Route path='/verification-page' element={<VerificationPage />} />
+          <Route path='/verification-page' element={<ProtectedRoute><VerificationPage /></ProtectedRoute> } />
           <Route path='/reset-password' element={<ResetPassword />} />
           <Route path='/terms-conditions' element={<TermsAndConditions />} />
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />

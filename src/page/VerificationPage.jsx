@@ -11,7 +11,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { submitKYC } from "../api/kyc.api.js";
-import logo from "../assets/Arbigrow-Logo.png";
+// import logo from "../assets/Arbigrow-Logo.png";
 import { useNavigate } from "react-router-dom";
 import { countries } from "../constants/countries";
 
@@ -138,7 +138,7 @@ export default function VerificationPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#060913] via-[#080b1f] to-[#060913] text-white flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-gradient-to-b from-[#060913] via-[#080b1f] to-[#060913] text-white flex items-center justify-center px-3 sm:px-4 md:px-6 py-8 md:py-12 relative overflow-hidden">
       {/* Background Elements */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.02)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
@@ -148,12 +148,12 @@ export default function VerificationPage() {
       </div>
 
       {/* Logo */}
-      <motion.a
+      {/* <motion.a
         href="#home"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="fixed top-6 left-6 flex items-center gap-3 group z-50"
+        className="fixed top-4 left-4 sm:top-6 sm:left-6 flex items-center gap-3 group z-50"
       >
         <div className="relative">
           <div className="relative w-12 h-12 rounded-xl overflow-hidden group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-500/50">
@@ -174,7 +174,7 @@ export default function VerificationPage() {
             AI Trading Platform
           </div>
         </div>
-      </motion.a>
+      </motion.a> */}
 
       {/* Main Content */}
       <motion.div
@@ -184,7 +184,7 @@ export default function VerificationPage() {
         className="relative max-w-2xl w-full"
       >
         {/* Card */}
-        <div className="relative p-8 md:p-12 rounded-3xl bg-gradient-to-br from-white/10 to-white/[0.02] backdrop-blur-2xl border border-white/10 shadow-2xl">
+        <div className="relative p-5 sm:p-8 md:p-12 rounded-3xl bg-gradient-to-br from-white/10 to-white/[0.02] backdrop-blur-2xl border border-white/10 shadow-2xl">
           {/* Glow effect */}
           <div className="absolute -inset-[1px] bg-gradient-to-br from-blue-500/20 via-cyan-500/20 to-blue-500/20 rounded-3xl blur-xl opacity-50"></div>
 
@@ -200,7 +200,7 @@ export default function VerificationPage() {
                 <ShieldCheck className="w-10 h-10 text-blue-400" />
               </motion.div>
 
-              <h1 className="text-3xl md:text-4xl font-bold mb-3">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3">
                 <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                   KYC
                 </span>{" "}
@@ -241,7 +241,7 @@ export default function VerificationPage() {
                     <motion.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="absolute z-50 w-full mt-2 p-2 bg-[#0a0e27] border border-white/10 rounded-xl shadow-2xl max-h-64 overflow-y-auto backdrop-blur-2xl"
+                      className="absolute z-50 w-full mt-2 p-2 max-h-60 sm:max-h-64 bg-[#0a0e27] border border-white/10 rounded-xl shadow-2xl overflow-y-auto backdrop-blur-2xl"
                     >
                       {/* Search */}
                       <div className="p-2 mb-2">
@@ -331,36 +331,39 @@ export default function VerificationPage() {
               </div>
 
               {/* ID Number Input */}
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  {idType === "nid" ? "National ID Number" : "Passport Number"}
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={idNumber}
-                    onChange={(e) => {
-                      setIdNumber(e.target.value);
-                      setError("");
-                    }}
-                    placeholder={
-                      idType === "nid"
-                        ? "Enter your NID number"
-                        : "Enter your passport number"
-                    }
-                    className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 focus:bg-white/10 transition-all duration-300"
-                  />
-                  {idNumber && !error && (
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="absolute right-4 top-1/2 -translate-y-1/2"
-                    >
-                      <CheckCircle className="w-5 h-5 text-green-400" />
-                    </motion.div>
-                  )}
-                </div>
-              </div>
+            <div>
+             <label className="block text-sm font-medium text-gray-300 mb-2">
+             {idType === "nid" ? "National ID Number" : "Passport Number"}
+            </label>
+
+         <div className="relative flex items-center">
+             <input
+             type="text"
+             value={idNumber}
+             onChange={(e) => {
+              setIdNumber(e.target.value);
+              setError("");
+             }}
+                placeholder={
+                idType === "nid"
+                ? "Enter your NID number"
+                 : "Enter your passport number"
+               }
+      className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 focus:bg-white/10 transition-all duration-300"
+    />
+
+    {idNumber && !error && (
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+        className="absolute right-4 flex items-center justify-center h-full"
+       >
+        <CheckCircle className="w-5 h-5 text-green-400" />
+       </motion.div>
+        )}
+     </div>
+     </div>
 
               {/* File Uploads */}
               <div className="space-y-4">
@@ -368,7 +371,7 @@ export default function VerificationPage() {
                   Upload ID Documents
                 </label>
 
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Front Image Upload */}
                   {/* <div>
                     <input
@@ -454,7 +457,7 @@ export default function VerificationPage() {
                             </button>
                           </div>
 
-                          <p className="text-xs text-gray-400 mt-2 text-center truncate">
+                          <p className="text-xs text-gray-400 mt-4 text-center truncate">
                             {frontImage.name}
                           </p>
                         </div>
@@ -514,7 +517,7 @@ export default function VerificationPage() {
                                 </button>
                               </div>
 
-                              <p className="text-xs text-gray-400 mt-2 text-center truncate">
+                              <p className="text-xs text-gray-400 mt-4 text-center truncate">
                                 {backImage.name}
                               </p>
                             </div>
@@ -554,7 +557,7 @@ export default function VerificationPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="relative w-full group px-6 py-4 bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 rounded-xl font-semibold overflow-hidden shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="relative w-full group px-4 sm:px-6 py-3 sm:py-4 bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 rounded-xl font-semibold overflow-hidden shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
                 {/* Animated shine effect */}
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"></div>

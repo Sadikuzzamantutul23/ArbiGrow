@@ -9,6 +9,7 @@ export default function RegisterForm() {
   const navigate = useNavigate();
   const setUser = useUserStore((state) => state.setUser);
   const setToken = useUserStore((state) => state.setToken);
+  const [isReferralLocked, setIsReferralLocked] = useState(false);
 
   const [agree, setAgree] = useState(false);
 
@@ -33,6 +34,7 @@ export default function RegisterForm() {
         ...prev,
         referral_code: refCodeFromURL,
       }));
+       setIsReferralLocked(true); 
     }
   }, [searchParams]);
 
@@ -157,13 +159,19 @@ export default function RegisterForm() {
 
             <div>
               <input
-                type="text"
-                name="referral_code"
-                value={formData.referral_code}
-                placeholder="Enter referral code"
-                className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                onChange={handleChange}
-              />
+               type="text"
+               name="referral_code"
+               value={formData.referral_code}
+               placeholder="Enter referral code"
+               readOnly={isReferralLocked}
+               onChange={handleChange}
+               className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white text-black"
+               />
+                {isReferralLocked && (
+                 <p className="text-xs text-[#00CFF5] mt-1">
+               Referral applied from invitation link
+               </p>
+               )}
               {errors.find((e) => e.field === "referral_code") && (
                 <p className="text-xs text-red-500 mt-1">
                   {errors.find((e) => e.field === "referral_code").message}
