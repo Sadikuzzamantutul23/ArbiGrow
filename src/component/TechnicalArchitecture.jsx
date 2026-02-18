@@ -1,11 +1,11 @@
-import { motion } from 'motion/react';
-import { useInView } from 'react-intersection-observer';
-import { Layers, Cpu, Zap, Shield, TrendingUp, Database } from 'lucide-react';
+import { motion } from "motion/react";
+import { useInView } from "react-intersection-observer";
+import { Layers, Cpu, Zap, Shield, TrendingUp, Database } from "lucide-react";
 
 export default function TechnicalArchitecture() {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1
+    threshold: 0.1,
   });
 
   return (
@@ -19,10 +19,15 @@ export default function TechnicalArchitecture() {
           className="text-center mb-16"
         >
           <div className="inline-block px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 mb-6">
-            <span className="text-sm font-semibold text-cyan-400 uppercase tracking-wider">Technical Architecture</span>
+            <span className="text-sm font-semibold text-cyan-400 uppercase tracking-wider">
+              Technical Architecture
+            </span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Built on <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Enterprise Infrastructure</span>
+            Powered by{" "}
+            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+              Advanced Technology
+            </span>
           </h2>
         </motion.div>
 
@@ -37,24 +42,43 @@ export default function TechnicalArchitecture() {
           >
             {/* Animated border glow */}
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/20 to-transparent blur-xl"></div>
-            
+
             <div className="relative z-10">
               <div className="w-16 h-16 rounded-2xl bg-blue-600/20 border border-blue-500/40 flex items-center justify-center mb-6">
                 <Layers className="w-8 h-8 text-blue-400" />
               </div>
-              
-              <h3 className="text-2xl font-bold mb-4">Arbitrum & Offchain Labs Integration</h3>
-              
+
+              <h3 className="text-2xl font-bold mb-4">
+                Decentralized Architecture
+              </h3>
+
               <p className="text-gray-300 mb-8 leading-relaxed">
-                Leveraging Arbitrum's optimistic rollup technology to deliver unparalleled speed, security, and cost efficiency for decentralized trading operations.
+                Built on secure blockchain infrastructure to ensure
+                transparency, speed, and user-controlled digital transactions.
               </p>
 
               <div className="space-y-4">
                 {[
-                  { icon: Layers, title: 'Optimistic Rollup Technology', desc: 'Advanced Layer-2 scaling solution' },
-                  { icon: Shield, title: 'Ethereum-level Data Security', desc: 'Inherits Ethereum mainnet security' },
-                  { icon: Zap, title: 'Fast Finality', desc: 'Near-instant transaction confirmation' },
-                  { icon: TrendingUp, title: 'Low Gas Fees', desc: 'Up to 90% reduction in costs' }
+                  {
+                    icon: Layers,
+                    title: "Transparent transactions",
+                    desc: "Advanced Layer-2 scaling solution",
+                  },
+                  {
+                    icon: Shield,
+                    title: "Secure smart contracts",
+                    desc: "Inherits Ethereum mainnet security",
+                  },
+                  {
+                    icon: Zap,
+                    title: "No middlemen",
+                    desc: "Near-instant transaction confirmation",
+                  },
+                  {
+                    icon: TrendingUp,
+                    title: "Low Gas Fees",
+                    desc: "Up to 90% reduction in costs",
+                  },
                 ].map((item, idx) => (
                   <motion.div
                     key={idx}
@@ -67,8 +91,10 @@ export default function TechnicalArchitecture() {
                       <item.icon className="w-5 h-5 text-blue-400" />
                     </div>
                     <div>
-                      <div className="font-semibold text-white mb-1">{item.title}</div>
-                      <div className="text-sm text-gray-400">{item.desc}</div>
+                      <div className="font-semibold text-white mb-1">
+                        {item.title}
+                      </div>
+                      {/* <div className="text-sm text-gray-400">{item.desc}</div> */}
                     </div>
                   </motion.div>
                 ))}
@@ -85,26 +111,43 @@ export default function TechnicalArchitecture() {
           >
             {/* Animated border glow */}
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-l from-cyan-500/20 to-transparent blur-xl"></div>
-            
+
             <div className="relative z-10">
               <div className="w-16 h-16 rounded-2xl bg-cyan-600/20 border border-cyan-500/40 flex items-center justify-center mb-6">
                 <Cpu className="w-8 h-8 text-cyan-400" />
               </div>
-              
+
               <h3 className="text-2xl font-bold mb-4">
-                AI Engine – <span className="text-cyan-400">"Arbi-Core"</span>
+                24/7 <span className="text-cyan-400">AI Trading Engine</span>
               </h3>
-              
+
               <p className="text-gray-300 mb-8 leading-relaxed">
-                Proprietary machine learning infrastructure that processes market data in real-time and executes emotion-free trading strategies through smart contracts.
+                Our advanced AI continuously analyzes market data to identify
+                potential opportunities with automated risk control.
               </p>
 
               <div className="space-y-4">
                 {[
-                  { icon: Database, title: 'Real-time Data Ingestion', desc: 'Multi-source market intelligence' },
-                  { icon: Cpu, title: 'Predictive Machine Learning', desc: 'Advanced pattern recognition algorithms' },
-                  { icon: Zap, title: 'Smart Contract Auto-Execution', desc: 'Trustless automated trade execution' },
-                  { icon: TrendingUp, title: 'Emotion-free Trading Logic', desc: 'Algorithmic decision-making system' }
+                  {
+                    icon: Database,
+                    title: "Real-time Data Analysis",
+                    desc: "Multi-source market intelligence",
+                  },
+                  {
+                    icon: Cpu,
+                    title: "Predictive Machine Learning",
+                    desc: "Advanced pattern recognition algorithms",
+                  },
+                  {
+                    icon: Zap,
+                    title: "Smart risk management",
+                    desc: "Trustless automated trade execution",
+                  },
+                  {
+                    icon: TrendingUp,
+                    title: "Emotion-free Trading Logic",
+                    desc: "Algorithmic decision-making system",
+                  },
                 ].map((item, idx) => (
                   <motion.div
                     key={idx}
@@ -117,8 +160,10 @@ export default function TechnicalArchitecture() {
                       <item.icon className="w-5 h-5 text-cyan-400" />
                     </div>
                     <div>
-                      <div className="font-semibold text-white mb-1">{item.title}</div>
-                      <div className="text-sm text-gray-400">{item.desc}</div>
+                      <div className="font-semibold text-white mb-1">
+                        {item.title}
+                      </div>
+                      {/* <div className="text-sm text-gray-400">{item.desc}</div> */}
                     </div>
                   </motion.div>
                 ))}
@@ -138,12 +183,12 @@ export default function TechnicalArchitecture() {
           <motion.div
             animate={{
               scale: [1, 1.2, 1],
-              opacity: [0.5, 1, 0.5]
+              opacity: [0.5, 1, 0.5],
             }}
             transition={{
               duration: 2,
               repeat: Infinity,
-              ease: "easeInOut"
+              ease: "easeInOut",
             }}
             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-cyan-400 blur-sm"
           ></motion.div>

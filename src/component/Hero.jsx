@@ -42,8 +42,7 @@ export const Hero = () => {
   }, []);
 
   return (
-    <section
-      className="relative min-h-screen flex items-center justify-center px-4 py-20 bg-dark-bg" >
+    <section className="relative min-h-screen flex items-center justify-center px-4 py-20 bg-dark-bg">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
@@ -89,10 +88,10 @@ export const Hero = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-5xl md:text-7xl font-bold mb-6 leading-tight text-white"
         >
-          Decentralized AI Trading
+          Modern Digital Earning
           <br />
           <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
-            Infrastructure on Arbitrum
+            Platform Powered by AI
           </span>
         </motion.h1>
 
@@ -103,8 +102,8 @@ export const Hero = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto"
         >
-          Next-generation automated trading powered by blockchain security and
-          advanced AI algorithms.
+          ArbiGrow provides smart, technology driven trading solutions designed
+          to simplify digital earning.
         </motion.p>
 
         {/* Countdown Timer */}

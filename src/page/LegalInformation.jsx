@@ -4,7 +4,7 @@ import {
   FileText,
   Database,
   Network,
-  Lock,
+  ShieldCheck,
   AlertCircle,
 } from "lucide-react";
 
@@ -19,6 +19,7 @@ export default function LegalPage() {
         "Company Name: ArbiGrow Training Company",
         "Platform Type: Decentralized AI Trading Infrastructure",
         "Operating Network: Arbitrum One (Layer-2)",
+        "ArbiGrow operates with transparency, technological integrity, and regulatory awareness in all business activities.",
       ],
     },
 
@@ -26,9 +27,10 @@ export default function LegalPage() {
       title: "2. Technology Partnership & Infrastructure",
       icon: Network,
       content: [
-        "ArbiGrow operational systems and smart contracts are built on Arbitrum Nitro technology.",
+        "ArbiGrow’s operational systems and smart contracts are built using Arbitrum Nitro technology developed by Offchain Labs, Inc.",
         "Technology Provider Reference: Offchain Labs, Inc. – Developers of the Arbitrum ecosystem.",
-        "All transaction settlements and security are ultimately protected by the Ethereum mainnet (Layer-1).",
+        "All transaction security and data settlement are protected by the Ethereum Mainnet (Layer-1).",
+        "Arbitrum’s Layer-2 scaling protocol ensures high-speed, low-cost, and secure blockchain execution.",
       ],
     },
 
@@ -38,20 +40,20 @@ export default function LegalPage() {
       content: [
         "Legal Identity: C-Corporation",
         "State of Registration: Delaware, USA",
-        "Registration Number: 7114194",
+        "Registration Number: 7114194 (Delaware Division of Corporations)",
         "Registration Date: August 27, 2018",
         "Headquarters: Princeton, New Jersey, USA",
-        "Official Websites: offchainlabs.com / arbitrum.io / yourdomain.com",
+        "Official Websites: offchainlabs.com / arbitrum.io / arbigrow.com",
       ],
     },
 
     {
       title: "4. Compliance & Regulation",
-      icon: Lock,
+      icon: ShieldCheck,
       content: [
-        "We are committed to following international AML (Anti-Money Laundering) policies.",
-        "KYC (Know Your Customer) compliance is maintained for platform integrity and fraud prevention.",
-        "User data security and blockchain transparency are core principles of our infrastructure.",
+        "We are committed to complying with international Anti-Money Laundering (AML) regulations.",
+        "Know Your Customer (KYC) procedures are maintained to ensure platform integrity and prevent fraudulent activities.",
+        "User data protection, blockchain transparency, and regulatory responsibility are core principles of our infrastructure.",
       ],
     },
   ];
@@ -60,7 +62,7 @@ export default function LegalPage() {
     <>
       <Navbar />
 
-      <section className="relative py-24 px-4 overflow-hidden">
+      <section className="relative py-28 px-4 overflow-hidden">
         {/* Background decoration */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-40 left-0 w-[600px] h-[600px] bg-blue-500/3 rounded-full blur-3xl"></div>
@@ -88,16 +90,14 @@ export default function LegalPage() {
             </h1>
 
             <p className="text-gray-400 text-lg max-w-3xl mx-auto mb-4">
-              Legal identity, technology framework, and compliance structure of
-              the ArbiGrow platform.
+              Legal identity, technological framework, and regulatory compliance
+              structure of the ArbiGrow platform.
             </p>
 
-            <p className="text-sm text-gray-500">
-              Last Updated: February 2026
-            </p>
+            <p className="text-sm text-gray-500">Last Updated: February 2026</p>
           </motion.div>
 
-          {/* Legal Notice */}
+          {/* Legal Disclaimer */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -116,16 +116,18 @@ export default function LegalPage() {
                 </h3>
 
                 <p className="text-gray-300 text-sm leading-relaxed">
-                  ArbiGrow Trading Company is a technology-driven platform.
-                  Cryptocurrency trading involves market risks. While we aim to
-                  reduce risks using AI analytics and high-speed blockchain
-                  infrastructure, investors are advised to conduct their own
-                  research before making financial decisions.
+                  ArbiGrow Trading Company is a technology driven platform.
+                  Cryptocurrency trading involves significant market risks.
+                  While we strive to reduce risks through advanced AI analytics
+                  and Arbitrum’s high-speed blockchain infrastructure, investors
+                  are strongly advised to conduct their own independent research
+                  and risk assessment before making financial decisions.
                 </p>
 
                 <p className="text-gray-300 text-sm leading-relaxed mt-4">
-                  ArbiGrow does not provide financial advisory services. All
-                  investment decisions remain the responsibility of the user.
+                  ArbiGrow does not provide financial, investment, or legal
+                  advisory services. All investment decisions remain solely the
+                  responsibility of the user.
                 </p>
               </div>
             </div>
