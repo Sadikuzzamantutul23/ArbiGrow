@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import Navbar from "../component/Navbar";
 import Button from "../component/Button";
 import { registerUser } from "../api/auth.api.js";
@@ -11,12 +11,15 @@ export default function RegisterForm() {
   const setToken = useUserStore((state) => state.setToken);
   const [isReferralLocked, setIsReferralLocked] = useState(false);
 
+
   const [agree, setAgree] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
+    full_name: "",
     referral_code: "",
     password: "",
+    confirm_password: "", 
   });
 
   const [loading, setLoading] = useState(false);
@@ -51,11 +54,34 @@ export default function RegisterForm() {
   const handleAgree = (e) => {
     setAgree(e.target.checked);
   };
-
+    
   const validateForm = () => {
+    const emailRegex = /^\S+@\S+\.\S+$/;
+
     if (!formData.email.trim()) return "Email is required";
+    if (!emailRegex.test(formData.email)) return "Invalid email format";
+    if (!formData.full_name.trim()) return "Name is required";
     if (!formData.referral_code.trim()) return "Referral code is required";
-    if (!formData.password.trim()) return "Password is required";
+    if (!formData.password.trim())
+  return "Password is required";
+
+  if (formData.password.length < 8)
+  return "Password must be at least 8 characters";
+
+   if (!/[A-Z]/.test(formData.password))
+  return "Password must include an uppercase letter";
+
+  if (!/[a-z]/.test(formData.password))
+  return "Password must include a lowercase letter";
+
+   if (!/[0-9]/.test(formData.password))
+    return "Password must include a number";
+
+   if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password))
+  return "Password must include a special character";
+   if (formData.password !== formData.confirm_password)
+    return "Passwords do not match";
+    
     if (!agree) return "You must agree to terms & conditions";
     return null;
   };
@@ -125,7 +151,7 @@ export default function RegisterForm() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen flex items-center justify-center bg-[#0A122C] px-4 pt-24">
+      <div className="min-h-screen flex items-center justify-center bg-[#0A122C] px-4 pt-[120px] sm:pt-20 md:pt-28 lg:pt-36">
 
         <div className="bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg rounded-lg w-full max-w-md p-3 hover:shadow-blue-900/50 transition-shadow duration-600">
 
@@ -136,7 +162,7 @@ export default function RegisterForm() {
             </h1>
           </div>
 
-          <h2 className="text-2xl font-bold mb-6 text-[#FFFFFF] text-center">
+          <h2 className="text-2xl font-bold mb-6 text-[#FFFFFF] text-center pt-4">
             Registration Form
           </h2>
 
@@ -156,7 +182,25 @@ export default function RegisterForm() {
                 </p>
               )}
             </div>
-
+               {/* name */}
+               
+            <div>
+              <input
+               type="text"
+               name="full_name"
+               value={formData.full_name}
+               placeholder="Enter your full name"
+               onChange={handleChange}
+               className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white text-black"
+               />
+              {errors.find((e) => e.field === "full_name") && (
+                <p className="text-xs text-red-500 mt-1">
+                  {errors.find((e) => e.field === "full_name").message}
+                </p>
+              )}
+            </div>
+            
+                    {/* referral code */}
             <div>
               <input
                type="text"
@@ -192,6 +236,17 @@ export default function RegisterForm() {
                   {errors.find((e) => e.field === "password").message}
                 </p>
               )}
+            </div>
+            {/* Confirm Password */}
+            <div className="relative w-full">
+              <input
+                type="password"
+                name="confirm_password"
+                placeholder="Confirm your password"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4171AD]"
+                onChange={handleChange}
+              />
+             
             </div>
 
             {/* Checkbox */}

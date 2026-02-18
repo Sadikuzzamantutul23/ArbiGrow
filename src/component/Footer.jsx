@@ -112,7 +112,7 @@ export default function Footer() {
                     Privacy Policy
                   </a>
                 </li>
-                <li>
+                <li onClick={() => navigate("/legal-information")}>
                   <a
                     href="#"
                     className="text-gray-400 hover:text-cyan-400 transition-colors duration-300 flex items-center gap-2"

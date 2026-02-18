@@ -11,6 +11,7 @@ import PrivacyPolicy from './page/privacyPolicy'
 import EmailVerificationPage from './page/EmailVerificationPage'
 import { NotFoundPage } from './page/NotFoundPage'
 import ProtectedRoute from './component/ProtectedRoute'
+import LegalPage from './page/LegalInformation'
 
 
 const App = () => {
@@ -28,7 +29,7 @@ const App = () => {
           <Route path='/terms-conditions' element={<TermsAndConditions />} />
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />
           <Route path='/email-verification' element={<EmailVerificationPage />} />
-         
+          <Route path='/legal-information' element={<LegalPage/>} />
           <Route path='/not-found' element={<NotFoundPage />} />
           
         </Routes>

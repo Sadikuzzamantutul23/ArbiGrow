@@ -103,7 +103,7 @@ export default function ForgotPassword() {
 
       {/* Logo */}
       <motion.a
-        href="#home"
+        onClick={() => navigate('/')}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -119,9 +119,7 @@ export default function ForgotPassword() {
   </div>
         </div>
         <div>
-          <div className="text-xl font-bold"
-           onClick={() => navigate('/')}
-          >
+          <div className="text-xl font-bold">
             <span className="bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent">
               ArbiGrow
             </span>
@@ -132,7 +130,7 @@ export default function ForgotPassword() {
         </div>
       </motion.a>
 
-      {/* Back Button */}
+      {/* Back Button
       <motion.a
        onClick={() =>navigate('/login')}
      
@@ -145,7 +143,7 @@ export default function ForgotPassword() {
         <span 
        
         className="text-sm font-medium">Back to Login</span>
-      </motion.a>
+      </motion.a> */}
 
       {/* Main Content */}
       <motion.div

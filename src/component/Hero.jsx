@@ -43,9 +43,7 @@ export const Hero = () => {
 
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center px-4 py-20 bg-dark-bg"
-      style={{ backgroundColor: "#0A122C" }}
-    >
+      className="relative min-h-screen flex items-center justify-center px-4 py-20 bg-dark-bg" >
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
