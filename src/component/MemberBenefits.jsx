@@ -17,7 +17,7 @@ export function MemberBenefits() {
     },
     {
       icon: Users,
-      title: 'Referral Commission / Rewards',
+      title: 'Referral Commission',
       description: 'Earn generous rewards for every friend you refer to ArbiGrow',
       highlight: '20% Commission',
       color: 'from-cyan-500 to-teal-500',
@@ -67,63 +67,52 @@ export function MemberBenefits() {
         </motion.div>
 
         {/* Benefits Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {benefits.map((benefit, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              className="group relative"
-            >
-              {/* Card */}
-              <div className="relative h-full p-8 rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border border-white/10 hover:border-cyan-500/30 transition-all duration-500 overflow-hidden">
-                {/* Animated gradient background on hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className={`absolute inset-0 bg-gradient-to-br ${benefit.color} opacity-5`}></div>
-                </div>
+       <div className="grid gap-6 md:grid-cols-3">
+  {benefits.map((benefit, index) => (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.15 }}
+      className="group relative"
+    >
+      {/* Card */}
+      <div className="relative h-full p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border border-white/10 hover:border-cyan-500/30 transition-all duration-500 overflow-hidden">
 
-                {/* Glow effect */}
-                <div className={`absolute -inset-[1px] bg-gradient-to-br ${benefit.color} rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-500`}></div>
+        <div className="relative flex flex-col items-center text-center md:items-start md:text-left">
+          {/* Icon with animated ring */}
+          <div className="relative mb-6 inline-block">
+            <div className={`absolute inset-0 bg-gradient-to-br ${benefit.color} rounded-2xl blur-lg opacity-50 group-hover:opacity-100 transition-opacity duration-300`}></div>
+            <div className={`relative inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br ${benefit.color} bg-opacity-20 border border-white/20 group-hover:scale-110 transition-transform duration-300`}>
+              <benefit.icon className="w-10 h-10 text-white" />
+            </div>
+          </div>
 
-                <div className="relative">
-                  {/* Icon with animated ring */}
-                  <div className="relative mb-6 inline-block">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${benefit.color} rounded-2xl blur-lg opacity-50 group-hover:opacity-100 transition-opacity duration-300`}></div>
-                    <div className={`relative inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br ${benefit.color} bg-opacity-20 border border-white/20 group-hover:scale-110 transition-transform duration-300`}>
-                      <benefit.icon className="w-10 h-10 text-white" />
-                    </div>
-                  </div>
+          {/* Highlight badge */}
+          <div className="mb-4">
+            <span className={`inline-block px-4 py-1.5 rounded-full bg-gradient-to-r ${benefit.color} text-white text-sm font-bold shadow-lg`}>
+              {benefit.highlight}
+            </span>
+          </div>
 
-                  {/* Highlight badge */}
-                  <div className="mb-4">
-                    <span className={`inline-block px-4 py-1.5 rounded-full bg-gradient-to-r ${benefit.color} text-white text-sm font-bold shadow-lg`}>
-                      {benefit.highlight}
-                    </span>
-                  </div>
-
-                  {/* Content */}
-                  <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors duration-300">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-gray-400 leading-relaxed mb-6">
-                    {benefit.description}
-                  </p>
-
-                  {/* CTA Button
-                  <button className={`w-full py-3 rounded-xl bg-gradient-to-r ${benefit.color} text-white font-semibold hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 hover:scale-105`}>
-                    Learn More
-                  </button> */}
-                </div>
-              </div>
-
-              {/* Floating particles decoration */}
-              <div className="absolute top-4 right-4 w-2 h-2 bg-cyan-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping"></div>
-              <div className="absolute bottom-4 left-4 w-2 h-2 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping delay-75"></div>
-            </motion.div>
-          ))}
+          {/* Title & description */}
+          <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors duration-300">
+            {benefit.title}
+          </h3>
+          <p className="text-gray-400 leading-relaxed mb-6">
+            {benefit.description}
+          </p>
         </div>
+
+      </div>
+
+      {/* Optional floating particles */}
+      <div className="absolute top-4 right-4 w-2 h-2 bg-cyan-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping"></div>
+      <div className="absolute bottom-4 left-4 w-2 h-2 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping delay-75"></div>
+    </motion.div>
+  ))}
+</div>
 
         {/* Bottom CTA */}
         <motion.div

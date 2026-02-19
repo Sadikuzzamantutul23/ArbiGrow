@@ -34,25 +34,34 @@ export function VerificationPending() {
           <div className="absolute -inset-[1px] bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-3xl blur-xl opacity-50"></div>
 
           <div className="relative text-center">
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2, type: "spring" }}
-              className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border-2 border-yellow-500/50 mb-8"
-            >
-              <Clock className="w-12 h-12 text-yellow-400" />
-            </motion.div>
+<motion.div
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8 }}
+  className="relative p-8 md:p-12 rounded-3xl flex flex-col items-center justify-center"
+>
+  {/* ICON */}
+  <motion.div
+    initial={{ scale: 0 }}
+    animate={{ scale: 1 }}
+    transition={{ duration: 0.6, delay: 0.2, type: "spring" }}
+    className="flex items-center justify-center w-24 h-24 rounded-full 
+    bg-yellow-500/10 border-2 border-yellow-500/50 mb-6"
+  >
+    <Clock className="w-12 h-12 text-yellow-400" />
+  </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="inline-block mb-6"
-            >
-              <div className="px-6 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 font-semibold text-sm">
-                VERIFICATION PENDING
-              </div>
-            </motion.div>
+  {/* TEXT BELOW ICON */}
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6, delay: 0.4 }}
+  >
+    <div className="px-6 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 font-semibold text-sm">
+      VERIFICATION PENDING
+    </div>
+  </motion.div>
+</motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -76,25 +85,30 @@ export function VerificationPending() {
               currently reviewing your information.
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-              className="p-6 rounded-2xl bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/30 mb-8"
-            >
-              <div className="flex items-center justify-center gap-3 mb-2">
-                <AlertCircle className="w-5 h-5 text-cyan-400" />
-                <h3 className="text-xl font-bold text-white">
-                  Estimated Processing Time
-                </h3>
-              </div>
-              <p className="text-3xl font-bold text-cyan-400 mb-1">
-                2-3 Business Days
-              </p>
-              <p className="text-sm text-gray-400">
-                We'll notify you via email once your verification is complete
-              </p>
-            </motion.div>
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, delay: 0.7 }}
+  className="p-4 sm:p-6 md:p-6 rounded-2xl bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/30 mb-6"
+>
+  {/* HEADER */}
+  <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2">
+    <AlertCircle className="w-5 h-5 text-cyan-400" />
+    <h3 className="text-lg sm:text-xl font-bold text-white">
+      Estimated Processing Time
+    </h3>
+  </div>
+
+  {/* MAIN TIME */}
+  <p className="text-2xl sm:text-3xl font-bold text-cyan-400 mb-1">
+    2-3 Business Days
+  </p>
+
+  {/* DESCRIPTION */}
+  <p className="text-sm sm:text-sm text-gray-400 text-center">
+    We'll notify you via email once your verification is complete
+  </p>
+</motion.div>
           </div>
         </motion.div>
       </div>

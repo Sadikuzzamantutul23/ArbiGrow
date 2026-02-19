@@ -43,10 +43,11 @@ export default function TechnicalArchitecture() {
             {/* Animated border glow */}
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/20 to-transparent blur-xl"></div>
 
-            <div className="relative z-10">
-              <div className="w-16 h-16 rounded-2xl bg-blue-600/20 border border-blue-500/40 flex items-center justify-center mb-6">
-                <Layers className="w-8 h-8 text-blue-400" />
-              </div>
+           <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left">
+         {/* Icon */}
+         <div className="w-16 h-16 rounded-2xl bg-blue-600/20 border border-blue-500/40 flex items-center justify-center mb-6">
+        <Layers className="w-8 h-8 text-blue-400" />
+       </div>
 
               <h3 className="text-2xl font-bold mb-4">
                 Decentralized Architecture
@@ -87,8 +88,8 @@ export default function TechnicalArchitecture() {
                     transition={{ duration: 0.6, delay: 0.4 + idx * 0.1 }}
                     className="flex md:flex-row flex-col items-center md:text-left text-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors duration-300"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0">
-                      <item.icon className="w-5 h-5 text-blue-400" />
+                    <div className="w-12 h-12 sm:w-10 sm:h-10 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                      <item.icon className="w-6 h-6 sm:w-5 sm:h-5  text-blue-400" />
                     </div>
                     <div>
                       <div className="flex items-center">
@@ -114,7 +115,7 @@ export default function TechnicalArchitecture() {
             {/* Animated border glow */}
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-l from-cyan-500/20 to-transparent blur-xl"></div>
 
-            <div className="relative z-10">
+            <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left">
               <div className="w-16 h-16 rounded-2xl bg-cyan-600/20 border border-cyan-500/40 flex items-center justify-center mb-6">
                 <Cpu className="w-8 h-8 text-cyan-400" />
               </div>
@@ -158,8 +159,8 @@ export default function TechnicalArchitecture() {
   transition={{ duration: 0.6, delay: 0.4 + idx * 0.1 }}
   className="flex md:flex-row flex-col items-center md:text-left text-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors duration-300"
 >
-  <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
-    <item.icon className="w-5 h-5 text-cyan-400" />
+  <div className="w-12 h-12 sm:w-10 sm:h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
+    <item.icon className="w-6 h-6 sm:w-5 sm:h-5 text-cyan-400" />
   </div>
 
   <div className="flex items-center">

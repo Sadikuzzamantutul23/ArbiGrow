@@ -193,12 +193,16 @@ export default function Navbar() {
               <div className="p-6">
                 {/* Mobile Header */}
                 <div className="flex items-center justify-between mb-8">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 via-cyan-500 to-blue-700 flex items-center justify-center shadow-lg shadow-blue-500/50">
-                      <div className="w-6 h-6 border-2 border-white rounded-full flex items-center justify-center">
-                        <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
-                      </div>
-                    </div>
+                  <div className="flex items-center gap-3"
+                   onClick={() => navigate('/')}
+                  >
+                     <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-blue-500/50">
+                  <img
+                 src={logo}
+                 alt="ArbiGrow Logo"
+                 className="w-full h-full object-cover"
+                />
+                 </div>
                     <div>
                       <div className="text-lg font-bold text-white">
                         ArbiGrow
