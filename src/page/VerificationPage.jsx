@@ -131,7 +131,7 @@ export default function VerificationPage() {
 
       console.log("KYC Response:", response?.data);
       if (response?.data?.message == "KYC submitted successfully") {
-        // navigate("/");
+        navigate("/verification-pending");
       }
     } catch (err) {
       console.error(err);
