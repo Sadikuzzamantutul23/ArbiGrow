@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { X } from 'lucide-react';
+import { Twitter } from 'lucide-react';
 //  import { ImageWithFallback } from './figma/ImageWithFallback';
 
 export default function Founders() {
@@ -98,7 +98,7 @@ export default function Founders() {
                       className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-cyan-500/10 border border-cyan-500/30 hover:bg-cyan-500/20 transition-all duration-300 mt-4 group/icon"
                       aria-label="Twitter"
                     >
-                      <X className="w-5 h-5 text-cyan-400 group-hover/icon:scale-110 transition-transform duration-300" />
+                      <Twitter className="w-5 h-5 text-cyan-400 group-hover/icon:scale-110 transition-transform duration-300" />
                     </a>
                   </div>
                 </div>
