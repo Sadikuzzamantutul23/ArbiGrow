@@ -1,24 +1,100 @@
 import { motion } from 'motion/react';
 
 export function OurInvestors() {
-  const investors = [
-    {
-      name: 'Investor 1',
-      logo: 'https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/6537e4e300ae0a9101d86e32_source-file-logos-02.svg',
-    },
-    {
-      name: 'Investor 2',
-      logo: 'https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/6537e515041c78bc46c9ecbd_source-file-logos-03.svg',
-    },
-    {
-      name: 'Investor 3',
-      logo: 'https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/6537e47fd5c838583722d554_source-file-logos-01.svg',
-    },
-    {
-      name: 'Investor 4',
-      logo: 'https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051f4_source-file-logos-06.svg',
-    },
-  ];
+ const investors = [
+  {
+    name: "Investor 1",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/6537e4e300ae0a9101d86e32_source-file-logos-02.svg",
+  },
+  {
+    name: "Investor 2",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/6537e515041c78bc46c9ecbd_source-file-logos-03.svg",
+  },
+  {
+    name: "Investor 3",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/6537e47fd5c838583722d554_source-file-logos-01.svg",
+  },
+  {
+    name: "Investor 4",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051f4_source-file-logos-06.svg",
+  },
+  {
+    name: "Investor 5",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051da_source-file-logos-23.svg",
+  },
+ 
+  {
+    name: "Investor 7",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051c4_source-file-logos-05.svg",
+  },
+  {
+    name: "Investor 8",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051c3_source-file-logos-07.svg",
+  },
+  {
+    name: "Investor 9",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051d2_source-file-logos-08.svg",
+  },
+  {
+    name: "Investor 10",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051d5_source-file-logos-09.svg",
+  },
+  {
+    name: "Investor 11",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051c5_source-file-logos-10.svg",
+  },
+  {
+    name: "Investor 12",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051c2_source-file-logos-11.svg",
+  },
+ 
+  {
+    name: "Investor 14",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051d8_source-file-logos-13.svg",
+  },
+  {
+    name: "Investor 15",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051d6_source-file-logos-14.svg",
+  },
+  {
+    name: "Investor 16",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051cc_source-file-logos-15.svg",
+  },
+  {
+    name: "Investor 17",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051d3_source-file-logos-16.svg",
+  },
+  {
+    name: "Investor 18",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051c1_source-file-logos-17.svg",
+  },
+  {
+    name: "Investor 19",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051cf_source-file-logos-18.svg",
+  },
+  {
+    name: "Investor 20",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051ca_source-file-logos-19.svg",
+  },
+ 
+  {
+    name: "Investor 22",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051d9_source-file-logos-22.svg",
+  },
+  {
+    name: "Investor 23",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051cd_source-file-logos-25.svg",
+  },
+  {
+    name: "Investor 24",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051d7_source-file-logos-26.svg",
+  },
+  
+  {
+    name: "Investor 26",
+    logo: "https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051d1_source-file-logos-28.svg",
+  },
+];
 
   // Duplicate investors array for seamless loop
   const duplicatedInvestors = [...investors, ...investors, ...investors];
@@ -68,7 +144,7 @@ export function OurInvestors() {
                 x: {
                   repeat: Infinity,
                   repeatType: 'loop',
-                  duration: 20,
+                  duration: 160,
                   ease: 'linear',
                 },
               }}
