@@ -18,6 +18,8 @@ import { countries } from "../constants/countries";
 export default function VerificationPage() {
   const [idNumber, setIdNumber] = useState("");
   const [idType, setIdType] = useState("nid");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
   const [country, setCountry] = useState(countries[0]);
   const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false);
   const [frontImage, setFrontImage] = useState(null);
@@ -88,6 +90,18 @@ export default function VerificationPage() {
       return;
     }
 
+    if (!phoneNumber.trim()) {
+      setError("Please enter your phone number");
+      return;
+    }
+
+    // basic validation (numbers only, 6–15 digits)
+    const phoneRegex = /^[0-9]{6,15}$/;
+    if (!phoneRegex.test(phoneNumber)) {
+      setError("Please enter a valid phone number");
+      return;
+    }
+
     if (!frontImage) {
       setError("Please upload the front image");
       return;
@@ -99,7 +113,9 @@ export default function VerificationPage() {
     }
 
     const formData = new FormData();
-    formData.append("country", country.name); // backend expects string
+    formData.append("country", country.name);
+    formData.append("phone_number", `${country.dialCode}${phoneNumber}`);
+
     formData.append("document_type", idType);
     formData.append("document_number", idNumber);
     formData.append("front_image", frontImage);
@@ -115,7 +131,7 @@ export default function VerificationPage() {
 
       console.log("KYC Response:", response?.data);
       if (response?.data?.message == "KYC submitted successfully") {
-        navigate("/");
+        // navigate("/");
       }
     } catch (err) {
       console.error(err);
@@ -276,6 +292,33 @@ export default function VerificationPage() {
                   )}
                 </div>
               </div>
+              {/* Phone Number */}
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Phone Number
+                </label>
+
+                <div className="flex items-center gap-2">
+                  {/* Country Code */}
+                  <div className="px-4 py-4 bg-white/5 border border-white/10 rounded-xl text-gray-300 min-w-[90px] text-center">
+                    {country.dialCode}
+                  </div>
+
+                  {/* Phone Input */}
+                  <input
+                    type="tel"
+                    value={phoneNumber}
+                    onChange={(e) => {
+                      // allow only digits
+                      const value = e.target.value.replace(/\D/g, "");
+                      setPhoneNumber(value);
+                      setError("");
+                    }}
+                    placeholder="Enter phone number"
+                    className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 focus:bg-white/10 transition-all duration-300"
+                  />
+                </div>
+              </div>
 
               {/* ID Type Selection */}
               <div className="grid grid-cols-2 gap-3">
@@ -331,39 +374,43 @@ export default function VerificationPage() {
               </div>
 
               {/* ID Number Input */}
-            <div>
-             <label className="block text-sm font-medium text-gray-300 mb-2">
-             {idType === "nid" ? "National ID Number" : "Passport Number"}
-            </label>
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  {idType === "nid" ? "National ID Number" : "Passport Number"}
+                </label>
 
-         <div className="relative flex items-center">
-             <input
-             type="text"
-             value={idNumber}
-             onChange={(e) => {
-              setIdNumber(e.target.value);
-              setError("");
-             }}
-                placeholder={
-                idType === "nid"
-                ? "Enter your NID number"
-                 : "Enter your passport number"
-               }
-      className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 focus:bg-white/10 transition-all duration-300"
-    />
+                <div className="relative flex items-center">
+                  <input
+                    type="text"
+                    value={idNumber}
+                    onChange={(e) => {
+                      setIdNumber(e.target.value);
+                      setError("");
+                    }}
+                    placeholder={
+                      idType === "nid"
+                        ? "Enter your NID number"
+                        : "Enter your passport number"
+                    }
+                    className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 focus:bg-white/10 transition-all duration-300"
+                  />
 
-    {idNumber && !error && (
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ type: "spring", stiffness: 260, damping: 20 }}
-        className="absolute right-4 flex items-center justify-center h-full"
-       >
-        <CheckCircle className="w-5 h-5 text-green-400" />
-       </motion.div>
-        )}
-     </div>
-     </div>
+                  {idNumber && !error && (
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 260,
+                        damping: 20,
+                      }}
+                      className="absolute right-4 flex items-center justify-center h-full"
+                    >
+                      <CheckCircle className="w-5 h-5 text-green-400" />
+                    </motion.div>
+                  )}
+                </div>
+              </div>
 
               {/* File Uploads */}
               <div className="space-y-4">

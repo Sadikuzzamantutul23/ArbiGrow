@@ -61,10 +61,20 @@ export default function LoginForm() {
 
       setUser(res?.data?.user);
       setToken(res?.data?.access_token);
-      if (res?.data?.is_verified === false) {
+      if (res?.data?.doc_submitted === false) {
         navigate("/verification-page");
+      } else if (
+        res?.data?.kyc_status === "pending" &&
+        res?.data?.doc_submitted === true &&
+        res?.data?.kyc_status != "rejected"
+      ) {
+        navigate("/verification-pending");
+      } else if (
+        res?.data?.kyc_status === "approved" &&
+        res?.data?.doc_submitted === true
+      ) {
+        navigate("/dashboard");
       } else {
-        // navigate("/dashboard");
         navigate("/");
       }
 

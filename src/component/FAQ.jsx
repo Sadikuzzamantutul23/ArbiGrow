@@ -13,37 +13,37 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(null);
 
   const faqs = [
-  {
-    question: "What is ArbiGrow?",
-    answer:
-      "ArbiGrow is an AI-powered arbitrage trading platform that uses the Arbitrum network to generate profits by taking advantage of price differences across multiple exchanges with minimal risk.",
-  },
-  {
-    question: "What is the ARBX token and how can I get it?",
-    answer:
-      "ARBX is the native token of our ecosystem. By completing pre-registration, you will receive 100 free tokens, and you can earn additional bonus tokens for each successful referral.",
-  },
-  {
-    question: "Why are my ARBX tokens locked?",
-    answer:
-      "Tokens are currently locked to maintain price stability and market value. According to our roadmap, they will be gradually unlocked and available for withdrawal after exchange listings.",
-  },
-  {
-    question: "Can I withdraw my daily trading profits (USDT)?",
-    answer:
-      "Yes. You can withdraw the daily ROI generated from your investment package at any time directly to your personal wallet.",
-  },
-  {
-    question: "How secure is my investment?",
-    answer:
-      "We use the Arbitrum Layer-2 network, which is highly secure. Our AI bot does not trade based on speculation but uses mathematical data and analytics to execute trades, ensuring fund safety.",
-  },
-  {
-    question: "How does the referral commission system work?",
-    answer:
-      "We offer a powerful 5-level referral system. When someone joins through your referral, you will earn daily commissions along with bonus ARBX tokens.",
-  },
-];
+    {
+      question: "What is ArbiGrow?",
+      answer:
+        "ArbiGrow is an AI-powered arbitrage trading platform that uses the Arbitrum network to generate profits by taking advantage of price differences across multiple exchanges with minimal risk.",
+    },
+    {
+      question: "What is the ARBX token and how can I get it?",
+      answer:
+        "ARBX is the native token of our ecosystem. By completing pre-registration, you will receive 100 free tokens, and you can earn additional bonus tokens for each successful referral.",
+    },
+    {
+      question: "Why are my ARBX tokens locked?",
+      answer:
+        "Tokens are currently locked to maintain price stability and market value. According to our roadmap, they will be gradually unlocked and available for withdrawal after exchange listings.",
+    },
+    {
+      question: "Can I withdraw my daily trading profits (USDT)?",
+      answer:
+        "Yes. You can withdraw the daily ROI generated from your investment package at any time directly to your personal wallet.",
+    },
+    {
+      question: "How secure is my investment?",
+      answer:
+        "We use the Arbitrum Layer-2 network, which is highly secure. Our AI bot does not trade based on speculation but uses mathematical data and analytics to execute trades, ensuring fund safety.",
+    },
+    {
+      question: "How does the referral commission system work?",
+      answer:
+        "We offer a powerful 5-level referral system. When someone joins through your referral, you will earn daily commissions along with bonus ARBX tokens.",
+    },
+  ];
 
   return (
     <section ref={ref} className="py-20 px-4">
@@ -124,13 +124,19 @@ export default function FAQ() {
         >
           <h3 className="text-2xl font-bold mb-3">Still have questions?</h3>
           <p className="text-gray-150 mb-6">
-             Our support team is available 24/7 to help you with anything related to ArbiGrow.
+            Our support team is available 24/7 to help you with anything related
+            to ArbiGrow.
           </p>
-           <Button 
-               onClick={() => window.open("https://t.me/Arbigrow", "_blank")}
-            variant="gradient" fullWidth={false} className="mt-4  block mx-auto">
+          <Button
+            onClick={() =>
+              window.open("https://t.me/ArbigrowOfficial", "_blank")
+            }
+            variant="gradient"
+            fullWidth={false}
+            className="mt-4  block mx-auto"
+          >
             Contact Support
-           </Button>
+          </Button>
         </motion.div>
       </div>
     </section>
