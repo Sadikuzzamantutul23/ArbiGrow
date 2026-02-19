@@ -1,0 +1,120 @@
+import { motion } from 'motion/react';
+
+export function OurInvestors() {
+  const investors = [
+    {
+      name: 'Investor 1',
+      logo: 'https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/6537e4e300ae0a9101d86e32_source-file-logos-02.svg',
+    },
+    {
+      name: 'Investor 2',
+      logo: 'https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/6537e515041c78bc46c9ecbd_source-file-logos-03.svg',
+    },
+    {
+      name: 'Investor 3',
+      logo: 'https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/6537e47fd5c838583722d554_source-file-logos-01.svg',
+    },
+    {
+      name: 'Investor 4',
+      logo: 'https://cdn.prod.website-files.com/65298a37a6d41cc75a204f73/65298a37a6d41cc75a2051f4_source-file-logos-06.svg',
+    },
+  ];
+
+  // Duplicate investors array for seamless loop
+  const duplicatedInvestors = [...investors, ...investors, ...investors];
+
+  return (
+    <section className="relative py-24 px-4 overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-blue-500/3 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-cyan-500/3 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+            Our{' '}
+            <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
+              Investors
+            </span>
+          </h2>
+          <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+            Backed by leading venture capital firms and strategic partners
+          </p>
+        </motion.div>
+
+        {/* Scrolling Logos Container */}
+        <div className="relative">
+          {/* Gradient overlays for fade effect */}
+          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#0a0e27] to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#0a0e27] to-transparent z-10 pointer-events-none"></div>
+
+          {/* Scrolling logos */}
+          <div className="overflow-hidden py-8">
+            <motion.div
+              className="flex gap-12 items-center"
+              animate={{
+                x: [0, -100 * investors.length + '%'],
+              }}
+              transition={{
+                x: {
+                  repeat: Infinity,
+                  repeatType: 'loop',
+                  duration: 20,
+                  ease: 'linear',
+                },
+              }}
+            >
+              {duplicatedInvestors.map((investor, index) => (
+                <div
+                  key={index}
+                  className="flex-shrink-0 w-48 h-24 flex items-center justify-center p-6 rounded-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border border-white/10 hover:border-cyan-500/30 transition-all duration-300 group"
+                >
+                  <img
+                    src={investor.logo}
+                    alt={investor.name}
+                    className="max-w-full max-h-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter brightness-0 invert"
+                  />
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Stats
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
+        >
+          <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-white/[0.05] to-white/[0.01] backdrop-blur-xl border border-white/10">
+            <div className="text-3xl font-bold text-white mb-2">$50M+</div>
+            <div className="text-sm text-gray-400">Total Funding</div>
+          </div>
+          <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-white/[0.05] to-white/[0.01] backdrop-blur-xl border border-white/10">
+            <div className="text-3xl font-bold text-white mb-2">15+</div>
+            <div className="text-sm text-gray-400">Institutional Investors</div>
+          </div>
+          <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-white/[0.05] to-white/[0.01] backdrop-blur-xl border border-white/10">
+            <div className="text-3xl font-bold text-white mb-2">3</div>
+            <div className="text-sm text-gray-400">Funding Rounds</div>
+          </div>
+          <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-white/[0.05] to-white/[0.01] backdrop-blur-xl border border-white/10">
+            <div className="text-3xl font-bold text-white mb-2">Series B</div>
+            <div className="text-sm text-gray-400">Latest Round</div>
+          </div>
+        </motion.div> */}
+      </div>
+    </section>
+  );
+}

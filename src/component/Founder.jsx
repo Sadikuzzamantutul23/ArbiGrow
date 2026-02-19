@@ -1,85 +1,105 @@
 import { motion } from 'motion/react';
-import { useInView } from 'react-intersection-observer';
-import { GraduationCap, Award } from 'lucide-react';
+import { X } from 'lucide-react';
+//  import { ImageWithFallback } from './figma/ImageWithFallback';
 
 export default function Founders() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1
-  });
-
-  const team = [
+  const founders = [
     {
-      name: 'Steven Goldfeder, PhD',
-      title: 'Co-Founder & CEO, Offchain Labs',
-      credentials: 'Princeton University',
-      description: 'Leading expert in blockchain scalability and cryptographic protocols. Co-creator of Arbitrum technology.',
-      expertise: ['Layer-2 Solutions', 'Cryptography', 'Distributed Systems']
+      name: 'Ed Felten',
+      title: 'Co-Founder & Chief Scientist',
+      image: 'https://cdn.prod.website-files.com/65298a37a6d41cc75a204fb5/65298a37a6d41cc75a20521c_headshots-Ed-500.jpg',
+      twitter: 'https://x.com/EdFelten',
     },
     {
-      name: 'Ed Felten, PhD',
-      title: 'Co-Founder & Chief Scientist, Offchain Labs',
-      credentials: 'Princeton University, Former White House Deputy CTO',
-      description: 'Renowned computer scientist and technology policy expert with extensive government advisory experience.',
-      expertise: ['Computer Science', 'Security', 'Technology Policy']
-    }
+      name: 'Steven Goldfeder',
+      title: 'Co-Founder & CEO',
+      image: 'https://cdn.prod.website-files.com/65298a37a6d41cc75a204fb5/65298a37a6d41cc75a20521d_headshots-steven-500.jpg',
+      twitter: 'https://x.com/sgoldfed',
+    },
+    {
+      name: 'Harry Kalodner',
+      title: 'Co-Founder & CTO',
+      image: 'https://cdn.prod.website-files.com/65298a37a6d41cc75a204fb5/65298a37a6d41cc75a20521e_headshots-Harry-500.jpg',
+      twitter: 'https://x.com/hkalodner',
+    },
   ];
 
   return (
-    <section ref={ref} className="py-20 px-4">
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
+    <section className="relative py-24 px-4 overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/4 w-[600px] h-[600px] bg-blue-500/3 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <div className="inline-block px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/30 mb-6">
-            <span className="text-sm font-semibold text-indigo-400 uppercase tracking-wider">Technology Leadership</span>
-          </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Built on <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">World-Class Expertise</span>
+            Our{' '}
+            <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
+              Founders
+            </span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Powered by Arbitrum technology from Offchain Labs, founded by leading academics and blockchain pioneers
-          </p>
         </motion.div>
 
-        {/* Team Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          {team.map((member, idx) => (
+        {/* Founders Grid */}
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {founders.map((founder, index) => (
             <motion.div
-              key={idx}
+              key={index}
               initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: idx * 0.2 }}
-              className="relative p-8 rounded-2xl bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 hover:border-indigo-500/50 transition-all duration-300"
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.15 }}
+              className="group relative"
             >
-              <div className="flex items-start gap-6">
-                {/* Avatar placeholder */}
-                <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center flex-shrink-0">
-                  <GraduationCap className="w-10 h-10 text-white" />
-                </div>
+              {/* Card */}
+              <div className="relative rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border border-white/10 overflow-hidden hover:border-cyan-500/30 transition-all duration-500">
+                {/* Glow effect */}
+                <div className="absolute -inset-[1px] bg-gradient-to-br from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/20 group-hover:to-cyan-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                <div className="flex-1">
-                  <h3 className="text-2xl font-bold mb-1">{member.name}</h3>
-                  <div className="text-indigo-400 font-semibold mb-2">{member.title}</div>
-                  <div className="flex items-center gap-2 text-sm text-gray-400 mb-4">
-                    <Award className="w-4 h-4" />
-                    <span>{member.credentials}</span>
+                <div className="relative">
+                  {/* Image Container */}
+                  <div className="relative aspect-[4/5] overflow-hidden">
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e27] via-transparent to-transparent z-10"></div>
+                    
+                    {/* Image */}
+                    <img 
+                      src={founder.image}
+                      alt={founder.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+
+                    {/* Badge */}
+                    <div className="absolute top-6 left-1/2 -translate-x-1/2 z-20">
+                      <div className="px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-xs font-bold shadow-lg whitespace-nowrap">
+                        {founder.title}
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-gray-300 leading-relaxed mb-4">{member.description}</p>
-                  
-                  <div className="flex flex-wrap gap-2">
-                    {member.expertise.map((skill, skillIdx) => (
-                      <span 
-                        key={skillIdx}
-                        className="px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-xs text-indigo-300"
-                      >
-                        {skill}
-                      </span>
-                    ))}
+
+                  {/* Content */}
+                  <div className="p-6 text-center">
+                    <h3 className="text-xl font-bold text-white mb-1 group-hover:text-cyan-400 transition-colors duration-300">
+                      {founder.name}
+                    </h3>
+
+                    {/* Twitter Link */}
+                    <a
+                      href={founder.twitter}
+                      target='blank'
+                      className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-cyan-500/10 border border-cyan-500/30 hover:bg-cyan-500/20 transition-all duration-300 mt-4 group/icon"
+                      aria-label="Twitter"
+                    >
+                      <X className="w-5 h-5 text-cyan-400 group-hover/icon:scale-110 transition-transform duration-300" />
+                    </a>
                   </div>
                 </div>
               </div>
@@ -87,22 +107,18 @@ export default function Founders() {
           ))}
         </div>
 
-        {/* Offchain Labs Recognition */}
+        {/* Bottom Text */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="p-8 rounded-2xl bg-gradient-to-br from-blue-900/20 to-indigo-900/20 backdrop-blur-xl border border-blue-500/30 text-center"
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mt-16 text-center"
         >
-          <div className="max-w-3xl mx-auto">
-            <h3 className="text-2xl font-bold mb-4">Powered by Offchain Labs Technology</h3>
-            <p className="text-gray-300 leading-relaxed">
-              ArbiGrow is built on Arbitrum, the leading Ethereum Layer-2 scaling solution developed by Offchain Labs. 
-              This institutional-grade infrastructure ensures maximum security, performance, and reliability for decentralized 
-              trading operations. Offchain Labs has raised over $120M from top-tier investors and powers billions in TVL across 
-              the DeFi ecosystem.
-            </p>
-          </div>
+          <p className="text-gray-400 max-w-3xl mx-auto">
+            Our founding team brings decades of combined experience in blockchain technology, artificial intelligence, 
+            and financial markets. Together, they've built ArbiGrow to revolutionize decentralized trading.
+          </p>
         </motion.div>
       </div>
     </section>

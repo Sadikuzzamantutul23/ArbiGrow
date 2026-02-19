@@ -11,6 +11,11 @@ import Founders from "../component/Founder";
 import Privacy from "../component/Privachy";
 import FAQ from "../component/FAQ";
 import Footer from "../component/Footer";
+import { SecurityCompliance } from "../component/SecurityCompliance";
+import { TradingAnalytics } from "../component/TradingAnalytics";
+import { WhyChooseUs } from "../component/WhyChooseUs";
+import { MemberBenefits } from "../component/MemberBenefits";
+import { OurInvestors } from "../component/OurInvestors";
 
 const Home = () => {
   return (
@@ -20,8 +25,12 @@ const Home = () => {
         <Hero />
       </div>
       <ExecutiveSummary />
+      <SecurityCompliance />
+      {/* <TradingAnalytics /> */}
+      <WhyChooseUs />
+      <MemberBenefits />
       <div id="architecture">
-        <TechnicalArchitecture />
+       <TechnicalArchitecture />
       </div>
       <div id="features">
         <CoreFeatures />
@@ -34,7 +43,8 @@ const Home = () => {
       </div>
       <Legal />
       <div id="about">
-        <Founders />
+        <Founders /> 
+        <OurInvestors />
       </div>
       <Privacy />
       <FAQ />

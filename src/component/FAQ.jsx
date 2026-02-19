@@ -13,37 +13,37 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(null);
 
   const faqs = [
-    {
-      question: "How do I pre-register for ArbiGrow?",
-      answer:
-        'Click the "Pre-Register Now" button on the homepage and connect your Web3 wallet (MetaMask or Trust Wallet). Complete the brief registration form, and you will be added to our priority access list. Pre-registered users receive exclusive early access and bonus incentives at launch.',
-    },
-    {
-      question: "When are pre-registration bonuses distributed?",
-      answer:
-        "Pre-registration bonuses will be distributed automatically to eligible wallets within 48 hours of mainnet launch on February 25, 2026. Bonuses are calculated based on registration timestamp and will be claimable through your connected wallet.",
-    },
-    {
-      question: "Does ArbiGrow work on all devices?",
-      answer:
-        "Yes, ArbiGrow is fully responsive and works seamlessly across desktop, tablet, and mobile devices. You can access the platform through any modern web browser with Web3 wallet support. For mobile users, we recommend using MetaMask or Trust Wallet mobile apps with built-in dApp browsers.",
-    },
-    {
-      question: "Is ArbiGrow custodial? Do you hold my funds?",
-      answer:
-        "No. ArbiGrow is 100% non-custodial. Your funds never leave your wallet, and we never have access to your private keys. All trading operations are executed through audited smart contracts on the Arbitrum network. You maintain complete control and ownership of your assets at all times.",
-    },
-    {
-      question: "What are the minimum requirements to use ArbiGrow?",
-      answer:
-        "You need a Web3 wallet (MetaMask, Trust Wallet, or compatible), a small amount of ETH on Arbitrum for gas fees, and any supported trading assets. There is no minimum deposit requirement, though optimal AI strategies perform best with a recommended minimum of $1,000 USD equivalent.",
-    },
-    {
-      question: "How does the AI trading system work?",
-      answer:
-        "The Arbi-Core AI engine analyzes real-time market data, identifies trading opportunities, and executes strategies through smart contracts. The system uses machine learning models trained on historical data, technical indicators, and sentiment analysis to make informed trading decisions without human emotion or bias.",
-    },
-  ];
+  {
+    question: "What is ArbiGrow?",
+    answer:
+      "ArbiGrow is an AI-powered arbitrage trading platform that uses the Arbitrum network to generate profits by taking advantage of price differences across multiple exchanges with minimal risk.",
+  },
+  {
+    question: "What is the ARBX token and how can I get it?",
+    answer:
+      "ARBX is the native token of our ecosystem. By completing pre-registration, you will receive 100 free tokens, and you can earn additional bonus tokens for each successful referral.",
+  },
+  {
+    question: "Why are my ARBX tokens locked?",
+    answer:
+      "Tokens are currently locked to maintain price stability and market value. According to our roadmap, they will be gradually unlocked and available for withdrawal after exchange listings.",
+  },
+  {
+    question: "Can I withdraw my daily trading profits (USDT)?",
+    answer:
+      "Yes. You can withdraw the daily ROI generated from your investment package at any time directly to your personal wallet.",
+  },
+  {
+    question: "How secure is my investment?",
+    answer:
+      "We use the Arbitrum Layer-2 network, which is highly secure. Our AI bot does not trade based on speculation but uses mathematical data and analytics to execute trades, ensuring fund safety.",
+  },
+  {
+    question: "How does the referral commission system work?",
+    answer:
+      "We offer a powerful 5-level referral system. When someone joins through your referral, you will earn daily commissions along with bonus ARBX tokens.",
+  },
+];
 
   return (
     <section ref={ref} className="py-20 px-4">
@@ -116,20 +116,22 @@ export default function FAQ() {
         </div>
 
         {/* Contact CTA */}
-        {/* <motion.div
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
           className="mt-12 text-center p-8 rounded-2xl bg-gradient-to-br from-blue-900/20 to-cyan-900/20 backdrop-blur-xl border border-blue-500/30"
         >
           <h3 className="text-2xl font-bold mb-3">Still have questions?</h3>
-          <p className="text-gray-400 mb-6">
-            Our team is here to help. Reach out through our official communication channels.
+          <p className="text-gray-150 mb-6">
+             Our support team is available 24/7 to help you with anything related to ArbiGrow.
           </p>
-           <Button variant="gradient" fullWidth={false} className="mt-4  block mx-auto">
+           <Button 
+               onClick={() => window.open("https://t.me/Arbigrow", "_blank")}
+            variant="gradient" fullWidth={false} className="mt-4  block mx-auto">
             Contact Support
            </Button>
-        </motion.div> */}
+        </motion.div>
       </div>
     </section>
   );

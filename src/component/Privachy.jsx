@@ -73,7 +73,7 @@ export default function Privacy() {
         </div>
 
         {/* Privacy Statement */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -86,7 +86,7 @@ export default function Privacy() {
             and blockchain smart contracts. Your trading activity is pseudonymous and recorded only on the public blockchain, 
             ensuring maximum privacy while maintaining complete transparency and auditability.
           </p>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );
