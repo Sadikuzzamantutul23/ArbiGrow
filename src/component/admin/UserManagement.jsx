@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Search, ChevronLeft, ChevronRight } from "lucide-react";
 import UserDetailModal from "./UserDetailModal.jsx";
+import useUserStore from "../../store/userStore.js";
+import { getUser } from "../../api/admin.api.js";
 
 export default function UserManagement({ users, setUsers }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -12,17 +14,19 @@ export default function UserManagement({ users, setUsers }) {
   const usersPerPage = 50;
 
   // Filter users
-  const filteredUsers = users.filter((user) => {
-    const matchesStatus =
-      statusFilter === "all" || user.status === statusFilter;
+ const filteredUsers = users.filter((user) => {
+  const matchesStatus =
+    statusFilter === "all" || user.status === statusFilter;
 
-    const matchesSearch =
-      user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      user.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchQuery.toLowerCase());
+  const matchesSearch =
+    (user.full_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    user.username?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    user.email?.toLowerCase().includes(searchQuery.toLowerCase()));
 
-    return matchesStatus && matchesSearch;
-  });
+  return matchesStatus && matchesSearch;
+  
+});
+console.log("Filtered users:", filteredUsers);
 
   // Pagination
   const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
@@ -30,10 +34,29 @@ export default function UserManagement({ users, setUsers }) {
   const endIndex = startIndex + usersPerPage;
   const currentUsers = filteredUsers.slice(startIndex, endIndex);
 
-  const handleUserClick = (user) => {
-    setSelectedUser(user);
-    setUserStatus(user.status);
-  };
+ const handleUserClick = async (user) => {
+  setSelectedUser(user); 
+  setUserStatus(user.status);
+  console.log("Selected user:", user.status);
+
+  const token = useUserStore.getState().token;  
+  console.log("Token in handleUserClick:", token); 
+  if (!token) return;
+    
+  try {
+    console.log("Fetching details for user ID:", user.id);
+    const userDetails = await getUser(token, user.id); 
+    if(userDetails){
+      
+    }
+    console.log("Fetched user details:", userDetails);
+
+    // Update local state with fetched details
+    setSelectedUser((prev) => ({ ...prev, ...userDetails }));
+  } catch (err) {
+    console.error("Failed to fetch user details:", err);
+  }
+};
 
   const handleStatusChange = () => {
     if (selectedUser) {
@@ -174,7 +197,7 @@ export default function UserManagement({ users, setUsers }) {
                   onClick={() => handleUserClick(user)}
                   className="border-b border-white/5 hover:bg-white/5 cursor-pointer transition-colors"
                 >
-                  <td className="p-4 text-white font-medium">{user.name}</td>
+                  <td className="p-4 text-white font-medium">{user.full_name}</td>
                   <td className="p-4 text-gray-400">{user.username}</td>
                   <td className="p-4 text-gray-400">{user.email}</td>
                   <td className="p-4">

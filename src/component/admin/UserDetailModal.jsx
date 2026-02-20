@@ -18,7 +18,7 @@ export default function UserDetailModal({
   userStatus,
   setUserStatus,
   handleStatusChange,
-}) {
+})  {
   return (
     <AnimatePresence>
       {selectedUser && (
@@ -54,33 +54,33 @@ export default function UserDetailModal({
                 <InfoCard
                   icon={User}
                   label="Full Name"
-                  value={selectedUser.fullName}
+                  value={selectedUser?.full_name || "N/A"}
                 />
                 <InfoCard
                   icon={User}
                   label="Username"
-                  value={selectedUser.username}
+                  value={selectedUser?.username || "N/A"}
                 />
                 <InfoCard
                   icon={Mail}
                   label="Email"
-                  value={selectedUser.email}
+                  value={selectedUser?.email || "N/A"}
                   breakAll
                 />
                 <InfoCard
                   icon={Phone}
                   label="Phone"
-                  value={selectedUser.phone}
+                  value={selectedUser?.phone || "N/A"}
                 />
                 <InfoCard
                   icon={MapPin}
                   label="Country"
-                  value={selectedUser.country}
+                  value={selectedUser?.country || "N/A"}
                 />
                 <InfoCard
                   icon={FileText}
                   label="Document Type"
-                  value={selectedUser.documentType.toUpperCase()}
+                  value={selectedUser?.documentType?.toUpperCase() || "N/A"}
                 />
               </div>
 
@@ -93,35 +93,19 @@ export default function UserDetailModal({
 
                 <div className="grid gap-3">
                   {[
-                    { label: "Main Wallet", value: selectedUser.mainWallet },
-                    {
-                      label: "Deposit Wallet",
-                      value: selectedUser.depositWallet,
-                    },
-                    {
-                      label: "Withdraw Wallet",
-                      value: selectedUser.withdrawWallet,
-                    },
-                    {
-                      label: "Referral Wallet",
-                      value: selectedUser.referralWallet,
-                    },
-                    {
-                      label: "Generation Wallet",
-                      value: selectedUser.generationWallet,
-                    },
-                    { label: "ARBX Wallet", value: selectedUser.arbxWallet },
+                    { label: "Main Wallet", value: selectedUser?.mainWallet || "N/A" },
+                    { label: "Deposit Wallet", value: selectedUser?.depositWallet || "N/A" },
+                    { label: "Withdraw Wallet", value: selectedUser?.withdrawWallet || "N/A" },
+                    { label: "Referral Wallet", value: selectedUser?.referralWallet || "N/A" },
+                    { label: "Generation Wallet", value: selectedUser?.generationWallet || "N/A" },
+                    { label: "ARBX Wallet", value: selectedUser?.arbxWallet || "N/A" },
                   ].map((wallet, idx) => (
                     <div
                       key={idx}
                       className="p-3 rounded-lg bg-white/5 border border-white/10"
                     >
-                      <div className="text-xs text-gray-400 mb-1">
-                        {wallet.label}
-                      </div>
-                      <div className="text-sm text-white font-mono break-all">
-                        {wallet.value}
-                      </div>
+                      <div className="text-xs text-gray-400 mb-1">{wallet.label}</div>
+                      <div className="text-sm text-white font-mono break-all">{wallet.value}</div>
                     </div>
                   ))}
                 </div>
@@ -135,68 +119,69 @@ export default function UserDetailModal({
                 </h3>
 
                 <div className="space-y-2">
-                  {selectedUser.referrers.map((ref) => (
-                    <div
-                      key={ref.level}
-                      className="p-3 rounded-lg bg-white/5 border border-white/10 flex items-center gap-4"
-                    >
-                      <div className="w-8 h-8 rounded-full bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-bold text-sm flex-shrink-0">
-                        L{ref.level}
-                      </div>
-                      <div className="flex-1">
-                        <div className="text-white font-semibold">
-                          {ref.name}
+                  {selectedUser?.referrers?.length > 0 ? (
+                    selectedUser.referrers.map((ref) => (
+                      <div
+                        key={ref.level}
+                        className="p-3 rounded-lg bg-white/5 border border-white/10 flex items-center gap-4"
+                      >
+                        <div className="w-8 h-8 rounded-full bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-bold text-sm flex-shrink-0">
+                          L{ref.level}
                         </div>
-                        <div className="text-xs text-gray-400">
-                          {ref.username} • {ref.email}
+                        <div className="flex-1">
+                          <div className="text-white font-semibold">{ref.name || "N/A"}</div>
+                          <div className="text-xs text-gray-400">
+                            {ref.username || "N/A"} • {ref.email || "N/A"}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))
+                  ) : (
+                    <div className="text-gray-400">No referrers available</div>
+                  )}
                 </div>
               </div>
 
               {/* Documents */}
               <div>
-                <h3 className="text-lg font-bold text-white mb-4">
-                  Document Images
-                </h3>
-
+                <h3 className="text-lg font-bold text-white mb-4">Document Images</h3>
                 <div className="grid md:grid-cols-2 gap-4">
-                  {selectedUser.documentImages.map((img, idx) => (
-                    <div
-                      key={idx}
-                      className="rounded-xl overflow-hidden border border-white/10"
-                    >
-                      <img
-                        src={img}
-                        alt={`Document ${idx + 1}`}
-                        className="w-full h-64 object-cover"
-                      />
-                      <div className="p-2 bg-white/5 text-center text-sm text-gray-400">
-                        {selectedUser.documentType === "passport"
-                          ? "Passport"
-                          : idx === 0
-                            ? "NID Front"
-                            : "NID Back"}
+                  {selectedUser?.documentImages?.length > 0 ? (
+                    selectedUser.documentImages.map((img, idx) => (
+                      <div
+                        key={idx}
+                        className="rounded-xl overflow-hidden border border-white/10"
+                      >
+                        <img
+                          src={img}
+                          alt={`Document ${idx + 1}`}
+                          className="w-full h-64 object-cover"
+                        />
+                        <div className="p-2 bg-white/5 text-center text-sm text-gray-400">
+                          {selectedUser?.documentType === "passport"
+                            ? "Passport"
+                            : idx === 0
+                              ? "NID Front"
+                              : "NID Back"}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))
+                  ) : (
+                    <div className="text-gray-400">No documents uploaded</div>
+                  )}
                 </div>
               </div>
 
               {/* Status Update */}
               <div className="p-6 rounded-xl bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/30">
-                <h3 className="text-lg font-bold text-white mb-4">
-                  Update Status
-                </h3>
+                <h3 className="text-lg font-bold text-white mb-4">Update Status</h3>
 
                 <div className="flex flex-col md:flex-row gap-4 items-center">
                   <select
                     value={userStatus}
                     onChange={(e) => setUserStatus(e.target.value)}
-                    className="flex-1 px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:border-cyan-500/50 focus:outline-none"
-                    disabled={selectedUser.status !== "pending"}
+                    className="flex-1 px-4 py-3 rounded-xl  bg-white/10 border border-white/20 text-white focus:border-cyan-500/50 focus:outline-none"
+                    disabled={selectedUser?.status !== "pending"}
                   >
                     <option value="pending">Pending</option>
                     <option value="approved">Approved</option>
@@ -206,8 +191,7 @@ export default function UserDetailModal({
                   <button
                     onClick={handleStatusChange}
                     disabled={
-                      selectedUser.status !== "pending" ||
-                      userStatus === selectedUser.status
+                      selectedUser?.status !== "pending" || userStatus === selectedUser?.status
                     }
                     className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                   >
@@ -216,7 +200,7 @@ export default function UserDetailModal({
                   </button>
                 </div>
 
-                {selectedUser.status !== "pending" && (
+                {selectedUser?.status !== "pending" && (
                   <div className="mt-3 text-sm text-yellow-400 flex items-center gap-2">
                     <XCircle className="w-4 h-4" />
                     Status can only be changed for pending users
@@ -239,10 +223,8 @@ function InfoCard({ icon: Icon, label, value, breakAll }) {
         <Icon className="w-5 h-5 text-cyan-400" />
         <span className="text-sm text-gray-400">{label}</span>
       </div>
-      <div
-        className={`text-white font-semibold ${breakAll ? "break-all" : ""}`}
-      >
-        {value}
+      <div className={`text-white font-semibold ${breakAll ? "break-all" : ""}`}>
+        {value || "N/A"}
       </div>
     </div>
   );
