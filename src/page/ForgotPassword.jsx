@@ -1,36 +1,41 @@
-import { useState } from 'react';
-import { motion } from 'motion/react';
-import { KeyRound, Mail, ArrowLeft, CheckCircle, AlertCircle } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import Button from '../component/Button';
-import { forgotPassword } from '../api/auth.api.js';
-import logo from '../assets/Arbigrow-Logo.png';
-
+import { useState } from "react";
+import { motion } from "motion/react";
+import {
+  KeyRound,
+  Mail,
+  ArrowLeft,
+  CheckCircle,
+  AlertCircle,
+} from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import Button from "../component/Button";
+import { forgotPassword } from "../api/auth.api.js";
+import logo from "../assets/Arbigrow-Logo.png";
 
 export default function ForgotPassword() {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isEmailSent, setIsEmailSent] = useState(false);
-   const [isDisabled, setIsDisabled] = useState(false);
-  const [message, setMessage] = useState(''); // backend success message
-  const [error, setError] = useState(''); // backend error message
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [message, setMessage] = useState(""); // backend success message
+  const [error, setError] = useState(""); // backend error message
 
   // Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setMessage('');
+    setError("");
+    setMessage("");
 
     if (!email.trim()) {
-      setError('Please enter your email address');
+      setError("Please enter your email address");
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      setError('Please enter a valid email address');
+      setError("Please enter a valid email address");
       return;
     }
 
@@ -38,7 +43,7 @@ export default function ForgotPassword() {
       setIsSubmitting(true);
       const res = await forgotPassword({ email });
 
-      setMessage(res.data?.message || 'Check your email for reset link');
+      setMessage(res.data?.message || "Check your email for reset link");
       setIsEmailSent(true);
     } catch (err) {
       const res = err.response;
@@ -47,12 +52,12 @@ export default function ForgotPassword() {
         setError(res.data.message);
       } else if (res?.data?.detail) {
         if (Array.isArray(res.data.detail)) {
-          setError(res.data.detail.map(d => d.msg || d).join(', '));
+          setError(res.data.detail.map((d) => d.msg || d).join(", "));
         } else {
           setError(res.data.detail);
         }
       } else {
-        setError('Something went wrong. Try again.');
+        setError("Something went wrong. Try again.");
       }
     } finally {
       setIsSubmitting(false);
@@ -61,30 +66,29 @@ export default function ForgotPassword() {
 
   // Resend link
   const handleResend = async () => {
-    console.log("Resend clicked!");
-    
-    setError('');
-    setMessage('');
+    // console.log("Resend clicked!");
+
+    setError("");
+    setMessage("");
     try {
       setIsSubmitting(true);
       const res = await forgotPassword({ email });
-      console.log("Response from backend:", res); 
-         setIsDisabled(true); 
-      setMessage(res.data?.message || 'Reset link resent!');
+      // console.log("Response from backend:", res);
+      setIsDisabled(true);
+      setMessage(res.data?.message || "Reset link resent!");
     } catch (err) {
       const res = err.response;
       if (res?.data?.message) {
         setError(res.data.message);
       } else if (res?.data?.detail) {
         if (Array.isArray(res.data.detail)) {
-          setError(res.data.detail.map(d => d.msg || d).join(', '));
+          setError(res.data.detail.map((d) => d.msg || d).join(", "));
         } else {
           setError(res.data.detail);
         }
       } else {
-        setError('Failed to resend email');
+        setError("Failed to resend email");
       }
-      
     } finally {
       setIsSubmitting(false);
     }
@@ -92,7 +96,6 @@ export default function ForgotPassword() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#060913] via-[#080b1f] to-[#060913] text-white flex items-center justify-center px-4 py-12">
-      
       {/* Background Elements */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.02)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
@@ -103,7 +106,7 @@ export default function ForgotPassword() {
 
       {/* Logo */}
       <motion.a
-        onClick={() => navigate('/')}
+        onClick={() => navigate("/")}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -111,12 +114,12 @@ export default function ForgotPassword() {
       >
         <div className="relative">
           <div className="relative w-12 h-12 rounded-xl overflow-hidden group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-500/50">
-    <img
-      src={logo}
-      alt="ArbiGrow Logo"
-      className="w-full h-full object-contain"
-    />
-  </div>
+            <img
+              src={logo}
+              alt="ArbiGrow Logo"
+              className="w-full h-full object-contain"
+            />
+          </div>
         </div>
         <div>
           <div className="text-xl font-bold">
@@ -171,10 +174,14 @@ export default function ForgotPassword() {
                   </motion.div>
 
                   <h1 className="text-3xl md:text-4xl font-bold mb-3">
-                    Reset Your <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Password</span>
+                    Reset Your{" "}
+                    <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                      Password
+                    </span>
                   </h1>
                   <p className="text-gray-400 text-sm md:text-base">
-                    Enter your email address and we'll send you a link to reset your password
+                    Enter your email address and we'll send you a link to reset
+                    your password
                   </p>
                 </div>
 
@@ -188,7 +195,10 @@ export default function ForgotPassword() {
                       <input
                         type="email"
                         value={email}
-                        onChange={(e) => { setEmail(e.target.value); setError(''); }}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                          setError("");
+                        }}
                         placeholder="your.email@example.com"
                         className="w-full pl-12 pr-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 focus:bg-white/10 transition-all duration-300"
                       />
@@ -209,15 +219,18 @@ export default function ForgotPassword() {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    variant='gradient'
-                    
-                    >
+                    variant="gradient"
+                  >
                     <span className="relative flex items-center justify-center gap-2">
                       {isSubmitting ? (
                         <>
                           <motion.div
                             animate={{ rotate: 360 }}
-                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                            transition={{
+                              duration: 1,
+                              repeat: Infinity,
+                              ease: "linear",
+                            }}
                             className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
                           />
                           Sending Reset Link...
@@ -243,7 +256,8 @@ export default function ForgotPassword() {
                     <AlertCircle className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
                     <div className="text-sm text-gray-400">
                       <p>
-                        If an account exists with this email, you'll receive a password reset link within a few minutes.
+                        If an account exists with this email, you'll receive a
+                        password reset link within a few minutes.
                       </p>
                     </div>
                   </div>
@@ -263,10 +277,14 @@ export default function ForgotPassword() {
                   </motion.div>
 
                   <h2 className="text-3xl font-bold mb-3">
-                    Check Your <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">Email</span>
+                    Check Your{" "}
+                    <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+                      Email
+                    </span>
                   </h2>
                   <p className="text-gray-400 mb-8">
-                    We've sent a password reset link to<br />
+                    We've sent a password reset link to
+                    <br />
                     <span className="text-white font-medium">{email}</span>
                   </p>
 
@@ -278,18 +296,23 @@ export default function ForgotPassword() {
                   >
                     <Mail className="w-16 h-16 text-cyan-400 mx-auto mb-4" />
                     <p className="text-sm text-gray-400">
-                      Click the link in the email to reset your password.<br />
+                      Click the link in the email to reset your password.
+                      <br />
                       The link will expire in 24 hours.
                     </p>
                   </motion.div>
 
-                 <button
-         onClick={handleResend}
-         disabled={isSubmitting || isDisabled}
-         className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-      {isSubmitting ? 'Sending...' : isDisabled ? 'Email Resent' : "Didn't receive the email? Resend"}
-     </button>
+                  <button
+                    onClick={handleResend}
+                    disabled={isSubmitting || isDisabled}
+                    className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting
+                      ? "Sending..."
+                      : isDisabled
+                        ? "Email Resent"
+                        : "Didn't receive the email? Resend"}
+                  </button>
 
                   {/* <div
                     className="mt-8 pt-6 border-t border-white/10 cursor-pointer"
@@ -308,15 +331,17 @@ export default function ForgotPassword() {
             {!isEmailSent && (
               <div className="mt-8 pt-6 border-t border-white/10 text-center">
                 <p className="text-sm text-gray-400">
-                  Remember your password?{' '}
-                  <a href="#" className="text-cyan-400 hover:text-cyan-300 transition-colors font-medium"
-                    onClick={() =>navigate('/login')}>
+                  Remember your password?{" "}
+                  <a
+                    href="#"
+                    className="text-cyan-400 hover:text-cyan-300 transition-colors font-medium"
+                    onClick={() => navigate("/login")}
+                  >
                     Sign In
                   </a>
                 </p>
               </div>
             )}
-
           </div>
         </div>
       </motion.div>
