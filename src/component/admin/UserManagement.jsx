@@ -27,7 +27,6 @@ export default function UserManagement({ users, setUsers }) {
     setIsUpdating(false);
   };
 
-  // ✅ FETCH USERS FROM BACKEND (Search + Status + Pagination)
   useEffect(() => {
     const fetchUsers = async () => {
       const token = useUserStore.getState().token;
