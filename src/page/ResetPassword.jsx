@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { motion } from "motion/react";
-import { Lock, Eye, EyeOff, CheckCircle, AlertCircle, Check } from "lucide-react";
+import {
+  Lock,
+  Eye,
+  EyeOff,
+  CheckCircle,
+  AlertCircle,
+  Check,
+} from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { resetPassword } from "../api/auth.api.js";
 
@@ -8,7 +15,6 @@ export default function ResetPassword() {
   const navigate = useNavigate();
   const location = useLocation();
   const varificationtoken = new URLSearchParams(location.search).get("token");
-   
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -63,7 +69,7 @@ export default function ResetPassword() {
     } finally {
       setIsSubmitting(false);
     }
-     console.log("Verification Token:", varificationtoken); // Debugging token value
+    //  console.log("Verification Token:", varificationtoken); // Debugging token value
   };
 
   return (
@@ -98,7 +104,8 @@ export default function ResetPassword() {
                     </span>
                   </h1>
                   <p className="text-gray-400 text-sm md:text-base">
-                    Your new password must be different from previously used passwords
+                    Your new password must be different from previously used
+                    passwords
                   </p>
                 </div>
 
@@ -126,7 +133,11 @@ export default function ResetPassword() {
                         onClick={() => setShowPassword(!showPassword)}
                         className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
                       >
-                        {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                        {showPassword ? (
+                          <EyeOff className="w-5 h-5" />
+                        ) : (
+                          <Eye className="w-5 h-5" />
+                        )}
                       </button>
                     </div>
                   </div>
@@ -138,14 +149,31 @@ export default function ResetPassword() {
                       animate={{ opacity: 1, y: 0 }}
                       className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2"
                     >
-                      <p className="text-xs font-semibold text-gray-400 mb-3">Password must contain:</p>
+                      <p className="text-xs font-semibold text-gray-400 mb-3">
+                        Password must contain:
+                      </p>
                       <div className="grid gap-2">
                         {[
-                          { label: "At least 8 characters", met: passwordRequirements.minLength },
-                          { label: "One uppercase letter", met: passwordRequirements.hasUpperCase },
-                          { label: "One lowercase letter", met: passwordRequirements.hasLowerCase },
-                          { label: "One number", met: passwordRequirements.hasNumber },
-                          { label: "One special character", met: passwordRequirements.hasSpecial },
+                          {
+                            label: "At least 8 characters",
+                            met: passwordRequirements.minLength,
+                          },
+                          {
+                            label: "One uppercase letter",
+                            met: passwordRequirements.hasUpperCase,
+                          },
+                          {
+                            label: "One lowercase letter",
+                            met: passwordRequirements.hasLowerCase,
+                          },
+                          {
+                            label: "One number",
+                            met: passwordRequirements.hasNumber,
+                          },
+                          {
+                            label: "One special character",
+                            met: passwordRequirements.hasSpecial,
+                          },
                         ].map((req, idx) => (
                           <div key={idx} className="flex items-center gap-2">
                             <div
@@ -155,9 +183,13 @@ export default function ResetPassword() {
                                   : "bg-white/5 border border-white/10"
                               }`}
                             >
-                              {req.met && <Check className="w-3 h-3 text-green-400" />}
+                              {req.met && (
+                                <Check className="w-3 h-3 text-green-400" />
+                              )}
                             </div>
-                            <span className={`text-xs ${req.met ? "text-green-400" : "text-gray-400"}`}>
+                            <span
+                              className={`text-xs ${req.met ? "text-green-400" : "text-gray-400"}`}
+                            >
                               {req.label}
                             </span>
                           </div>
@@ -185,10 +217,16 @@ export default function ResetPassword() {
                       />
                       <button
                         type="button"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        onClick={() =>
+                          setShowConfirmPassword(!showConfirmPassword)
+                        }
                         className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
                       >
-                        {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                        {showConfirmPassword ? (
+                          <EyeOff className="w-5 h-5" />
+                        ) : (
+                          <Eye className="w-5 h-5" />
+                        )}
                       </button>
                     </div>
                   </div>
@@ -212,7 +250,9 @@ export default function ResetPassword() {
                     className="relative w-full group px-6 py-4 bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 rounded-xl font-semibold overflow-hidden shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                   >
                     <span className="relative flex items-center justify-center gap-2">
-                      {isSubmitting ? "Resetting Password..." : "Reset Password"}
+                      {isSubmitting
+                        ? "Resetting Password..."
+                        : "Reset Password"}
                     </span>
                   </button>
                 </form>
@@ -231,10 +271,14 @@ export default function ResetPassword() {
                   </motion.div>
 
                   <h2 className="text-3xl font-bold mb-3">
-                    Password <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">Reset Successfully</span>
+                    Password{" "}
+                    <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+                      Reset Successfully
+                    </span>
                   </h2>
                   <p className="text-gray-400 mb-8">
-                    Your password has been successfully reset.<br />
+                    Your password has been successfully reset.
+                    <br />
                     You can now sign in with your new password.
                   </p>
 

@@ -129,7 +129,7 @@ export default function VerificationPage() {
     try {
       const response = await submitKYC(formData);
 
-      console.log("KYC Response:", response?.data);
+      // console.log("KYC Response:", response?.data);
       if (response?.data?.message == "KYC submitted successfully") {
         navigate("/verification-pending");
       }

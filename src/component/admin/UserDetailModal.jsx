@@ -14,11 +14,20 @@ import {
 
 export default function UserDetailModal({
   selectedUser,
-  setSelectedUser,
+  onClose,
   userStatus,
   setUserStatus,
   handleStatusChange,
-})  {
+  isUpdating,
+  updateMessage,
+}) {
+  console.log("user from modal", selectedUser);
+
+  const documentImages = [
+    selectedUser?.kyc?.front_image_url,
+    selectedUser?.kyc?.back_image_url,
+  ].filter(Boolean);
+
   return (
     <AnimatePresence>
       {selectedUser && (
@@ -27,7 +36,7 @@ export default function UserDetailModal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={() => setSelectedUser(null)}
+          onClick={onClose}
         >
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
@@ -40,7 +49,7 @@ export default function UserDetailModal({
             <div className="sticky top-0 bg-gradient-to-br from-[#0d1137] to-[#0a0e27] border-b border-white/10 p-6 flex items-center justify-between z-10">
               <h2 className="text-2xl font-bold text-white">User Details</h2>
               <button
-                onClick={() => setSelectedUser(null)}
+                onClick={onClose}
                 className="p-2 rounded-lg hover:bg-white/10 transition-colors"
               >
                 <X className="w-6 h-6" />
@@ -70,17 +79,19 @@ export default function UserDetailModal({
                 <InfoCard
                   icon={Phone}
                   label="Phone"
-                  value={selectedUser?.phone || "N/A"}
+                  value={selectedUser?.kyc?.phone_number || "N/A"}
                 />
                 <InfoCard
                   icon={MapPin}
                   label="Country"
-                  value={selectedUser?.country || "N/A"}
+                  value={selectedUser?.kyc?.country || "N/A"}
                 />
                 <InfoCard
                   icon={FileText}
                   label="Document Type"
-                  value={selectedUser?.documentType?.toUpperCase() || "N/A"}
+                  value={
+                    selectedUser?.kyc?.document_type?.toUpperCase() || "N/A"
+                  }
                 />
               </div>
 
@@ -93,19 +104,41 @@ export default function UserDetailModal({
 
                 <div className="grid gap-3">
                   {[
-                    { label: "Main Wallet", value: selectedUser?.mainWallet || "N/A" },
-                    { label: "Deposit Wallet", value: selectedUser?.depositWallet || "N/A" },
-                    { label: "Withdraw Wallet", value: selectedUser?.withdrawWallet || "N/A" },
-                    { label: "Referral Wallet", value: selectedUser?.referralWallet || "N/A" },
-                    { label: "Generation Wallet", value: selectedUser?.generationWallet || "N/A" },
-                    { label: "ARBX Wallet", value: selectedUser?.arbxWallet || "N/A" },
+                    {
+                      label: "Main Wallet",
+                      value: selectedUser?.wallets?.main_wallet || "N/A",
+                    },
+                    {
+                      label: "Deposit Wallet",
+                      value: selectedUser?.wallets?.deposit_wallet || "N/A",
+                    },
+                    {
+                      label: "Withdraw Wallet",
+                      value: selectedUser?.wallets?.withdraw_wallet || "N/A",
+                    },
+                    {
+                      label: "Referral Wallet",
+                      value: selectedUser?.wallets?.referral_wallet || "N/A",
+                    },
+                    {
+                      label: "Generation Wallet",
+                      value: selectedUser?.wallets?.generation_wallet || "N/A",
+                    },
+                    {
+                      label: "ARBX Wallet",
+                      value: selectedUser?.wallets?.arbx_wallet || "N/A",
+                    },
                   ].map((wallet, idx) => (
                     <div
                       key={idx}
                       className="p-3 rounded-lg bg-white/5 border border-white/10"
                     >
-                      <div className="text-xs text-gray-400 mb-1">{wallet.label}</div>
-                      <div className="text-sm text-white font-mono break-all">{wallet.value}</div>
+                      <div className="text-xs text-gray-400 mb-1">
+                        {wallet.label}
+                      </div>
+                      <div className="text-sm text-white font-mono break-all">
+                        {wallet.value}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -129,9 +162,11 @@ export default function UserDetailModal({
                           L{ref.level}
                         </div>
                         <div className="flex-1">
-                          <div className="text-white font-semibold">{ref.name || "N/A"}</div>
+                          <div className="text-white font-semibold">
+                            {ref.username || "N/A"}
+                          </div>
                           <div className="text-xs text-gray-400">
-                            {ref.username || "N/A"} • {ref.email || "N/A"}
+                            {ref.email || "N/A"}
                           </div>
                         </div>
                       </div>
@@ -144,10 +179,12 @@ export default function UserDetailModal({
 
               {/* Documents */}
               <div>
-                <h3 className="text-lg font-bold text-white mb-4">Document Images</h3>
+                <h3 className="text-lg font-bold text-white mb-4">
+                  Document Images
+                </h3>
                 <div className="grid md:grid-cols-2 gap-4">
-                  {selectedUser?.documentImages?.length > 0 ? (
-                    selectedUser.documentImages.map((img, idx) => (
+                  {documentImages.length > 0 ? (
+                    documentImages.map((img, idx) => (
                       <div
                         key={idx}
                         className="rounded-xl overflow-hidden border border-white/10"
@@ -174,33 +211,41 @@ export default function UserDetailModal({
 
               {/* Status Update */}
               <div className="p-6 rounded-xl bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/30">
-                <h3 className="text-lg font-bold text-white mb-4">Update Status</h3>
+                <h3 className="text-lg font-bold text-white mb-4">
+                  Update Status
+                </h3>
 
                 <div className="flex flex-col md:flex-row gap-4 items-center">
                   <select
                     value={userStatus}
                     onChange={(e) => setUserStatus(e.target.value)}
                     className="flex-1 px-4 py-3 rounded-xl  bg-white/10 border border-white/20 text-white focus:border-cyan-500/50 focus:outline-none"
-                    disabled={selectedUser?.status !== "pending"}
+                    disabled={selectedUser?.kyc?.status !== "pending"}
                   >
                     <option value="pending">Pending</option>
                     <option value="approved">Approved</option>
                     <option value="rejected">Rejected</option>
                   </select>
-
                   <button
                     onClick={handleStatusChange}
                     disabled={
-                      selectedUser?.status !== "pending" || userStatus === selectedUser?.status
+                      selectedUser?.kyc?.status !== "pending" ||
+                      userStatus === selectedUser?.kyc?.status ||
+                      isUpdating
                     }
                     className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                   >
-                    <CheckCircle className="w-5 h-5" />
-                    Update Status
+                    {isUpdating ? "Updating..." : "Update Status"}
                   </button>
+
+                  {updateMessage && (
+                    <div className="mt-3 text-sm text-green-400">
+                      {updateMessage}
+                    </div>
+                  )}
                 </div>
 
-                {selectedUser?.status !== "pending" && (
+                {selectedUser?.kyc?.status !== "pending" && (
                   <div className="mt-3 text-sm text-yellow-400 flex items-center gap-2">
                     <XCircle className="w-4 h-4" />
                     Status can only be changed for pending users
@@ -223,7 +268,9 @@ function InfoCard({ icon: Icon, label, value, breakAll }) {
         <Icon className="w-5 h-5 text-cyan-400" />
         <span className="text-sm text-gray-400">{label}</span>
       </div>
-      <div className={`text-white font-semibold ${breakAll ? "break-all" : ""}`}>
+      <div
+        className={`text-white font-semibold ${breakAll ? "break-all" : ""}`}
+      >
         {value || "N/A"}
       </div>
     </div>

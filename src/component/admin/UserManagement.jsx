@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search, ChevronLeft, ChevronRight } from "lucide-react";
 import UserDetailModal from "./UserDetailModal.jsx";
 import useUserStore from "../../store/userStore.js";
-import { getUser } from "../../api/admin.api.js";
+import { getUser, updateKYCStatus } from "../../api/admin.api.js";
+import { getAllUsers } from "../../api/admin.api.js";
 
 export default function UserManagement({ users, setUsers }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -10,63 +11,116 @@ export default function UserManagement({ users, setUsers }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
   const [userStatus, setUserStatus] = useState("");
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [updateMessage, setUpdateMessage] = useState("");
 
-  const usersPerPage = 50;
+  // NEW STATES FOR SERVER PAGINATION
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [loading, setLoading] = useState(false);
 
-  // Filter users
- const filteredUsers = users.filter((user) => {
-  const matchesStatus =
-    statusFilter === "all" || user.status === statusFilter;
+  const { userDetails, setUserDetails } = useUserStore();
 
-  const matchesSearch =
-    (user.full_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.username?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.email?.toLowerCase().includes(searchQuery.toLowerCase()));
+  const handleCloseModal = () => {
+    setSelectedUser(null);
+    setUpdateMessage("");
+    setIsUpdating(false);
+  };
 
-  return matchesStatus && matchesSearch;
-  
-});
-console.log("Filtered users:", filteredUsers);
+  // ✅ FETCH USERS FROM BACKEND (Search + Status + Pagination)
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const token = useUserStore.getState().token;
+      if (!token) return;
 
-  // Pagination
-  const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
-  const startIndex = (currentPage - 1) * usersPerPage;
-  const endIndex = startIndex + usersPerPage;
-  const currentUsers = filteredUsers.slice(startIndex, endIndex);
+      try {
+        setLoading(true);
 
- const handleUserClick = async (user) => {
-  setSelectedUser(user); 
-  setUserStatus(user.status);
-  console.log("Selected user:", user.status);
+        const res = await getAllUsers(token, {
+          page: currentPage,
+          search: searchQuery,
+          status: statusFilter,
+        });
 
-  const token = useUserStore.getState().token;  
-  console.log("Token in handleUserClick:", token); 
-  if (!token) return;
-    
-  try {
-    console.log("Fetching details for user ID:", user.id);
-    const userDetails = await getUser(token, user.id); 
-    if(userDetails){
-      
+        // Adjust based on backend structure
+        setUsers(res?.data?.users || []);
+        setTotalPages(Math.ceil((res?.data?.total || 0) / 50));
+        setTotalUsers(res?.data?.total || 0);
+      } catch (err) {
+        console.error("Failed to fetch users", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, [currentPage, searchQuery, statusFilter, setUsers]);
+
+  const handleUserClick = async (user) => {
+    setSelectedUser(user);
+    setUserStatus(user.status);
+
+    const token = useUserStore.getState().token;
+    if (!token) return;
+
+    try {
+      const resUserDetails = await getUser(token, user.id);
+      if (resUserDetails) {
+        setUserDetails(resUserDetails);
+      }
+
+      setSelectedUser(() => ({ ...resUserDetails }));
+      setUserStatus(resUserDetails?.kyc?.status);
+    } catch (err) {
+      console.error("Failed to fetch user details:", err);
     }
-    console.log("Fetched user details:", userDetails);
+  };
 
-    // Update local state with fetched details
-    setSelectedUser((prev) => ({ ...prev, ...userDetails }));
-  } catch (err) {
-    console.error("Failed to fetch user details:", err);
-  }
-};
+  const handleStatusChange = async () => {
+    if (!selectedUser) return;
 
-  const handleStatusChange = () => {
-    if (selectedUser) {
-      const updatedUser = { ...selectedUser, status: userStatus };
+    const token = useUserStore.getState().token;
+    if (!token) return;
+
+    try {
+      setIsUpdating(true);
+      setUpdateMessage("");
+
+      const response = await updateKYCStatus(
+        token,
+        selectedUser.id,
+        userStatus,
+      );
+
+      const updatedStatus = response?.new_status;
+
+      if (!updatedStatus) {
+        throw new Error("Invalid response from server");
+      }
+
+      const updatedUser = {
+        ...selectedUser,
+        kyc: {
+          ...selectedUser.kyc,
+          status: updatedStatus,
+        },
+        status: updatedStatus,
+      };
 
       setSelectedUser(updatedUser);
 
       setUsers((prevUsers) =>
-        prevUsers.map((u) => (u.id === updatedUser.id ? updatedUser : u)),
+        prevUsers.map((u) =>
+          u.id === updatedUser.id ? { ...u, status: updatedStatus } : u,
+        ),
       );
+
+      setUpdateMessage(response.message);
+    } catch (error) {
+      console.error("Failed to update KYC:", error);
+      setUpdateMessage("Failed to update KYC status");
+    } finally {
+      setIsUpdating(false);
     }
   };
 
@@ -106,7 +160,10 @@ console.log("Filtered users:", filteredUsers);
               type="text"
               placeholder="Search by name, username, or email..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setCurrentPage(1); // reset page
+              }}
               className="w-full pl-12 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-cyan-500/50 focus:outline-none transition-colors text-white placeholder-gray-500"
             />
           </div>
@@ -117,7 +174,10 @@ console.log("Filtered users:", filteredUsers);
           {["all", "approved", "pending", "rejected"].map((status) => (
             <button
               key={status}
-              onClick={() => setStatusFilter(status)}
+              onClick={() => {
+                setStatusFilter(status);
+                setCurrentPage(1); // reset page
+              }}
               className={`px-4 py-3 rounded-xl font-semibold transition-all duration-300 ${
                 statusFilter === status
                   ? status === "approved"
@@ -139,7 +199,7 @@ console.log("Filtered users:", filteredUsers);
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         <div className="p-4 rounded-xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border border-white/10">
-          <div className="text-2xl font-bold text-white">{users.length}</div>
+          <div className="text-2xl font-bold text-white">{totalUsers}</div>
           <div className="text-sm text-gray-400">Total Users</div>
         </div>
 
@@ -191,24 +251,40 @@ console.log("Filtered users:", filteredUsers);
               </tr>
             </thead>
             <tbody>
-              {currentUsers.map((user) => (
-                <tr
-                  key={user.id}
-                  onClick={() => handleUserClick(user)}
-                  className="border-b border-white/5 hover:bg-white/5 cursor-pointer transition-colors"
-                >
-                  <td className="p-4 text-white font-medium">{user.full_name}</td>
-                  <td className="p-4 text-gray-400">{user.username}</td>
-                  <td className="p-4 text-gray-400">{user.email}</td>
-                  <td className="p-4">
-                    <span
-                      className={`inline-block px-3 py-1 rounded-full text-xs font-semibold border ${getStatusColor(user.status)}`}
-                    >
-                      {user.status.toUpperCase()}
-                    </span>
+              {loading ? (
+                <tr>
+                  <td colSpan="4" className="text-center p-6 text-gray-400">
+                    Loading users...
                   </td>
                 </tr>
-              ))}
+              ) : users.length === 0 ? (
+                <tr>
+                  <td colSpan="4" className="text-center p-6 text-gray-400">
+                    No users found
+                  </td>
+                </tr>
+              ) : (
+                users.map((user) => (
+                  <tr
+                    key={user.id}
+                    onClick={() => handleUserClick(user)}
+                    className="border-b border-white/5 hover:bg-white/5 cursor-pointer transition-colors"
+                  >
+                    <td className="p-4 text-white font-medium">
+                      {user.full_name}
+                    </td>
+                    <td className="p-4 text-gray-400">{user.username}</td>
+                    <td className="p-4 text-gray-400">{user.email}</td>
+                    <td className="p-4">
+                      <span
+                        className={`inline-block px-3 py-1 rounded-full text-xs font-semibold border ${getStatusColor(user.status)}`}
+                      >
+                        {user?.status?.toUpperCase()}
+                      </span>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
@@ -216,9 +292,7 @@ console.log("Filtered users:", filteredUsers);
         {/* Pagination */}
         <div className="p-4 border-t border-white/10 flex items-center justify-between">
           <div className="text-sm text-gray-400">
-            Showing {startIndex + 1} to{" "}
-            {Math.min(endIndex, filteredUsers.length)} of {filteredUsers.length}{" "}
-            users
+            Page {currentPage} of {totalPages}
           </div>
 
           <div className="flex items-center gap-2">
@@ -229,10 +303,6 @@ console.log("Filtered users:", filteredUsers);
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
-
-            <span className="px-4 py-2 text-sm text-gray-400">
-              Page {currentPage} of {totalPages}
-            </span>
 
             <button
               onClick={() =>
@@ -250,10 +320,12 @@ console.log("Filtered users:", filteredUsers);
       {/* Modal */}
       <UserDetailModal
         selectedUser={selectedUser}
-        setSelectedUser={setSelectedUser}
+        onClose={handleCloseModal}
         userStatus={userStatus}
         setUserStatus={setUserStatus}
         handleStatusChange={handleStatusChange}
+        isUpdating={isUpdating}
+        updateMessage={updateMessage}
       />
     </div>
   );

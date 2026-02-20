@@ -15,33 +15,36 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   // console.log("Token from store:", useUserStore.getState().token);
   // 🔥 Fetch Users API
- useEffect(() => {
-  const fetchUsers = async () => {
-    const token = useUserStore.getState().token;
-    console.log("Token in fetchUsers:", token);
-    if (!token) return;
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const token = useUserStore.getState().token;
+      // console.log("Token in fetchUsers:", token);
+      if (!token) return;
 
-    try {
-      const resData = await getAllUsers(token);
-      console.log("Fetched users:", resData);
-      if (resData?.status === 200) {
-         // ✅ Save users in state
-        const usersArray = resData.data?.users || [];
-        setUsers(usersArray);
-        console.log("Users array:", usersArray);
-      }else{
-       console.error("Failed to fetch users: ", resData?.message || "Unknown error"); 
+      try {
+        const resData = await getAllUsers(token);
+        // console.log("Fetched users:", resData);
+        if (resData?.status === 200) {
+          // ✅ Save users in state
+          const usersArray = resData.data?.users || [];
+          setUsers(usersArray);
+          // console.log("Users array:", usersArray);
+        } else {
+          console.error(
+            "Failed to fetch users: ",
+            resData?.message || "Unknown error",
+          );
+        }
+        // setUsers(usersArray);
+      } catch (err) {
+        console.error("Failed to fetch users:", err);
+      } finally {
+        setLoading(false);
       }
-      // setUsers(usersArray);
-    } catch (err) {
-      console.error("Failed to fetch users:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
-  fetchUsers();
-}, []);
+    fetchUsers();
+  }, []);
 
   // 🔹 Loading State
   if (loading) {
@@ -78,8 +81,7 @@ export default function AdminDashboard() {
     >
       {renderPageContent()}
 
-       {/* Pass users as props */}
-     
+      {/* Pass users as props */}
     </AdminLayout>
   );
 }

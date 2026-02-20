@@ -56,13 +56,15 @@ export default function LoginForm() {
       setIsSuccess(false);
 
       const res = await loginUser(formData);
-      console.log(res, "login api response");
-      // console.log("toiken", res?.data?.access_token);
+      // console.log(res, "login api response");
+      // console.log("toiken", res?.data);
 
       setUser(res?.data?.user);
       setToken(res?.data?.access_token);
       if (res?.data?.doc_submitted === false) {
         navigate("/verification-page");
+      } else if (res?.data?.user?.is_admin) {
+        navigate("/admin-dashboard");
       } else if (
         res?.data?.kyc_status === "pending" &&
         res?.data?.doc_submitted === true &&
