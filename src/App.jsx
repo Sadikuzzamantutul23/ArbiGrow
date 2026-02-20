@@ -51,7 +51,7 @@ const App = () => {
             />
             <Route path="/legal-information" element={<LegalPage />} />
             <Route path="/not-found" element={<NotFoundPage />} />
-            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/admin-dashboard" element={ <ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
           </Routes>
         </BrowserRouter>
       </>

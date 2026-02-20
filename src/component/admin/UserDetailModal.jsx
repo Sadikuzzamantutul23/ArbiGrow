@@ -219,7 +219,7 @@ export default function UserDetailModal({
                   <select
                     value={userStatus}
                     onChange={(e) => setUserStatus(e.target.value)}
-                    className="flex-1 px-4 py-3 rounded-xl  bg-white/10 border border-white/20 text-white focus:border-cyan-500/50 focus:outline-none"
+                    className="flex-1 px-4 py-3 rounded-xl  bg-[#0C1035] border border-white/20 text-white focus:border-cyan-500/50 focus:outline-none"
                     disabled={selectedUser?.kyc?.status !== "pending"}
                   >
                     <option value="pending">Pending</option>
