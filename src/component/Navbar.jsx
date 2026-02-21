@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Menu, X, Zap, LogIn, UserPlus, ChevronDown } from "lucide-react";
+import { Menu, X, Zap, LogIn, UserPlus, ChevronDown, LayoutDashboard,} from "lucide-react";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../store/userStore";
@@ -11,7 +11,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Zustand selector fixes
+  // Zustand state
   const token = useUserStore((state) => state.token);
   const logout = useUserStore((state) => state.logout);
   const isLoggedIn = !!token;
@@ -130,9 +130,19 @@ export default function Navbar() {
                     </Button>
                   </>
                 ) : (
-                  <Button variant="gradient" onClick={handleLogout}>
-                    Logout
-                  </Button>
+                  <>
+                     {/* Contion Addd */}
+                    <Button
+                    icon={<LayoutDashboard />}
+                      variant="frosted"
+                      onClick={() => navigate("/admin-dashboard")}
+                    >
+                      Dashboard
+                    </Button>
+                    <Button variant="gradient" onClick={handleLogout}>
+                      Logout
+                    </Button>
+                  </>
                 )}
               </div>
 
@@ -193,16 +203,17 @@ export default function Navbar() {
               <div className="p-6">
                 {/* Mobile Header */}
                 <div className="flex items-center justify-between mb-8">
-                  <div className="flex items-center gap-3"
-                   onClick={() => navigate('/')}
+                  <div
+                    className="flex items-center gap-3"
+                    onClick={() => navigate("/")}
                   >
-                     <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-blue-500/50">
-                  <img
-                 src={logo}
-                 alt="ArbiGrow Logo"
-                 className="w-full h-full object-cover"
-                />
-                 </div>
+                    <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-blue-500/50">
+                      <img
+                        src={logo}
+                        alt="ArbiGrow Logo"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                     <div>
                       <div className="text-lg font-bold text-white">
                         ArbiGrow
@@ -262,15 +273,28 @@ export default function Navbar() {
                     </Button>
                   </div>
                 ) : (
-                  <Button
-                    variant="gradient"
-                    onClick={() => {
-                      handleLogout();
-                      setIsMobileMenuOpen(false);
-                    }}
-                  >
-                    Logout
-                  </Button>
+                  <div className="flex flex-col gap-2">
+                    {/* Contion Addd */}
+                    <Button
+                      variant="frosted"
+                      icon={<LayoutDashboard/>}
+                      onClick={() => {
+                        navigate("/admin-dashboard");
+                        setIsMobileMenuOpen(false);
+                      }}
+                    >
+                      Dashboard
+                    </Button>
+                    <Button
+                      variant="gradient"
+                      onClick={() => {
+                        handleLogout();
+                        setIsMobileMenuOpen(false);
+                      }}
+                    >
+                      Logout
+                    </Button>
+                  </div>
                 )}
               </div>
             </motion.div>

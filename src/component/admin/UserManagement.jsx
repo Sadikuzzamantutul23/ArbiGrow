@@ -5,6 +5,7 @@ import useUserStore from "../../store/userStore.js";
 import { getUser, updateKYCStatus } from "../../api/admin.api.js";
 import { getAllUsers } from "../../api/admin.api.js";
 
+
 export default function UserManagement({ users, setUsers }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState("all");
@@ -20,7 +21,7 @@ export default function UserManagement({ users, setUsers }) {
   const [loading, setLoading] = useState(false);
 
   const { userDetails, setUserDetails } = useUserStore();
-
+  
   const handleCloseModal = () => {
     setSelectedUser(null);
     setUpdateMessage("");
@@ -135,6 +136,8 @@ export default function UserManagement({ users, setUsers }) {
         return "text-gray-400 bg-gray-500/10 border-gray-500/30";
     }
   };
+
+
 
   return (
     <div className="p-6">
